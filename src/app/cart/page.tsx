@@ -1,6 +1,7 @@
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { Resend } from 'resend';
+import {redirect} from 'next/navigation';
 
 // Initialize Resend with your API Key
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -9,28 +10,50 @@ export default async function CartPage() {
   const { rows } = await sql`SELECT * FROM users ORDER BY created_at DESC;`;
 
   async function addUser(formData: FormData) {
-    'use server';
-    const email = formData.get('email') as string;
-    
-    if (!email) return;
+  'use server';
+  const email = formData.get('email') as string;
+  
+  if (!email) return;
 
-    try {
-      // 1. Save to Database
-      await sql`INSERT INTO users (email) VALUES (${email});`;
+  try {
+    // 1. Save to Database
+    await sql`INSERT INTO users (email) VALUES (${email});`;
 
-      // 2. Send Welcome Email
-      await resend.emails.send({
-        from: 'Solcare <onboarding@resend.dev>', // Resend provides this for testing
-        to: email,
-        subject: 'Welcome to the Solcare Waitlist!',
-        html: `<h1>Thanks for joining!</h1><p>We're excited to have you. Stay tuned for updates.</p>`
-      });
-
-      revalidatePath('/cart');
-    } catch (e) {
-      console.error("Error:", e);
-    }
+    // 2. Send Welcome Email
+    if (resend) {
+  await resend.emails.send({
+    from: 'Solcare <onboarding@resend.dev>', 
+    to: email,
+    subject: '☀️ You’re on the list: Welcome to Solcare',
+    html: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
+        <h1 style="color: #000; font-size: 24px;">Welcome to the Solcare Waitlist!</h1>
+        <p>Hi there,</p>
+        <p>Thanks for joining us! We’re building Solcare to change the way you think about solar, and we’re thrilled to have you with us from the very beginning.</p>
+        <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <h3 style="margin-top: 0;">What’s next?</h3>
+          <ul style="padding-left: 20px;">
+            <li><strong>Early Access:</strong> You'll be among the first to know when we launch.</li>
+            <li><strong>Exclusive Updates:</strong> We'll send you sneak peeks of what we're building.</li>
+            <li><strong>Founding Member Perks:</strong> Early supporters will get a special discount at launch.</li>
+          </ul>
+        </div>
+        <p>Stay tuned for more updates soon!</p>
+        <p>Best,<br />The Solcare Team</p>
+        <hr style="border: none; border-top: 1px solid #eee; margin-top: 30px;" />
+        <p style="font-size: 12px; color: #999;">You received this because you signed up for the Solcare waitlist.</p>
+      </div>
+    `
+  });
+}
+  } catch (e) {
+    console.error("Error:", e);
+    // You could redirect to an error page here if you wanted
   }
+
+  // 3. Redirect to the success page
+  redirect('/cart/success'); 
+}
 
   return (
     <div className="p-8 max-w-2xl mx-auto font-sans">
