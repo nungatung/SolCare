@@ -275,7 +275,7 @@ export default function Home() {
       {/* Footer Link */}
       <footer className="py-12 px-6 border-t border-white/5 text-center">
         <div className="flex flex-col items-center gap-4">
-          <p className="text-gray-600 text-xs">© 2025 SolCare. All rights reserved.</p>
+          <p className="text-gray-600 text-xs">© 2026 SolCare. All rights reserved.</p>
           <button 
             onClick={() => setIsTermsModalOpen(true)}
             className="text-gray-500 text-[10px] uppercase tracking-widest hover:text-white transition-colors cursor-pointer"
