@@ -1,26 +1,34 @@
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
+import { Resend } from 'resend';
 
-export default async function CartPage({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+// Initialize Resend with your API Key
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export default async function CartPage() {
   const { rows } = await sql`SELECT * FROM users ORDER BY created_at DESC;`;
-  const success = searchParams.success === 'true';
 
   async function addUser(formData: FormData) {
     'use server';
-    const email = formData.get('email');
+    const email = formData.get('email') as string;
+    
+    if (!email) return;
+
     try {
-      if (email) {
-        await sql`INSERT INTO users (email) VALUES (${email.toString()});`;
-        revalidatePath('/cart');
-        // We redirect to the same page with a success flag
-        return { success: true };
-      }
+      // 1. Save to Database
+      await sql`INSERT INTO users (email) VALUES (${email});`;
+
+      // 2. Send Welcome Email
+      await resend.emails.send({
+        from: 'Solcare <onboarding@resend.dev>', // Resend provides this for testing
+        to: email,
+        subject: 'Welcome to the Solcare Waitlist!',
+        html: `<h1>Thanks for joining!</h1><p>We're excited to have you. Stay tuned for updates.</p>`
+      });
+
+      revalidatePath('/cart');
     } catch (e) {
-      return { error: "Email already exists or database error" };
+      console.error("Error:", e);
     }
   }
 
