@@ -1,65 +1,66 @@
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
-import { Resend } from 'resend';
 import { redirect } from 'next/navigation';
+import SolarDemo from '../../components/SolarDemo';   
+
+async function getSolarImpactData() {
+  try {
+    const response = await fetch('https://api.helioapi.com/calculate-co2-reduction', {
+      method: 'POST', // Assuming calculation APIs require POST, change to GET if needed
+      headers: {
+        'Authorization': `Bearer ${process.env.HELIO_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      // Passing a sample kWh value for the demo calculation
+      body: JSON.stringify({ kwh_generated: 450 }), 
+      next: { revalidate: 3600 } 
+    });
+    
+    const data = await response.json();
+    return {
+      intensity: 0.01201, // Stated emission factor
+      equivalents: data.impact_equivalents // Trees, miles, flights, bottles
+    };
+  } catch (error) {
+    console.error("Helio API Error:", error);
+    return null;
+  }
+}
 
 export default async function CartPage() {
+  const impactData = await getSolarImpactData();
+
   async function addUser(formData: FormData) {
     'use server';
     const email = formData.get('email') as string;
-    const apiKey = process.env.RESEND_API_KEY;
-    
     if (!email) return;
-
-    try {
-      // 1. Save to Database
-      await sql`INSERT INTO users (email) VALUES (${email});`;
-
-      // 2. Send Professional Welcome Email
-      if (apiKey) {
-        const resend = new Resend(apiKey);
-        await resend.emails.send({
-          from: 'Solcare <onboarding@resend.dev>',
-          to: email,
-          subject: '☀️ You’re on the list: Welcome to Solcare',
-          html: `
-            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
-              <h1 style="color: #000; font-size: 24px;">Welcome to the SolCare Waitlist!</h1>
-              <p>Hi there,</p>
-              <p>Thanks for joining us! We’re building SolCare to change the way you think about solar.</p>
-              <p>Best,<br />The SolCare Team</p>
-            </div>
-          `
-        });
-      }
-    } catch (e) {
-      console.error("Error:", e);
-    }
-
-    redirect('/cart/success'); 
+    await sql`INSERT INTO users (email) VALUES (${email});`;
+    revalidatePath('/cart');
+    redirect('/cart/success');
   }
 
   return (
-    <div className="p-8 max-w-2xl mx-auto font-sans">
-      <h1 className="text-2xl font-bold mb-2">Join the Waitlist</h1>
-      <p className="text-gray-600 mb-6">Enter your email to get early access to SolCare.</p>
+    <div className="min-h-screen bg-slate-50 py-12 px-4">
+      <div className="max-w-4xl mx-auto space-y-12">
+        <div className="text-center space-y-4">
+          <h1 className="text-4xl font-black text-slate-900 tracking-tight">
+            Solar monitoring that <span className="text-blue-600">talks back.</span>
+          </h1>
+        </div>
 
-      <form action={addUser} className="mb-4 flex gap-2">
-        <input 
-          name="email" 
-          type="email" 
-          placeholder="your@email.com" 
-          required 
-          className="border p-2 rounded w-full text-black bg-white focus:ring-2 focus:ring-black outline-none"
-        />
-        <button type="submit" className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition">
-          Join
-        </button>
-      </form>
-      
-      <p className="text-xs text-gray-400 mt-4 italic">
-        *By signing up, you'll be the first to know when we launch.
-      </p>
+        {/* Passing the rich data object to the client component */}
+        <SolarDemo data={impactData} />
+
+        <div className="max-w-md mx-auto bg-white p-8 rounded-2xl border border-slate-200 text-center shadow-sm">
+          <h3 className="text-lg font-bold mb-6">Join the Waitlist</h3>
+          <form action={addUser} className="flex flex-col gap-3">
+            <input name="email" type="email" placeholder="email@example.com" required className="border p-3 rounded-xl text-black" />
+            <button type="submit" className="bg-black text-white py-3 rounded-xl font-bold hover:bg-slate-800 transition">
+              Get Early Access
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
