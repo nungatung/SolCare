@@ -1,7 +1,8 @@
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import SolarDemo from '../../components/SolarDemo';   
+import SolarDemo from '../../../components/SolarDemo'; 
+  
 
 async function getSolarImpactData() {
   try {
