@@ -49,25 +49,25 @@ export default function ImpactModal({ isOpen, onClose }: ImpactModalProps) {
             <div className="grid grid-cols-1 gap-3">
                 <div className="flex items-center justify-between p-4 bg-white/[0.03] border border-white/5 rounded-2xl">
                     <span className="text-xs font-bold uppercase tracking-wider">Production</span>
-                    <span className="text-white font-mono">100 kWh</span>
+                    <span className="text-white font-mono">1000 kWh</span>
                 </div>
                 <div className="flex items-center justify-center py-1">
                     <div className="h-4 w-px bg-green-500/30"></div>
                 </div>
                 <div className="flex items-center justify-between p-4 bg-white/[0.03] border border-white/5 rounded-2xl">
                     <span className="text-xs font-bold uppercase tracking-wider text-green-500">CO2 Reduced</span>
-                    <span className="text-green-500 font-mono font-bold">~12.5kg</span>
+                    <span className="text-green-500 font-mono font-bold">~12.01kg</span>
                 </div>
                 <div className="flex items-center justify-center py-1">
                     <div className="h-4 w-px bg-green-500/30"></div>
                 </div>
                 <div className="flex items-center justify-between p-4 bg-green-500/10 border border-green-500/20 rounded-2xl">
                     <span className="text-xs font-bold uppercase tracking-wider text-green-400">Total Donation</span>
-                    <span className="text-green-400 font-mono font-bold">$12.50 NZD</span>
+                    <span className="text-green-400 font-mono font-bold">$12.01 NZD</span>
                 </div>
             </div>
             <p className="mt-4 text-xs leading-relaxed italic">
-                We use <strong>HelioAPI</strong> to calculate your exact carbon offset based on you systems real time production.
+                We use <strong>HelioAPI</strong> to calculate your exact carbon offset based on your systems real time production.
             </p>
           </section>
 
@@ -87,18 +87,11 @@ export default function ImpactModal({ isOpen, onClose }: ImpactModalProps) {
             </h3>
             <ul className="space-y-2 text-[13px] text-gray-500 leading-relaxed italic">
                 <li>• SolCare. is a commercial entity; we only facilitate donations to third-partys e.g <strong>Ekos</strong>.</li>
-                <li>• $0.50 of the $3.00 fee (or bundled equivalent) covers HelioAPI data and admin costs.</li>
+                <li>• $3.00 of the $10 threshold (or bundled equivalent) covers HelioAPI data and admin costs.</li>
                 <li>• Donations are batched and processed once your fund reaches the $10 NZD partner minimum.</li>
                 <li>• SolCredits represent environmental impact and have <strong>no cash or redeemable value.</strong></li>
             </ul>
         </section>
-
-        <button 
-          onClick={onClose}
-          className="mt-12 w-full py-5 bg-green-600 hover:bg-green-500 text-white font-bold rounded-2xl transition-all shadow-lg shadow-green-900/20 cursor-pointer"
-        >
-          Start Making an Impact
-        </button>
       </div>
     </div>
   );

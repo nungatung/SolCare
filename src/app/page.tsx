@@ -1,12 +1,14 @@
 "use client";
 import { motion } from 'framer-motion';
-import { Sun, ShieldCheck, Zap, BarChart3, ChevronRight, Check, Club, Info } from 'lucide-react';
+import { Sun, ShieldCheck, Zap, BarChart3, ChevronRight, Check, Club, Info, Droplets } from 'lucide-react';
 import WaitlistForm from '../../components/WaitlistForm';
 import Image from 'next/image';
 import { Activity, Bell, CalendarCheck, Settings } from 'lucide-react';
 import ImpactModal from '../../components/ImpactModal';
 import TermsModal from '../../components/TermsModal';
 import { useState } from 'react';
+import Link from 'next/link';
+import SolarDemo from '../../components/SolarDemo';
 
 const tiers = [
   {
@@ -30,7 +32,7 @@ const tiers = [
       "2 x Scheduled Cleans / Year",
       "Advanced Efficiency Reports",
       "Priority Booking",
-      
+
     ],
     popular: false
   },
@@ -43,8 +45,8 @@ const tiers = [
       "2 x Scheduled Cleans / Year",
       "24/7 Smart Monitoring",
       "Full Mechanical & Safety Audit", // Moved the audit here
-      "Impact Club Membership", 
-      
+      "Impact Club Membership",
+
     ],
     popular: true
   }
@@ -54,7 +56,7 @@ const steps = [
   {
     icon: <Settings className="w-6 h-6" />,
     title: "Sync Your System",
-    desc: "We connect SolCare. to your inverter. No hardware required, just a simple digital 'handshake' to start tracking your production."
+    desc: "We sync directly with your inverter to pull real-time generation data. No hardware required, just a simple digital 'handshake'."
   },
   {
     icon: <Activity className="w-6 h-6" />,
@@ -64,7 +66,7 @@ const steps = [
   {
     icon: <Bell className="w-6 h-6" />,
     title: "Smart Notifications",
-    desc: "When SolCare. detects a performance drop, we send you a notification with a 'Request Clean' button. Tap it, and we dispatch a local vetted pro who already has your system details."
+    desc: "When our system detects a performance gap of 15%, we send you a notification with a 'Request Clean' button. Tap it, and we dispatch a local vetted pro who already has your system details."
   },
   {
     icon: <CalendarCheck className="w-6 h-6" />,
@@ -148,71 +150,71 @@ export default function Home() {
       </section>
 
       {/* Pricing Section */}
-<section className="px-6 py-24 bg-white/[0.02] border-y border-white/5">
-  <div className="max-w-7xl mx-auto">
-    <div className="text-center mb-16">
-      <h2 className="text-3xl font-bold mb-4">Transparent Pricing</h2>
-      <p className="text-gray-400">Lock in your Founder Rate before we launch publicly.</p>
-    </div>
-
-    <div className="grid md:grid-cols-3 gap-8">
-      {tiers.map((tier, idx) => (
-        <div
-          key={idx}
-          className={`relative p-8 rounded-3xl border ${tier.popular ? 'border-yellow-400 bg-yellow-400/5' : 'border-white/10 bg-white/[0.02]'} transition-transform hover:scale-[1.02]`}
-        >
-          {tier.popular && (
-            <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-black px-4 py-1 rounded-full text-xs font-bold uppercase">
-              Most Popular
-            </span>
-          )}
-          
-          <h3 className="text-xl font-bold mb-2">{tier.name}</h3>
-          <div className="flex items-baseline gap-1 mb-6">
-            <span className="text-4xl font-bold">${tier.price}</span>
-            <span className="text-gray-500">/month</span>
+      <section className="px-6 py-24 bg-white/[0.02] border-y border-white/5">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Transparent Pricing</h2>
+            <p className="text-gray-400">Lock in your Founder Rate before we launch publicly.</p>
           </div>
-          
-          <ul className="space-y-4 mb-8">
-            {tier.features.map((feature, fIdx) => (
-              <li key={fIdx} className="flex items-start gap-3 text-sm text-gray-300">
-                <Check className="w-4 h-4 text-yellow-400 mt-0.5 flex-shrink-0" />
-                <span className="flex flex-wrap items-center gap-x-2">
-                  {feature}
-                  {/* Logic to show the "What's this?" button next to the Impact feature */}
-                  {feature.toLowerCase().includes("impact club") && (
-                    <button 
-                      onClick={() => setIsImpactModalOpen(true)}
-                      className="inline-flex items-center gap-1 text-[10px] text-green-500 font-bold uppercase tracking-tighter hover:text-green-400 transition-colors cursor-pointer"
-                    >
-                      <Info className="w-3 h-3" /> What's this? 
-                    </button>
-                  )}
-                </span>
-              </li>
-            ))}
-          </ul>
-          
-          <button className={`w-full py-4 rounded-xl font-bold transition-colors ${tier.popular ? 'bg-yellow-400 text-black shadow-lg shadow-yellow-400/10 cursor-pointer' : 'bg-white/10 hover:bg-white/20 cursor-pointer'}`}>
-            Select {tier.name}
-          </button>
-        </div>
-      ))}
-    </div>
 
-    {/* Quick Legal Access */}
-    <div className="mt-12 text-center">
-      <button 
-        onClick={() => setIsTermsModalOpen(true)}
-        className="text-gray-500 text-[11px] uppercase tracking-[0.2em] hover:text-white transition-colors cursor-pointer"
-      >
-        View Full Terms & Conditions
-      </button>
-    </div>
-  </div>
-</section>
-        
-        
+          <div className="grid md:grid-cols-3 gap-8">
+            {tiers.map((tier, idx) => (
+              <div
+                key={idx}
+                className={`relative p-8 rounded-3xl border ${tier.popular ? 'border-yellow-400 bg-yellow-400/5' : 'border-white/10 bg-white/[0.02]'} transition-transform hover:scale-[1.02]`}
+              >
+                {tier.popular && (
+                  <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-black px-4 py-1 rounded-full text-xs font-bold uppercase">
+                    Most Popular
+                  </span>
+                )}
+
+                <h3 className="text-xl font-bold mb-2">{tier.name}</h3>
+                <div className="flex items-baseline gap-1 mb-6">
+                  <span className="text-4xl font-bold">${tier.price}</span>
+                  <span className="text-gray-500">/month</span>
+                </div>
+
+                <ul className="space-y-4 mb-8">
+                  {tier.features.map((feature, fIdx) => (
+                    <li key={fIdx} className="flex items-start gap-3 text-sm text-gray-300">
+                      <Check className="w-4 h-4 text-yellow-400 mt-0.5 flex-shrink-0" />
+                      <span className="flex flex-wrap items-center gap-x-2">
+                        {feature}
+                        {/* Logic to show the "What's this?" button next to the Impact feature */}
+                        {feature.toLowerCase().includes("impact club") && (
+                          <button
+                            onClick={() => setIsImpactModalOpen(true)}
+                            className="inline-flex items-center gap-1 text-[10px] text-green-500 font-bold uppercase tracking-tighter hover:text-green-400 transition-colors cursor-pointer"
+                          >
+                            <Info className="w-3 h-3" /> What's this?
+                          </button>
+                        )}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <button className={`w-full py-4 rounded-xl font-bold transition-colors ${tier.popular ? 'bg-yellow-400 text-black shadow-lg shadow-yellow-400/10 cursor-pointer' : 'bg-white/10 hover:bg-white/20 cursor-pointer'}`}>
+                  Select {tier.name}
+                </button>
+              </div>
+            ))}
+          </div>
+
+          {/* Quick Legal Access */}
+          <div className="mt-12 text-center">
+            <button
+              onClick={() => setIsTermsModalOpen(true)}
+              className="text-gray-500 text-[11px] uppercase tracking-[0.2em] hover:text-white transition-colors cursor-pointer"
+            >
+              View Full Terms & Conditions
+            </button>
+          </div>
+        </div>
+      </section>
+
+
 
       {/* How it Works Section */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
@@ -239,7 +241,10 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>
+      </section>    
+
+    
+    
 
       {/* About Section */}
       <section className="py-24 px-6 bg-white/[0.01] border-y border-white/5">
@@ -248,10 +253,16 @@ export default function Home() {
             <div className="flex-1">
               <h2 className="text-3xl font-bold mb-6 font-jayagiri">Maximum ROI, <br />Zero Effort.</h2>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                SolCare. was founded to solve a simple problem: most New Zealand solar owners are losing money because their panels are dirty, and they don't even know it.
+                SolCare. was founded on the principle that solar energy is an asset, not just a utility. We believe that a dirty panel isn't just a maintenance chore, it’s a silent leak in your financial and environmental investment.
               </p>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                We aren't just a cleaning company. We are a **Solar Asset Management platform**. By combining real-time production data with a strictly vetted network of NZ safety certified contractors, we ensure your investment is protected and your system is running at peak performance.
+                We don't just provide a cleaning service. We are a **Solar Asset Management platform**. By combining real-time production data, localized NZ weather patterns and national grid emission factors from HelioAPI, we ensure your investment is protected and your system is running at peak performance. 
+              </p>
+              <p className="text-gray-400 mb-6 leading-relaxed">
+                When our system detects a performance gap of 15% or more (Soiling Loss), we alert you and with one tap you can schedule a professional clean to recover your lost yield.
+              </p>
+              <p className="text-gray-400 mb-6 leading-relaxed">
+                By partnering with HelioAPI, we provide accurate carbon tracking in New Zealand. We don't just track your impact; we grow it. For every $10 of CO2 offset your system generates through our optimisation, we facilitate a donation to a Ekos reforestation project of your choosing, turning your roof into a literal engine for a greener New Zealand.
               </p>
               <div className="flex items-center gap-4 text-sm font-bold text-yellow-400 uppercase tracking-widest">
                 <span>Data-Driven</span>
@@ -276,7 +287,7 @@ export default function Home() {
       <footer className="py-12 px-6 border-t border-white/5 text-center">
         <div className="flex flex-col items-center gap-4">
           <p className="text-gray-600 text-xs">© 2026 SolCare. All rights reserved.</p>
-          <button 
+          <button
             onClick={() => setIsTermsModalOpen(true)}
             className="text-gray-500 text-[10px] uppercase tracking-widest hover:text-white transition-colors cursor-pointer"
           >

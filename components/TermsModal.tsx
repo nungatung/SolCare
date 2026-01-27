@@ -26,7 +26,7 @@ export default function TermsModal({ isOpen, onClose }: TermsModalProps) {
           </div>
           <div>
             <h4 className="text-white font-bold mb-2">2. Impact Club & Donations</h4>
-            <p>Donations are made to Ekos on behalf of the user. SolCare. retains a $0.50 administrative fee per $3.00 transaction to cover data processing and verification through HelioAPI.</p>
+            <p>Donations are made to Ekos on behalf of the user. SolCare. retains a $3.00 administrative fee per $10.00 transaction to cover data processing and verification through HelioAPI.</p>
           </div>
           <div>
             <h4 className="text-white font-bold mb-2">3. Subscription & Billing</h4>
