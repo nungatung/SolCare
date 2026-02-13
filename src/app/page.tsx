@@ -12,41 +12,31 @@ import SolarDemo from '../../components/SolarDemo';
 
 const tiers = [
   {
-    name: "Essential",
-    price: "10",
-    description: "Basic protection for your investment.",
+    name: "Precision Monitoring",
+    price: "19",
+    description: "Know exactly when to clean. Plant trees while you produce.",
     features: [
-      "1 x Annual Professional Clean",
-      "System Health Check", // Basic remote check
-      "Performance Alerts",
+      "3-Layer Calibration (14-Day Roof Fingerprint)",
+      "Real-Time Carbon Offset Tracking (HelioAPI)",
+      "Thermal, Aerosol & Salt Mist Intelligence",
+      "Precision Cleaning Alerts with ROI Math",
+      "Impact Club: $1/kg CO₂ to Reforestation",
+      "System Health Monitoring",
       "Email Support"
     ],
     popular: false
   },
   {
-    name: "Performance",
-    price: "19", // Dropped $1 to make the jump to $29 feel like a clear decision
-    description: "Optimized for high-yield systems.",
+    name: "Zero-Touch + Impact",
+    price: "39",
+    description: "We handle everything. You watch the impact grow.",
     features: [
-      "Everything in Essential",
-      "2 x Scheduled Cleans / Year",
-      "Advanced Efficiency Reports",
-      "Priority Booking",
-
-    ],
-    popular: false
-  },
-  {
-    name: "Total Care",
-    price: "29",
-    description: "Maximum ROI & Environmental Impact.",
-    features: [
-      "Everything in Performance",
-      "2 x Scheduled Cleans / Year",
-      "24/7 Smart Monitoring",
-      "Full Mechanical & Safety Audit", // Moved the audit here
-      "Impact Club Membership",
-
+      "Everything in Monitor",
+      "2 x Professional Cleans / Year (Scheduled & Managed)",
+      "24/7 Smart Monitoring + Priority Response",
+      "Full Mechanical & Safety Audit",
+      "Impact Club with Project Selection ($10+ threshold)",
+      "Priority Support & Concierge Booking"
     ],
     popular: true
   }
@@ -135,7 +125,7 @@ export default function Home() {
           transition={{ delay: 0.2 }}
           className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Stop losing 20-30% of your energy to salt, pollen, dust and bird droppings.
+          Stop losing 20-30% of your energy to panel soiling from salt, pollen and dust.
           We monitor your output and handle the cleaning so you don't have to.
         </motion.p>
 
@@ -154,10 +144,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">Transparent Pricing</h2>
-            <p className="text-gray-400">Lock in your Founder Rate before we launch publicly.</p>
+            <p className="text-gray-400">Founding Member pricing, help shape SolCare from day one.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 ">
             {tiers.map((tier, idx) => (
               <div
                 key={idx}
@@ -196,7 +186,7 @@ export default function Home() {
                 </ul>
 
                 <button className={`w-full py-4 rounded-xl font-bold transition-colors ${tier.popular ? 'bg-yellow-400 text-black shadow-lg shadow-yellow-400/10 cursor-pointer' : 'bg-white/10 hover:bg-white/20 cursor-pointer'}`}>
-                  Select {tier.name}
+                  Go {tier.name}
                 </button>
               </div>
             ))}
@@ -256,7 +246,7 @@ export default function Home() {
                 SolCare. was founded on the principle that solar energy is an asset, not just a utility. We believe that a dirty panel isn't just a maintenance chore, it’s a silent leak in your financial and environmental investment.
               </p>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                We don't just provide a cleaning service. We are a **Solar Asset Management platform**. By combining real-time production data, localized NZ weather patterns and national grid emission factors from HelioAPI, we ensure your investment is protected and your system is running at peak performance. 
+                We don't just provide a cleaning service. We are a **Solar Asset Management Platform**. By combining real-time production data, localized NZ weather patterns and national grid emission factors, we ensure your investment is protected and your system is running at peak performance. 
               </p>
               <p className="text-gray-400 mb-6 leading-relaxed">
                 When our system detects a performance gap of 15% or more (Soiling Loss), we alert you and with one tap you can schedule a professional clean to recover your lost yield.
