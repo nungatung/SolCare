@@ -28,7 +28,7 @@ const tiers = [
   },
   {
     name: "Zero-Touch + Impact",
-    price: "39",
+    price: "30",
     description: "We handle everything. You watch the impact grow.",
     features: [
       "Everything in Monitor",
@@ -125,8 +125,9 @@ export default function Home() {
           transition={{ delay: 0.2 }}
           className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Stop losing 20-30% of your energy to panel soiling from salt, pollen and dust.
-          We monitor your output and handle the cleaning so you don't have to.
+          NZ's salt, pollen, and dust steal 10-30% of your solar output. 
+          We fingerprint your roof's true potential, clean only when ROI is proven, 
+          and plant trees with every kilowatt recovered, automatically.
         </motion.p>
 
         <motion.div
