@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from 'react';
 import { CheckCircle2, Loader2 } from 'lucide-react';
-import { joinWaitlist } from '@/app/actions';
 
 export default function WaitlistForm() {
   const [loading, setLoading] = useState(false);
@@ -12,16 +11,23 @@ export default function WaitlistForm() {
     setLoading(true);
     setError(null);
 
-    try {
-      // 1. Run the Server Action (Database entry)
-      await joinWaitlist(formData);
+    const email = formData.get('email') as string;
 
-      // 2. Optional: If you still want to use EmailJS to notify yourself/user:
-      // await emailjs.sendForm('SERVICE_ID', 'TEMPLATE_ID', form.current!, 'PUBLIC_KEY');
+    try {
+      const res = await fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed');
+      }
 
       setSubmitted(true);
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
+    } catch (err: any) {
+      setError(err.message || "Something went wrong. Please try again.");
       console.error(err);
     } finally {
       setLoading(false);

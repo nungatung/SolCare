@@ -125,8 +125,8 @@ export default function Home() {
           transition={{ delay: 0.2 }}
           className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          NZ's salt, pollen, and dust steal 10-30% of your solar output. 
-          We fingerprint your roof's true potential, clean only when ROI is proven, 
+          NZ's salt, pollen, and dust steal 10-30% of your solar output.
+          We fingerprint your roof's true potential, clean only when ROI is proven,
           and plant trees with every kilowatt recovered, automatically.
         </motion.p>
 
@@ -232,10 +232,10 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>    
+      </section>
 
-    
-    
+
+
 
       {/* About Section */}
       <section className="py-24 px-6 bg-white/[0.01] border-y border-white/5">
@@ -247,7 +247,7 @@ export default function Home() {
                 SolCare. was founded on the principle that solar energy is an asset, not just a utility. We believe that a dirty panel isn't just a maintenance chore, it’s a silent leak in your financial and environmental investment.
               </p>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                We don't just provide a cleaning service. We are a **Solar Asset Management Platform**. By combining real-time production data, localized NZ weather patterns and national grid emission factors, we ensure your investment is protected and your system is running at peak performance. 
+                We don't just provide a cleaning service. We are a **Solar Asset Management Platform**. By combining real-time production data, localized NZ weather patterns and national grid emission factors, we ensure your investment is protected and your system is running at peak performance.
               </p>
               <p className="text-gray-400 mb-6 leading-relaxed">
                 When our system detects a performance gap of 15% or more (Soiling Loss), we alert you and with one tap you can schedule a professional clean to recover your lost yield.
