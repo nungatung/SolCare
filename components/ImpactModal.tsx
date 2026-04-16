@@ -38,7 +38,7 @@ export default function ImpactModal({ isOpen, onClose }: ImpactModalProps) {
               <TreePine className="w-5 h-5 text-green-500" /> 1. Restoration on Autopilot
             </h3>
             <p className="leading-relaxed">
-              The Impact Club turns your solar production into real world conservation. For every <strong>1kg of CO2 </strong> your system reduces, SolCare. donates <strong>$1</strong> to a certified Ekos project of your choosing.
+              The Impact Club turns your solar production into real world conservation. For every <strong>1kg of CO2 </strong> your system reduces, SolCare. donates <strong>$1</strong> to a certified reforestation project of your choosing.
             </p>
           </section>
 

@@ -8,60 +8,40 @@ import ImpactModal from '../../components/ImpactModal';
 import TermsModal from '../../components/TermsModal';
 import { useState } from 'react';
 import Link from 'next/link';
-import SolarDemo from '../../components/SolarDemo';
 
-const tiers = [
-  {
-    name: "Precision Monitoring",
-    price: "19",
-    description: "Know exactly when to clean. Plant trees while you produce.",
-    features: [
-      "3-Layer Calibration (14-Day Roof Fingerprint)",
-      "Real-Time Carbon Offset Tracking (HelioAPI)",
-      "Thermal, Aerosol & Salt Mist Intelligence",
-      "Precision Cleaning Alerts with ROI Math",
-      "Impact Club: $1/kg CO₂ to Reforestation",
-      "System Health Monitoring",
-      "Email Support"
-    ],
-    popular: false
-  },
-  {
-    name: "Zero-Touch + Impact",
-    price: "30",
-    description: "We handle everything. You watch the impact grow.",
-    features: [
-      "Everything in Monitor",
-      "2 x Professional Cleans / Year (Scheduled & Managed)",
-      "24/7 Smart Monitoring + Priority Response",
-      "Full Mechanical & Safety Audit",
-      "Impact Club with Project Selection ($10+ threshold)",
-      "Priority Support & Concierge Booking"
-    ],
-    popular: true
-  }
+const features = [
+  "SolarPal - Your Personal Solar Companion",
+  "AI Powered Soiling Forecasts (Irradiance + Weather + PM2.5 Intelligence)",
+  "Minimum 2 Professional Cleans / Year, more when SolarPal detects it's needed",
+  "3 Layer Calibration (14 Day Roof Fingerprint)",
+  "Real Time Carbon Offset Tracking (HelioAPI)",
+  "One Tap Booking & Automatic Team Dispatch",
+  "Post Clean Performance Validation",
+  "Impact Club: $1/kg CO₂ to Reforestation",
+  "System Health Monitoring",
+  "Priority Support",
 ];
 
 const steps = [
   {
     icon: <Settings className="w-6 h-6" />,
     title: "Sync Your System",
-    desc: "We sync directly with your inverter to pull real-time generation data. No hardware required, just a simple digital 'handshake'."
+    desc: "We sync directly with your inverter to pull real time generation data. No hardware required just a simple digital 'handshake' and SolarPal gets to work."
   },
   {
     icon: <Activity className="w-6 h-6" />,
-    title: "Continuous Monitoring",
-    desc: "Our platform analyzes your kWh output daily. We account for NZ weather patterns to ensure your panels are performing at their peak."
+    title: "SolarPal Monitors 24/7",
+    desc: "SolarPal analyses your output daily against live New Zealand weather, temperature, and air quality data so it knows the difference between an effiency drop caused by a hot day and dirty panels."
   },
   {
     icon: <Bell className="w-6 h-6" />,
-    title: "Smart Notifications",
-    desc: "When our system detects a performance gap of 15%, we send you a notification with a 'Request Clean' button. Tap it, and we dispatch a local vetted pro who already has your system details."
+    title: "Proactive Updates & Alerts",
+    desc: "SolarPal messages you with regular performance updates, early soiling forecasts, and a clean recommendation, complete with ROI math before your output takes a real hit."
   },
   {
     icon: <CalendarCheck className="w-6 h-6" />,
-    title: "Seamless Booking",
-    desc: "One click in your notification schedules a vetted local pro. Since you're a subscriber, your service is prioritized and pre-approved."
+    title: "One Tap Booking",
+    desc: "SolarPal suggests the optimal clean date, you confirm the time, and it handles dispatch automatically. Your vetted local pro is sent out to you, no back and forth needed."
   }
 ];
 
@@ -77,17 +57,17 @@ export default function Home() {
           {/* 1. The Yellow Lightbulb Icon */}
           <div className="relative w-20 h-20 flex-shrink-0 -mt-20 -ml-10 -mr-12">
             <Image
-              src="/icon.png" // Your yellow lightbulb image
+              src="/icon.png"
               alt="SolCare Icon"
               fill
               className="object-contain drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]"
             />
           </div>
 
-          {/* 2. The "SolCare." Text (Inverted from black to white) */}
+          {/* 2. The "SolCare." Text */}
           <div className="relative w-55 h-55 -mt-15">
             <Image
-              src="/solcare.png" // Your black text image
+              src="/solcare.png"
               alt="SolCare Logo"
               fill
               className="object-contain invert brightness-200"
@@ -98,14 +78,6 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="px-6 pt-20 pb-32 max-w-7xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium mb-8"
-        >
-          <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
-          Now accepting early access in Auckland
-        </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -123,12 +95,24 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-6 leading-relaxed"
         >
           NZ's salt, pollen, and dust steal 10-30% of your solar output.
-          We fingerprint your roof's true potential, clean only when ROI is proven,
-          and plant trees with every kilowatt recovered, automatically.
+          SolarPal, your AI companion that monitors your system around the clock,
+          forecasts the perfect time to clean, and books a vetted pro on your behalf.
+          All you need to do is confirm.
         </motion.p>
+
+        {/* Solar Pal intro pill */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-yellow-400 text-sm font-medium mb-10"
+        >
+          <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
+          Powered by SolarPal, your personal AI solar companion
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -140,59 +124,135 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Solar Pal Feature Highlight Section */}
+      <section className="px-6 py-20 max-w-7xl mx-auto">
+        <div className="rounded-3xl border border-yellow-400/20 bg-yellow-400/5 p-10 md:p-16">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-6">
+              Meet SolarPal
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              The AI that talks to your roof.
+            </h2>
+            <p className="text-gray-400 text-lg leading-relaxed mb-10">
+              SolarPal is your always on personal AI companion inside SolCare. It reads your live inverter data,
+              cross references New Zealand weather patterns, particulate matter (PM), and temperature conditions daily, and messages
+              you directly not just when something's wrong, but to keep you informed about how your system is
+              performing and what it's worth.
+            </p>
+
+            {/* Three Solar Pal capabilities */}
+            <div className="grid md:grid-cols-3 gap-6 text-left">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                <div className="w-10 h-10 rounded-xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-yellow-400 mb-4">
+                  <Activity className="w-5 h-5" />
+                </div>
+                <h3 className="font-bold mb-2">Watches, not waits</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  SolarPal monitors your output daily and separates real soiling from hot weather, shading, and seasonal dips, so you never get a false alarm.
+                </p>
+              </div>
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                <div className="w-10 h-10 rounded-xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-yellow-400 mb-4">
+                  <Bell className="w-5 h-5" />
+                </div>
+                <h3 className="font-bold mb-2">Forecasts, not reacts</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  Rather than waiting for a problem, SolarPal predicts when soiling will cross the threshold and suggests the optimal clean date before output takes a real hit.
+                </p>
+              </div>
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                <div className="w-10 h-10 rounded-xl bg-yellow-400/10 border border-yellow-400/20 flex items-center justify-center text-yellow-400 mb-4">
+                  <CalendarCheck className="w-5 h-5" />
+                </div>
+                <h3 className="font-bold mb-2">Books, not asks</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  SolarPal suggests a date, you pick a time and confirm the booking in chat. One tap and your vetted pro is dispatched automatically.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section */}
       <section className="px-6 py-24 bg-white/[0.02] border-y border-white/5">
         <div className="max-w-7xl mx-auto">
+ 
+          {/* Heading */}
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">Transparent Pricing</h2>
-            <p className="text-gray-400">Founding Member pricing, help shape SolCare from day one.</p>
+            <p className="text-gray-400 max-w-xl mx-auto leading-relaxed">
+              One plan. No surprises.
+            </p>
           </div>
-
-          <div className="grid md:grid-cols-2 gap-8 ">
-            {tiers.map((tier, idx) => (
-              <div
-                key={idx}
-                className={`relative p-8 rounded-3xl border ${tier.popular ? 'border-yellow-400 bg-yellow-400/5' : 'border-white/10 bg-white/[0.02]'} transition-transform hover:scale-[1.02]`}
-              >
-                {tier.popular && (
-                  <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-black px-4 py-1 rounded-full text-xs font-bold uppercase">
-                    Most Popular
-                  </span>
-                )}
-
-                <h3 className="text-xl font-bold mb-2">{tier.name}</h3>
-                <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-4xl font-bold">${tier.price}</span>
-                  <span className="text-gray-500">/month</span>
-                </div>
-
-                <ul className="space-y-4 mb-8">
-                  {tier.features.map((feature, fIdx) => (
-                    <li key={fIdx} className="flex items-start gap-3 text-sm text-gray-300">
-                      <Check className="w-4 h-4 text-yellow-400 mt-0.5 flex-shrink-0" />
-                      <span className="flex flex-wrap items-center gap-x-2">
-                        {feature}
-                        {/* Logic to show the "What's this?" button next to the Impact feature */}
-                        {feature.toLowerCase().includes("impact club") && (
-                          <button
-                            onClick={() => setIsImpactModalOpen(true)}
-                            className="inline-flex items-center gap-1 text-[10px] text-green-500 font-bold uppercase tracking-tighter hover:text-green-400 transition-colors cursor-pointer"
-                          >
-                            <Info className="w-3 h-3" /> What's this?
-                          </button>
-                        )}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                <button className={`w-full py-4 rounded-xl font-bold transition-colors ${tier.popular ? 'bg-yellow-400 text-black shadow-lg shadow-yellow-400/10 cursor-pointer' : 'bg-white/10 hover:bg-white/20 cursor-pointer'}`}>
-                  Go {tier.name}
-                </button>
+ 
+          {/* Single Pricing Card */}
+          <div className="max-w-2xl mx-auto">
+            <div className="relative p-10 rounded-3xl border border-yellow-400 bg-yellow-400/5 transition-transform hover:scale-[1.01]">
+ 
+              {/* Founding Member Badge */}
+              <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-black px-5 py-1 rounded-full text-xs font-bold uppercase tracking-wide whitespace-nowrap">
+                Founding Member Pricing
+              </span>
+ 
+              {/* Plan name + description */}
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold mb-3">SolCare. Complete</h3>
+                <p className="text-gray-400 text-sm leading-relaxed max-w-md mx-auto">
+                  SolarPal monitors your system year round, forecasts the optimal clean window, and dispatches a vetted pro automatically, all for less than the cost of a single one off clean.
+                </p>
               </div>
-            ))}
+ 
+              {/* Price */}
+              <div className="flex flex-col items-center mb-4">
+                <div className="flex items-baseline gap-1">
+                  <span className="text-6xl font-bold">$30</span>
+                  <span className="text-gray-500 text-lg">/month</span>
+                </div>
+                <span className="text-gray-500 text-xs mt-2">GST included · Billed monthly · Cancel anytime</span>
+              </div>
+ 
+              {/* Value anchor */}
+              <div className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 mb-8 text-center">
+                <p className="text-sm text-gray-400 leading-relaxed">
+                  A single professional clean in NZ costs{" "}
+                  <span className="text-white font-medium">$100-$300+</span>.
+                  {" "}SolCare is{" "}
+                  <span className="text-yellow-400 font-medium">$360/year</span>
+                  {" "}that's a minimum of 2 managed cleans, plus SolarPal watching your system 365 days a year.
+                  Most members receive more than 2 cleans annually as SolarPal detects what their system actually needs.
+                </p>
+              </div>
+ 
+              {/* Features */}
+              <ul className="space-y-4 mb-10">
+                {features.map((feature, fIdx) => (
+                  <li key={fIdx} className="flex items-start gap-3 text-sm text-gray-300">
+                    <Check className="w-4 h-4 text-yellow-400 mt-0.5 flex-shrink-0" />
+                    <span className="flex flex-wrap items-center gap-x-2">
+                      {feature}
+                      {feature.toLowerCase().includes("impact club") && (
+                        <button
+                          onClick={() => setIsImpactModalOpen(true)}
+                          className="inline-flex items-center gap-1 text-[10px] text-green-500 font-bold uppercase tracking-tighter hover:text-green-400 transition-colors cursor-pointer"
+                        >
+                          <Info className="w-3 h-3" /> What's this?
+                        </button>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+ 
+              {/* CTA */}
+              <button className="w-full py-4 rounded-xl font-bold bg-yellow-400 text-black shadow-lg shadow-yellow-400/10 hover:bg-yellow-300 transition-colors cursor-pointer text-lg">
+                Get Early Access
+              </button>
+ 
+            </div>
           </div>
-
+ 
           {/* Quick Legal Access */}
           <div className="mt-12 text-center">
             <button
@@ -202,16 +262,15 @@ export default function Home() {
               View Full Terms & Conditions
             </button>
           </div>
+ 
         </div>
       </section>
-
-
 
       {/* How it Works Section */}
       <section className="py-24 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 font-jayagiri">How SolCare. Works</h2>
-          <p className="text-gray-400">Total solar optimization in four simple steps.</p>
+          <p className="text-gray-400">SolarPal handles the complexity. You stay in control.</p>
         </div>
 
         <div className="grid md:grid-cols-4 gap-12">
@@ -234,8 +293,87 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Solar Pal Chat Preview Section */}
+      <section className="px-6 py-20 max-w-7xl mx-auto">
+        <div className="max-w-2xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">What SolarPal actually sounds like</h2>
+            <p className="text-gray-500 text-sm">Real messages. Plain English. No fluff.</p>
+          </div>
 
+          {/* Mock chat bubbles */}
+          <div className="space-y-4">
+            {/* AI message - routine update */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex gap-3 items-start"
+            >
+              <div className="w-8 h-8 rounded-full bg-yellow-400/20 border border-yellow-400/30 flex items-center justify-center flex-shrink-0 mt-1">
+                <span className="text-yellow-400 text-xs font-bold">SP</span>
+              </div>
+              <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3 max-w-sm">
+                <p className="text-sm text-gray-300 leading-relaxed">It's been a good week! Your panels hit 96% of expected output despite Tuesday's overcast. You've offset 21kg of CO₂ this month. All good here. 🌿</p>
+              </div>
+            </motion.div>
 
+            {/* AI message - forecast alert */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="flex gap-3 items-start"
+            >
+              <div className="w-8 h-8 rounded-full bg-yellow-400/20 border border-yellow-400/30 flex items-center justify-center flex-shrink-0 mt-1">
+                <span className="text-yellow-400 text-xs font-bold">SP</span>
+              </div>
+              <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3 max-w-sm">
+                <p className="text-sm text-gray-300 leading-relaxed">Heads up! PM10 levels have been elevated for 6 days and your adjusted output gap is sitting at 11%. I'm forecasting you'll hit the clean threshold in about 5 days. The weather looks clear from <span className="text-yellow-400 font-medium">Wednesday 23 April</span> that's your best window. Want me to lock that in?</p>
+              </div>
+            </motion.div>
+
+            {/* User reply */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="flex justify-end"
+            >
+              <div className="bg-yellow-400/10 border border-yellow-400/20 rounded-2xl rounded-tr-sm px-4 py-3 max-w-xs">
+                <p className="text-sm text-gray-300">Wednesday works, can we do 1PM?</p>
+              </div>
+            </motion.div>
+
+            {/* AI confirmation */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="flex gap-3 items-start"
+            >
+              <div className="w-8 h-8 rounded-full bg-yellow-400/20 border border-yellow-400/30 flex items-center justify-center flex-shrink-0 mt-1">
+                <span className="text-yellow-400 text-xs font-bold">SP</span>
+              </div>
+              <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3 max-w-sm space-y-3">
+                <p className="text-sm text-gray-300 leading-relaxed">Perfect. Here's your booking summary:</p>
+                <div className="bg-white/5 rounded-xl p-3 text-xs space-y-1.5 text-gray-400">
+                  <div className="flex justify-between"><span>📅 Date</span><span className="text-white">Wednesday 23 April</span></div>
+                  <div className="flex justify-between"><span>⏰ Time</span><span className="text-white">1:00 PM</span></div>
+                  <div className="flex justify-between"><span>💰 Est. recovery</span><span className="text-yellow-400">~$22 / 30 days</span></div>
+                  <div className="flex justify-between"><span>🌿 CO₂ recovered</span><span className="text-green-400">~14kg</span></div>
+                </div>
+                <button className="w-full bg-yellow-400 text-black text-xs font-bold py-2 rounded-lg">
+                  Confirm Booking
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* About Section */}
       <section className="py-24 px-6 bg-white/[0.01] border-y border-white/5">
@@ -244,23 +382,23 @@ export default function Home() {
             <div className="flex-1">
               <h2 className="text-3xl font-bold mb-6 font-jayagiri">Maximum ROI, <br />Zero Effort.</h2>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                SolCare. was founded on the principle that solar energy is an asset, not just a utility. We believe that a dirty panel isn't just a maintenance chore, it’s a silent leak in your financial and environmental investment.
+                SolCare was founded on the principle that solar energy is an asset, not just a utility. A dirty panel isn't just a maintenance chore, it's a silent leak in your financial and environmental investment.
               </p>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                We don't just provide a cleaning service. We are a **Solar Asset Management Platform**. By combining real-time production data, localized NZ weather patterns and national grid emission factors, we ensure your investment is protected and your system is running at peak performance.
+                We're not a cleaning booking app. We're a <span className="text-white font-medium">Solar Asset Management Platform</span> and SolarPal is the intelligence at the centre of it. By combining your live inverter data with NZ weather patterns, particulate matter readings, temperature derating models, and national grid emission factors, SolarPal knows exactly what your system should be producing at any given moment and flags the difference when soiling is genuinely to blame.
               </p>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                When our system detects a performance gap of 15% or more (Soiling Loss), we alert you and with one tap you can schedule a professional clean to recover your lost yield.
+                When SolarPal confirms a clean is worth it, it tells you why with the ROI worked out and handles the booking from end to end. Your vetted local pro is dispatched automatically. No forms, no phone calls, no guesswork.
               </p>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                By partnering with HelioAPI, we provide accurate carbon tracking in New Zealand. We don't just track your impact; we grow it. For every $10 of CO2 offset your system generates through our optimisation, we facilitate a donation to a Ekos reforestation project of your choosing, turning your roof into a literal engine for a greener New Zealand.
+                Through our HelioAPI carbon integration, every kilowatt you recover gets tracked as a real CO₂ offset. And for every $10 of CO₂ your system saves, we facilitate a donation to a reforestation project of your choosing, turning your roof into a literal engine for a greener New Zealand.
               </p>
               <div className="flex items-center gap-4 text-sm font-bold text-yellow-400 uppercase tracking-widest">
-                <span>Data-Driven</span>
+                <span>AI Powered</span>
                 <span className="w-1 h-1 rounded-full bg-gray-700" />
                 <span>Vetted Pros</span>
                 <span className="w-1 h-1 rounded-full bg-gray-700" />
-                <span>100% Kiwi</span>
+                <span>Kiwi Owned</span>
               </div>
             </div>
 
@@ -274,7 +412,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer Link */}
+      {/* Footer */}
       <footer className="py-12 px-6 border-t border-white/5 text-center">
         <div className="flex flex-col items-center gap-4">
           <p className="text-gray-600 text-xs">© 2026 SolCare. All rights reserved.</p>

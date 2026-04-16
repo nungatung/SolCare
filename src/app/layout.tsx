@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SolCare | Solar Panel Cleaning Software NZ — Automated Maintenance Intelligence",
+  title: "SolCare | Solar Panel Cleaning Software NZ - Automated Maintenance Intelligence",
   description: "Stop losing 5-25% energy to dirty panels. SolCare's 3-Layer Calibration auto-detects when cleaning pays for itself—no false alerts, guaranteed ROI. NZ-based solar monitoring with local reforestation impact.",
   keywords: ["solar panel cleaning software NZ", "automated solar maintenance New Zealand", "solar monitoring system NZ", "solar panel efficiency tracker", "solar soiling detection", "solar cleaning ROI calculator", "digital twin solar", "solar asset management NZ"],
   
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'SolCare — Stop the Silent Yield Leak',
+        alt: 'SolCare - Stop the Silent Yield Leak',
       },
     ],
   },
