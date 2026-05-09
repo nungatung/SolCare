@@ -22,17 +22,17 @@ export default function TermsModal({ isOpen, onClose }: TermsModalProps) {
         <div className="space-y-6 text-sm text-gray-400 leading-relaxed">
           <div>
             <h4 className="text-white font-bold mb-2">1. Service Scope</h4>
-            <p>SolCare. provides solar monitoring and maintenance coordination. Cleaning services are performed by independent, vetted contractors.</p>
+            <p>SolCare. provides solar monitoring and cleaning maintenance coordination. Cleaning services are performed by independent, vetted contractors.</p>
           </div>
           <div>
             <h4 className="text-white font-bold mb-2">2. Impact Club & Donations</h4>
-            <p>Donations are made on behalf of the user. SolCare. retains a $3.00 administrative fee per $10.00 transaction to cover data processing and verification through HelioAPI.</p>
+            <p>Donations are made on behalf of the user. SolCare. covers all processing costs, 100% of
+               every donation goes directly to your chosen project.</p>
           </div>
           <div>
             <h4 className="text-white font-bold mb-2">3. Subscription & Billing</h4>
             <p>Memberships are billed monthly. You can cancel at any time, however, accumulated SolCredits that have not reached the $10 donation threshold will be forfeited upon cancellation.</p>
           </div>
-          {/* Add more legal sections as needed */}
         </div>
       </div>
     </div>

@@ -47,27 +47,38 @@ export default function ImpactModal({ isOpen, onClose }: ImpactModalProps) {
               <Zap className="w-5 h-5 text-green-500" /> 2. How it works
             </h3>
             <div className="grid grid-cols-1 gap-3">
-                <div className="flex items-center justify-between p-4 bg-white/[0.03] border border-white/5 rounded-2xl">
-                    <span className="text-xs font-bold uppercase tracking-wider">Production</span>
-                    <span className="text-white font-mono">1000 kWh</span>
-                </div>
-                <div className="flex items-center justify-center py-1">
-                    <div className="h-4 w-px bg-green-500/30"></div>
-                </div>
-                <div className="flex items-center justify-between p-4 bg-white/[0.03] border border-white/5 rounded-2xl">
-                    <span className="text-xs font-bold uppercase tracking-wider text-green-500">CO2 Reduced</span>
-                    <span className="text-green-500 font-mono font-bold">~12.01kg</span>
-                </div>
-                <div className="flex items-center justify-center py-1">
-                    <div className="h-4 w-px bg-green-500/30"></div>
-                </div>
-                <div className="flex items-center justify-between p-4 bg-green-500/10 border border-green-500/20 rounded-2xl">
-                    <span className="text-xs font-bold uppercase tracking-wider text-green-400">Total Donation</span>
-                    <span className="text-green-400 font-mono font-bold">$12.01 NZD</span>
-                </div>
+              <div className="flex items-center justify-between p-4 bg-white/[0.03] border border-white/5 rounded-2xl">
+                <span className="text-xs font-bold uppercase tracking-wider">Production</span>
+                <span className="text-white font-mono">1000 kWh</span>
+              </div>
+              <div className="flex items-center justify-center py-1">
+                <div className="h-4 w-px bg-green-500/30"></div>
+              </div>
+              <div className="flex items-center justify-between p-4 bg-white/[0.03] border border-white/5 rounded-2xl">
+                <span className="text-xs font-bold uppercase tracking-wider text-green-500">CO2 Reduced</span>
+                <span className="text-green-500 font-mono font-bold">~12.01kg</span>
+              </div>
+              <div className="flex items-center justify-center py-1">
+                <div className="h-4 w-px bg-green-500/30"></div>
+              </div>
+              <div className="flex items-center justify-between p-4 bg-green-500/10 border border-green-500/20 rounded-2xl">
+                <span className="text-xs font-bold uppercase tracking-wider text-green-400">Total Donation</span>
+                <span className="text-green-400 font-mono font-bold">$12.01 NZD</span>
+              </div>
             </div>
+      
+            {/* Annual stat */}
+            <div className="mt-3 flex items-center justify-between p-3 bg-white/[0.02] border border-white/[0.04] rounded-xl">
+              <span className="text-xs text-white/40 uppercase tracking-wider font-bold">
+                Typical 5kW system / year
+              </span>
+              <span className="text-xs text-green-400 font-mono font-bold">~$78 NZD donated</span>
+            </div>
+      
             <p className="mt-4 text-xs leading-relaxed italic">
-                We use <strong>HelioAPI</strong> to calculate your exact carbon offset based on your systems real time production.
+              We use <strong>HelioAPI</strong> to calculate your exact carbon offset based on your
+              system&apos;s real time production. SolCare covers all processing costs, 100% of
+              every donation goes directly to your chosen project.
             </p>
           </section>
 
@@ -86,8 +97,8 @@ export default function ImpactModal({ isOpen, onClose }: ImpactModalProps) {
                 The Fine Print
             </h3>
             <ul className="space-y-2 text-[13px] text-gray-500 leading-relaxed italic">
-                <li>• SolCare. is a commercial entity; we only facilitate donations to third-partys e.g <strong>Ekos</strong>.</li>
-                <li>• $3.00 of the $10 threshold (or bundled equivalent) covers HelioAPI data and admin costs.</li>
+                <li>• SolCare. is a commercial entity; we only facilitate donations to third partys e.g <strong>Ekos</strong>.</li>
+                
                 <li>• Donations are batched and processed once your fund reaches the $10 NZD partner minimum.</li>
                 <li>• SolCredits represent environmental impact and have <strong>no cash or redeemable value.</strong></li>
             </ul>

@@ -111,7 +111,7 @@ export default function Home() {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-yellow-400 text-sm font-medium mb-10"
         >
           <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
-          Powered by SolarPal, your personal AI solar companion
+          Powered by SolarPal, your AI solar companion
         </motion.div>
 
         <motion.div
@@ -136,7 +136,7 @@ export default function Home() {
             </h2>
             <p className="text-gray-400 text-lg leading-relaxed mb-10">
               SolarPal is your always on personal AI companion inside SolCare. It reads your live inverter data,
-              cross references New Zealand weather patterns, particulate matter (PM), and temperature conditions daily, and messages
+              cross references New Zealand weather patterns, particulate matter (PM), and temperature conditions daily, and notifies
               you directly not just when something's wrong, but to keep you informed about how your system is
               performing and what it's worth.
             </p>
@@ -178,7 +178,7 @@ export default function Home() {
       {/* Pricing Section */}
       <section className="px-6 py-24 bg-white/[0.02] border-y border-white/5">
         <div className="max-w-7xl mx-auto">
- 
+
           {/* Heading */}
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold mb-4">Transparent Pricing</h2>
@@ -186,16 +186,16 @@ export default function Home() {
               One plan. No surprises.
             </p>
           </div>
- 
+
           {/* Single Pricing Card */}
           <div className="max-w-2xl mx-auto">
             <div className="relative p-10 rounded-3xl border border-yellow-400 bg-yellow-400/5 transition-transform hover:scale-[1.01]">
- 
+
               {/* Founding Member Badge */}
               <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-400 text-black px-5 py-1 rounded-full text-xs font-bold uppercase tracking-wide whitespace-nowrap">
                 Founding Member Pricing
               </span>
- 
+
               {/* Plan name + description */}
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold mb-3">SolCare. Complete</h3>
@@ -203,7 +203,7 @@ export default function Home() {
                   SolarPal monitors your system year round, forecasts the optimal clean window, and dispatches a vetted pro automatically, all for less than the cost of a single one off clean.
                 </p>
               </div>
- 
+
               {/* Price */}
               <div className="flex flex-col items-center mb-4">
                 <div className="flex items-baseline gap-1">
@@ -212,7 +212,7 @@ export default function Home() {
                 </div>
                 <span className="text-gray-500 text-xs mt-2">GST included · Billed monthly · Cancel anytime</span>
               </div>
- 
+
               {/* Value anchor */}
               <div className="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 mb-8 text-center">
                 <p className="text-sm text-gray-400 leading-relaxed">
@@ -224,7 +224,7 @@ export default function Home() {
                   Most members receive more than 2 cleans annually as SolarPal detects what their system actually needs.
                 </p>
               </div>
- 
+
               {/* Features */}
               <ul className="space-y-4 mb-10">
                 {features.map((feature, fIdx) => (
@@ -244,15 +244,15 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
- 
+
               {/* CTA */}
               <button className="w-full py-4 rounded-xl font-bold bg-yellow-400 text-black shadow-lg shadow-yellow-400/10 hover:bg-yellow-300 transition-colors cursor-pointer text-lg">
                 Get Early Access
               </button>
- 
+
             </div>
           </div>
- 
+
           {/* Quick Legal Access */}
           <div className="mt-12 text-center">
             <button
@@ -262,7 +262,7 @@ export default function Home() {
               View Full Terms & Conditions
             </button>
           </div>
- 
+
         </div>
       </section>
 
@@ -301,9 +301,9 @@ export default function Home() {
             <p className="text-gray-500 text-sm">Real messages. Plain English. No fluff.</p>
           </div>
 
-          {/* Mock chat bubbles */}
           <div className="space-y-4">
-            {/* AI message - routine update */}
+
+            {/* AI — routine update */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -314,11 +314,11 @@ export default function Home() {
                 <span className="text-yellow-400 text-xs font-bold">SP</span>
               </div>
               <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3 max-w-sm">
-                <p className="text-sm text-gray-300 leading-relaxed">It's been a good week! Your panels hit 96% of expected output despite Tuesday's overcast. You've offset 21kg of CO₂ this month. All good here. 🌿</p>
+                <p className="text-sm text-gray-300 leading-relaxed">Good week! Your panels hit 96% of expected output. You've offset 21kg of CO₂ this month. All good here. 🌿</p>
               </div>
             </motion.div>
 
-            {/* AI message - forecast alert */}
+            {/* AI — recommendation + slot picker */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -329,12 +329,24 @@ export default function Home() {
               <div className="w-8 h-8 rounded-full bg-yellow-400/20 border border-yellow-400/30 flex items-center justify-center flex-shrink-0 mt-1">
                 <span className="text-yellow-400 text-xs font-bold">SP</span>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3 max-w-sm">
-                <p className="text-sm text-gray-300 leading-relaxed">Heads up! PM10 levels have been elevated for 6 days and your adjusted output gap is sitting at 11%. I'm forecasting you'll hit the clean threshold in about 5 days. The weather looks clear from <span className="text-yellow-400 font-medium">Wednesday 23 April</span> that's your best window. Want me to lock that in?</p>
+              <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3 max-w-sm space-y-3">
+                <p className="text-sm text-gray-300 leading-relaxed">
+                  PM10 elevated 6 days, output gap at 11%. <span className="text-yellow-400 font-medium">Wednesday 23 April</span> is your best clean window. Pick a time:
+                </p>
+                <div className="grid grid-cols-3 gap-2">
+                  {["9:00 AM", "10:00 AM", "12:00PM", "1:00 PM"].map((slot) => (
+                    <button
+                      key={slot}
+                      className="bg-white/5 border border-white/10 rounded-lg py-1.5 text-xs text-gray-300 hover:border-yellow-400/40 hover:text-yellow-400 transition-colors"
+                    >
+                      {slot}
+                    </button>
+                  ))}
+                </div>
               </div>
             </motion.div>
 
-            {/* User reply */}
+            {/* User — tapped 1 PM */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -343,11 +355,11 @@ export default function Home() {
               className="flex justify-end"
             >
               <div className="bg-yellow-400/10 border border-yellow-400/20 rounded-2xl rounded-tr-sm px-4 py-3 max-w-xs">
-                <p className="text-sm text-gray-300">Wednesday works, can we do 1PM?</p>
+                <p className="text-sm text-gray-300">1:00 PM</p>
               </div>
             </motion.div>
 
-            {/* AI confirmation */}
+            {/* AI — booking summary + confirm */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -359,7 +371,7 @@ export default function Home() {
                 <span className="text-yellow-400 text-xs font-bold">SP</span>
               </div>
               <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3 max-w-sm space-y-3">
-                <p className="text-sm text-gray-300 leading-relaxed">Perfect. Here's your booking summary:</p>
+                <p className="text-sm text-gray-300 leading-relaxed">Here's your booking summary:</p>
                 <div className="bg-white/5 rounded-xl p-3 text-xs space-y-1.5 text-gray-400">
                   <div className="flex justify-between"><span>📅 Date</span><span className="text-white">Wednesday 23 April</span></div>
                   <div className="flex justify-between"><span>⏰ Time</span><span className="text-white">1:00 PM</span></div>
@@ -371,6 +383,7 @@ export default function Home() {
                 </button>
               </div>
             </motion.div>
+
           </div>
         </div>
       </section>
