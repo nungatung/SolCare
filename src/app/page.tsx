@@ -1,6 +1,6 @@
 "use client";
 import { motion } from 'framer-motion';
-import { Sun, ShieldCheck, Zap, BarChart3, ChevronRight, Check, Club, Info, Droplets } from 'lucide-react';
+import { Sun, ShieldCheck, Zap, BarChart3, ChevronRight, Check, Club, Info, Droplets, Mail } from 'lucide-react';
 import WaitlistForm from '../../components/WaitlistForm';
 import Image from 'next/image';
 import { Activity, Bell, CalendarCheck, Settings } from 'lucide-react';
@@ -8,6 +8,7 @@ import ImpactModal from '../../components/ImpactModal';
 import TermsModal from '../../components/TermsModal';
 import { useState } from 'react';
 import Link from 'next/link';
+import HeroImageCarousel from "../../components/HeroImageCarousel";
 
 const features = [
   "SolarPal - Your Personal Solar Companion",
@@ -63,7 +64,7 @@ export default function Home() {
               className="object-contain drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]"
             />
           </div>
-
+ 
           {/* 2. The "SolCare." Text */}
           <div className="relative w-55 h-55 -mt-15">
             <Image
@@ -74,54 +75,86 @@ export default function Home() {
             />
           </div>
         </div>
+ 
+        {/* Nav links */}
+        <div className="flex items-center gap-6">
+          <Link
+            href="/blog"
+            className="text-m text-gray-400 hover:text-white transition-colors"
+          >
+            Blog
+          </Link>
+          <Link
+            href="/about"
+            className="text-m text-gray-400 hover:text-white transition-colors"
+          >
+            About
+          </Link>
+          <a
+            href="mailto:solcare.info@gmail.com"
+            className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
+          >
+            <Mail className="w-6 h-5" />
+            Get in Touch
+          </a>
+        </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="px-6 pt-20 pb-32 max-w-7xl mx-auto text-center">
-
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-5xl md:text-7xl font-bold tracking-tight mb-6"
-        >
-          Your Solar, <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-yellow-500">
-            On Autopilot.
-          </span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-6 leading-relaxed"
-        >
-          NZ's salt, pollen, and dust steal 10-30% of your solar output.
-          SolarPal, your AI companion that monitors your system around the clock,
-          forecasts the perfect time to clean, and books a vetted pro on your behalf.
-          All you need to do is confirm.
-        </motion.p>
-
-        {/* Solar Pal intro pill */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-yellow-400 text-sm font-medium mb-10"
-        >
-          <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
-          Powered by SolarPal, your AI solar companion
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="flex justify-center"
-        >
-          <WaitlistForm />
-        </motion.div>
+      <section className="px-6 pt-20 pb-32 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+ 
+          {/* LEFT — heading, copy, form */}
+          <div className="flex flex-col items-start">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-5xl md:text-7xl font-bold tracking-tight mb-6"
+            >
+              Your Solar, <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-yellow-500">
+                On Autopilot.
+              </span>
+            </motion.h1>
+ 
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-gray-400 text-lg md:text-xl mb-6 leading-relaxed"
+            >
+              NZ's salt, pollen, and dust steal 10-30% of your solar output.
+              SolarPal, your AI companion that monitors your system around the clock,
+              forecasts the perfect time to clean, and books a vetted pro on your behalf.
+              All you need to do is confirm.
+            </motion.p>
+ 
+            {/* SolarPal intro pill */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-yellow-400 text-sm font-medium mb-10"
+            >
+              <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
+              Powered by SolarPal, your AI solar companion
+            </motion.div>
+ 
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="w-full"
+            >
+              <WaitlistForm />
+            </motion.div>
+          </div>
+ 
+          {/* RIGHT — auto-scrolling image stack */}
+          <HeroImageCarousel />
+ 
+        </div>
       </section>
 
       {/* Solar Pal Feature Highlight Section */}
@@ -396,9 +429,10 @@ export default function Home() {
               <h2 className="text-3xl font-bold mb-6 font-jayagiri">Maximum ROI, <br />Zero Effort.</h2>
               <p className="text-gray-400 mb-6 leading-relaxed">
                 SolCare was founded on the principle that solar energy is an asset, not just a utility. A dirty panel isn't just a maintenance chore, it's a silent leak in your financial and environmental investment.
+                Over time, debris build up can lead to permanent surface degradation, decreasing your panels lifespan.
               </p>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                We're not a cleaning booking app. We're a <span className="text-white font-medium">Solar Asset Management Platform</span> and SolarPal is the intelligence at the centre of it. By combining your live inverter data with NZ weather patterns, particulate matter readings, temperature derating models, and national grid emission factors, SolarPal knows exactly what your system should be producing at any given moment and flags the difference when soiling is genuinely to blame.
+                We're not just a cleaning booking app. We're a <span className="text-white font-medium">Solar Asset Management and Preventive Maintenance Platform</span> and SolarPal is the intelligence at the centre of it. By combining your live inverter data with NZ weather patterns, particulate matter readings, temperature derating models, and national grid emission factors, SolarPal knows exactly what your system should be producing at any given moment and flags the difference when soiling is genuinely to blame.
               </p>
               <p className="text-gray-400 mb-6 leading-relaxed">
                 When SolarPal confirms a clean is worth it, it tells you why with the ROI worked out and handles the booking from end to end. Your vetted local pro is dispatched automatically. No forms, no phone calls, no guesswork.
