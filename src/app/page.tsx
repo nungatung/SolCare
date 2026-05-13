@@ -1,6 +1,6 @@
 "use client";
 import { motion } from 'framer-motion';
-import { Sun, ShieldCheck, Zap, BarChart3, ChevronRight, Check, Club, Info, Droplets, Mail } from 'lucide-react';
+import { Sun, ShieldCheck, Zap, BarChart3, ChevronRight, Check, Club, Info, Droplets, Mail, Menu, X } from 'lucide-react';
 import WaitlistForm from '../../components/WaitlistForm';
 import Image from 'next/image';
 import { Activity, Bell, CalendarCheck, Settings } from 'lucide-react';
@@ -49,56 +49,100 @@ const steps = [
 export default function Home() {
   const [isImpactModalOpen, setIsImpactModalOpen] = useState(false);
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-white selection:bg-yellow-400 selection:text-black">
 
       {/* Navbar */}
-      <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto">
-        <div className="flex items-center gap-3">
-          {/* 1. The Yellow Lightbulb Icon */}
-          <div className="relative w-20 h-20 flex-shrink-0 -mt-20 -ml-10 -mr-12">
-            <Image
-              src="/icon.png"
-              alt="SolCare Icon"
-              fill
-              className="object-contain drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]"
-            />
+      <div className="relative z-50">
+        <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto">
+          <div className="flex items-center gap-3">
+            {/* 1. The Yellow Lightbulb Icon */}
+            <div className="relative w-20 h-20 flex-shrink-0 -mt-20 -ml-10 -mr-12">
+              <Image
+                src="/icon.png"
+                alt="SolCare Icon"
+                fill
+                className="object-contain drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]"
+              />
+            </div>
+
+            {/* 2. The "SolCare." Text */}
+            <div className="relative w-55 h-55 -mt-15">
+              <Image
+                src="/solcare.png"
+                alt="SolCare Logo"
+                fill
+                className="object-contain invert brightness-200"
+              />
+            </div>
           </div>
- 
-          {/* 2. The "SolCare." Text */}
-          <div className="relative w-55 h-55 -mt-15">
-            <Image
-              src="/solcare.png"
-              alt="SolCare Logo"
-              fill
-              className="object-contain invert brightness-200"
-            />
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-white p-2 md:hidden -mt-14 transition-all active:scale-95"
+            aria-label="Toggle Mobile Menu"
+          >
+            {isMenuOpen ? (
+              <X className="w-7 h-7" />
+            ) : (
+              <Menu className="w-7 h-7" />
+            )}
+          </button>
+
+          {/* Desktop Nav links */}
+          <div className="hidden md:flex items-center gap-6">
+            <Link
+              href="/blog"
+              className="text-m text-gray-400 hover:text-white transition-colors"
+            >
+              Blog
+            </Link>
+            <Link
+              href="/about"
+              className="text-m text-gray-400 hover:text-white transition-colors"
+            >
+              About
+            </Link>
+            <a
+              href="mailto:solcare.info@gmail.com"
+              className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
+            >
+              <Mail className="w-6 h-5" />
+              Get in Touch
+            </a>
           </div>
-        </div>
- 
-        {/* Nav links */}
-        <div className="flex items-center gap-6">
-          <Link
-            href="/blog"
-            className="text-m text-gray-400 hover:text-white transition-colors"
-          >
-            Blog
-          </Link>
-          <Link
-            href="/about"
-            className="text-m text-gray-400 hover:text-white transition-colors"
-          >
-            About
-          </Link>
-          <a
-            href="mailto:solcare.info@gmail.com"
-            className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
-          >
-            <Mail className="w-6 h-5" />
-            Get in Touch
-          </a>
-        </div>
-      </nav>
+        </nav>
+
+        {/* Mobile Menu Panel */}
+        {isMenuOpen && (
+          <div className="md:hidden absolute top-[45px] left-0 right-0 p-6 z-50 bg-[#121212]/95 backdrop-blur-md border-t border-b border-neutral-800 rounded-b-xl shadow-2xl flex flex-col gap-6 text-center animate-in fade-in slide-in-from-top-2 duration-200">
+            <Link
+              href="/blog"
+              className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Blog
+            </Link>
+            <Link
+              href="/about"
+              className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About
+            </Link>
+            <a
+              href="mailto:solcare.info@gmail.com"
+              className="flex items-center justify-center gap-2 py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Mail className="w-6 h-5" />
+              Get in Touch
+            </a>
+          </div>
+        )}
+      </div>
 
       {/* Hero Section */}
       <section className="px-6 pt-20 pb-32 max-w-7xl mx-auto">
@@ -379,7 +423,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* User — tapped 1 PM */}
+            {/* User - tapped 1 PM */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -392,7 +436,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* AI — booking summary + confirm */}
+            {/* AI booking summary + confirm */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -459,18 +503,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 px-6 border-t border-white/5 text-center">
-        <div className="flex flex-col items-center gap-4">
-          <p className="text-gray-600 text-xs">© 2026 SolCare. All rights reserved.</p>
-          <button
-            onClick={() => setIsTermsModalOpen(true)}
-            className="text-gray-500 text-[10px] uppercase tracking-widest hover:text-white transition-colors cursor-pointer"
-          >
-            Terms & Conditions
-          </button>
-        </div>
-      </footer>
+      {/* FOOTER */}
+            <footer className="px-6 py-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-6">
+                    <Link href="/" className="text-sm text-gray-600 hover:text-white transition-colors">Home</Link>
+                    <Link href="/blog" className="text-sm text-gray-600 hover:text-white transition-colors">Blog</Link>
+                    <Link href="/about" className="text-sm text-gray-600">About</Link>
+                    <a
+                    href="mailto:solcare.info@gmail.com"
+                    className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
+                    >
+                    <Mail className="w-6 h-5" />
+                    Get in Touch
+                    </a>
+                </div>
+                <div className="flex flex-col items-center gap-4">
+                      <button
+                        onClick={() => setIsTermsModalOpen(true)}
+                        className="text-gray-500 text-[10px] uppercase tracking-widest hover:text-white transition-colors cursor-pointer"
+                      >
+                        Terms & Conditions
+                      </button>
+                    </div>
+                <span className="text-xs text-gray-700">© 2026 SolCare. All rights reserved · Made in Aotearoa with ❤️</span>
+            </footer>
 
       <ImpactModal isOpen={isImpactModalOpen} onClose={() => setIsImpactModalOpen(false)} />
       <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} />

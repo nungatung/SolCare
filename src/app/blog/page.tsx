@@ -3,7 +3,9 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from 'next/image';
-import { ArrowRight, Clock, Leaf, Zap, CloudRain, Sun, Mail } from "lucide-react";
+import { ArrowRight, Clock, Leaf, Zap, CloudRain, Sun, Mail, Menu, X } from "lucide-react";
+import { useState } from "react";
+import TermsModal from '../../../components/TermsModal';
 
 const featuredPost = {
     slug: "dirty-panels",
@@ -14,7 +16,7 @@ const featuredPost = {
     tags: ["NZ Solar", "Performance"],
     date: "May 2026",
     readTime: "5 min read",
-    icon: "cost.png", 
+    icon: "cost.png",
     stat: { value: "25%", label: "average output lost to soiling over 12 months" },
 };
 
@@ -28,40 +30,7 @@ const posts = [
         tags: ["NZ Solar", "Weather"],
         date: "April 2026",
         readTime: "4 min read",
-        icon: "sunshine.png", 
-    },
-    {
-        slug: "impact-club",
-        title: "Your panels and native forest: how the Impact Club works behind the scenes",
-        excerpt:
-            "For every 1kg of CO₂ your system offsets, SolCare donates $1 to a reforestation project of your choice. Here's exactly how we calculate it.",
-        category: "Impact Club",
-        tags: ["CO₂", "Environment"],
-        date: "March 2026",
-        readTime: "3 min read",
-        icon: "forest.png", 
-    },
-    {
-        slug: "cleaning-frequency",
-        title: "How often should you clean your panels? It depends where you live",
-        excerpt:
-            "Coastal Auckland needs more frequent cleans than rural Canterbury. Here's a region by region guide based on real PM10 and weather data.",
-        category: "Maintenance",
-        tags: ["Cleaning", "NZ Solar"],
-        date: "February 2026",
-        readTime: "3 min read",
-        icon: "cleaning.png", 
-    },
-    {
-        slug: "output-gap",
-        title: "What is an output gap and why should you care about yours",
-        excerpt:
-            "The difference between what your panels should produce and what they actually do is the number SolarPal watches most closely.",
-        category: "Monitoring",
-        tags: ["Data", "Performance"],
-        date: "December 2025",
-        readTime: "4 min read",
-        icon: "monitoring.png",
+        icon: "sunshine.png",
     },
 ];
 
@@ -74,57 +43,103 @@ const categoryIcons: Record<string, React.ReactNode> = {
     Weather: <CloudRain className="w-3 h-3" />,
 };
 
+
 export default function BlogPage() {
+const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);    
+const [isMenuOpen, setIsMenuOpen] = useState(false)
     return (
         <main className="min-h-screen bg-[#0A0A0A] text-white">
 
-            {/* Navbar */}
+        {/* Navbar */}
+        <div className="relative z-50">
             <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto">
-                <div className="flex items-center gap-3">
-                    {/* 1. The Yellow Lightbulb Icon */}
-                    <div className="relative w-20 h-20 flex-shrink-0 -mt-20 -ml-10 -mr-12">
-                        <Image
-                            src="/icon.png"
-                            alt="SolCare Icon"
-                            fill
-                            className="object-contain drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]"
-                        />
-                    </div>
-
-                    {/* 2. The "SolCare." Text */}
-                    <div className="relative w-55 h-55 -mt-15">
-                        <Image
-                            src="/solcare.png"
-                            alt="SolCare Logo"
-                            fill
-                            className="object-contain invert brightness-200"
-                        />
-                    </div>
+            <div className="flex items-center gap-3">
+                {/* 1. The Yellow Lightbulb Icon */}
+                <div className="relative w-20 h-20 flex-shrink-0 -mt-20 -ml-10 -mr-12">
+                <Image
+                    src="/icon.png"
+                    alt="SolCare Icon"
+                    fill
+                    className="object-contain drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]"
+                />
                 </div>
 
-                {/* Nav links */}
-                <div className="flex items-center gap-6">
-                    <Link
-                        href="/"
-                        className="text-m text-gray-400 hover:text-white transition-colors"
-                    >
-                        Home
-                    </Link>
-                    <Link
-                        href="/about"
-                        className="text-m text-gray-400 hover:text-white transition-colors"
-                    >
-                        About
-                    </Link>
-                    <a
-                        href="mailto:solcare.info@gmail.com"
-                        className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
-                    >
-                        <Mail className="w-6 h-5" />
-                        Get in Touch
-                    </a>
+                {/* 2. The "SolCare." Text */}
+                <div className="relative w-55 h-55 -mt-15">
+                <Image
+                    src="/solcare.png"
+                    alt="SolCare Logo"
+                    fill
+                    className="object-contain invert brightness-200"
+                />
                 </div>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="text-white p-2 md:hidden -mt-14 transition-all active:scale-95"
+                aria-label="Toggle Mobile Menu"
+            >
+                {isMenuOpen ? (
+                <X className="w-7 h-7" />
+                ) : (
+                <Menu className="w-7 h-7" />
+                )}
+            </button>
+
+            {/* Desktop Nav links */}
+            <div className="hidden md:flex items-center gap-6">
+                <Link
+                href="/"
+                className="text-m text-gray-400 hover:text-white transition-colors"
+                >
+                Home
+                </Link>
+                <Link
+                href="/about"
+                className="text-m text-gray-400 hover:text-white transition-colors"
+                >
+                About
+                </Link>
+                <a
+                href="mailto:solcare.info@gmail.com"
+                className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
+                >
+                <Mail className="w-6 h-5" />
+                Get in Touch
+                </a>
+            </div>
             </nav>
+
+            {/* Mobile Menu Panel */}
+            {isMenuOpen && (
+            <div className="md:hidden absolute top-[45px] left-0 right-0 p-6 z-50 bg-[#121212]/95 backdrop-blur-md border-t border-b border-neutral-800 rounded-b-xl shadow-2xl flex flex-col gap-6 text-center animate-in fade-in slide-in-from-top-2 duration-200">
+                <Link
+                href="/"
+                className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+                onClick={() => setIsMenuOpen(false)}
+                >
+                Home
+                </Link>
+                <Link
+                href="/about"
+                className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+                onClick={() => setIsMenuOpen(false)}
+                >
+                About
+                </Link>
+                <a
+                href="mailto:solcare.info@gmail.com"
+                className="flex items-center justify-center gap-2 py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+                onClick={() => setIsMenuOpen(false)}
+                >
+                <Mail className="w-6 h-5" />
+                Get in Touch
+                </a>
+            </div>
+            )}
+        </div>
 
             {/* HERO */}
             <section className="px-6 pt-24 pb-16 max-w-7xl mx-auto">
@@ -169,76 +184,83 @@ export default function BlogPage() {
                 </div>
             </section>
 
-            {/* FEATURED POST */}
-            <section className="px-6 pb-12 max-w-7xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                >
-                    <Link href={`/blog/${featuredPost.slug}`} className="group block">
-                        <div className="relative rounded-3xl border border-white/8 bg-white/[0.03] overflow-hidden hover:border-green-500/25 transition-all duration-300 hover:bg-white/[0.05]">
+           {/* FEATURED POST */}
+<section className="px-6 pb-12 max-w-7xl mx-auto">
+    <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+    >
+        <Link href={`/blog/${featuredPost.slug}`} className="group block">
+            <div className="relative rounded-3xl border border-white/8 bg-white/[0.03] overflow-hidden hover:border-green-500/25 transition-all duration-300 hover:bg-white/[0.05]">
 
-                            {/* Top accent line */}
-                            <div className="h-px w-full bg-gradient-to-r from-transparent via-green-500/40 to-transparent" />
+                {/* Top accent line */}
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-green-500/40 to-transparent" />
 
-                            <div className="grid md:grid-cols-2 gap-0">
-                                {/* Left — content */}
-                                <div className="p-8 md:p-12 flex flex-direction-col justify-between">
-                                    <div>
-                                        <div className="flex items-center gap-2 mb-6">
-                                            <span className="text-xs font-semibold uppercase tracking-widest text-green-400 px-2.5 py-1 rounded-full border border-green-500/20 bg-green-500/10">
-                                                Featured
-                                            </span>
-                                            {featuredPost.tags.map((t) => (
-                                                <span key={t} className="text-xs text-gray-500 px-2.5 py-1 rounded-full border border-white/8 bg-white/[0.03]">
-                                                    {t}
-                                                </span>
-                                            ))}
-                                        </div>
-                                        <h2 className="text-2xl md:text-3xl font-bold text-white leading-snug mb-4 group-hover:text-green-300 transition-colors">
-                                            {featuredPost.title}
-                                        </h2>
-                                        <p className="text-gray-500 leading-relaxed mb-8 text-sm">
-                                            {featuredPost.excerpt}
-                                        </p>
-                                    </div>
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-2 text-xs text-gray-600">
-                                            <span>{featuredPost.date}</span>
-                                            <span className="w-px h-3 bg-white/10" />
-                                            <Clock className="w-6 h-5" />
-                                            <span>{featuredPost.readTime}</span>
-                                        </div>
-                                        <div className="flex items-center gap-1.5 text-xs font-medium text-green-400 group-hover:gap-2.5 transition-all">
-                                            Read article <ArrowRight className="w-5 h-4" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Right — stat panel with PNG icon */}
-                                <div className="border-t md:border-t-0 md:border-l border-white/8 bg-white/[0.02] p-8 md:p-12 flex flex-col items-center justify-center text-center">
-                                    <div className="w-16 h-16 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-8">
-                                        <Image
-                                            src={`/blog-icons/${featuredPost.icon}`}
-                                            alt={featuredPost.title}
-                                            width={36}
-                                            height={36}
-                                            className="object-contain opacity-90"
-                                        />
-                                    </div>
-                                    <div className="font-mono text-6xl font-bold text-green-400 mb-3 leading-none">
-                                        {featuredPost.stat.value}
-                                    </div>
-                                    <div className="text-sm text-gray-500 max-w-[200px] leading-relaxed">
-                                        {featuredPost.stat.label}
-                                    </div>
+                <div className="grid md:grid-cols-2 gap-0">
+                    {/* Left — content */}
+                    {/* UPDATED: Fixed typo to `flex-col` and added `min-h-[320px]` to maintain spacing */}
+                    <div className="p-8 md:p-12 flex flex-col justify-between min-h-[320px] md:min-h-0">
+                        <div>
+                            {/* UPDATED: Added `flex-wrap` so tags don't push off-screen on small mobile */}
+                            <div className="flex flex-wrap items-center gap-2 mb-6">
+                                <span className="text-xs font-semibold uppercase tracking-widest text-green-400 px-2.5 py-1 rounded-full border border-green-500/20 bg-green-500/10 whitespace-nowrap">
+                                    Featured
+                                </span>
+                                {featuredPost.tags.map((t) => (
+                                    <span key={t} className="text-xs text-gray-500 px-2.5 py-1 rounded-full border border-white/8 bg-white/[0.03] whitespace-nowrap">
+                                        {t}
+                                    </span>
+                                ))}
+                            </div>
+                            <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-4 group-hover:text-green-300 transition-colors">
+                                {featuredPost.title}
+                            </h2>
+                            <p className="text-gray-500 leading-relaxed mb-8 text-sm">
+                                {featuredPost.excerpt}
+                            </p>
+                        </div>
+                        
+                        {/* Footer section inside left panel */}
+                        <div className="flex items-center justify-between mt-auto">
+                            <div className="flex items-center gap-2 text-xs text-gray-600">
+                                <span className="whitespace-nowrap">{featuredPost.date}</span>
+                                <span className="w-px h-3 bg-white/10" />
+                                <div className="flex items-center gap-1">
+                                    <Clock className="w-4 h-4" />
+                                    <span className="whitespace-nowrap">{featuredPost.readTime}</span>
                                 </div>
                             </div>
+                            <div className="flex items-center gap-1.5 text-xs font-medium text-green-400 group-hover:gap-2.5 transition-all">
+                                Read article <ArrowRight className="w-5 h-4" />
+                            </div>
                         </div>
-                    </Link>
-                </motion.div>
-            </section>
+                    </div>
+
+                    {/* Right — stat panel with PNG icon */}
+                    {/* UPDATED: Ensured `w-full` and consistent `items-center` for perfect mobile centering */}
+                    <div className="border-t md:border-t-0 md:border-l border-white/8 bg-white/[0.02] p-10 md:p-12 flex flex-col items-center justify-center text-center w-full">
+                        <div className="w-20 h-20 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-6">
+                            <Image
+                                src={`/blog-icons/${featuredPost.icon}`}
+                                alt={featuredPost.title}
+                                width={48} // Slightly larger for better mobile visibility
+                                height={48}
+                                className="object-contain opacity-90"
+                            />
+                        </div>
+                        <div className="font-mono text-6xl md:text-7xl font-bold text-green-400 mb-3 leading-none">
+                            {featuredPost.stat.value}
+                        </div>
+                        <div className="text-sm text-gray-500 max-w-[200px] leading-relaxed">
+                            {featuredPost.stat.label}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Link>
+    </motion.div>
+</section>
 
             {/* POSTS GRID */}
             <section className="px-6 pb-24 max-w-7xl mx-auto">
@@ -255,7 +277,7 @@ export default function BlogPage() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 + i * 0.07 }}
                         >
-                            <Link href={`/blog`} className="group block h-full">
+                            <Link href={`/blog/${post.slug}`} className="group block h-full">
                                 <article className="h-full flex flex-col rounded-2xl border border-white/8 bg-white/[0.03] overflow-hidden hover:border-green-500/25 hover:bg-white/[0.05] transition-all duration-300">
 
                                     {/* Thumb — PNG icon */}
@@ -339,6 +361,32 @@ export default function BlogPage() {
                 </motion.div>
             </section>
 
+            {/* FOOTER */}
+            <footer className="border-t border-white/10 px-6 py-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-6">
+                    <Link href="/" className="text-sm text-gray-600 hover:text-white transition-colors">Home</Link>
+                    <Link href="/blog" className="text-sm text-gray-600 hover:text-white transition-colors">Blog</Link>
+                    <Link href="/about" className="text-sm text-gray-600">About</Link>
+                    <a
+                    href="mailto:solcare.info@gmail.com"
+                    className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
+                    >
+                    <Mail className="w-6 h-5" />
+                    Get in Touch
+                    </a>
+                </div>
+                <div className="flex flex-col items-center gap-4">
+                      <button
+                        onClick={() => setIsTermsModalOpen(true)}
+                        className="text-gray-500 text-[10px] uppercase tracking-widest hover:text-white transition-colors cursor-pointer"
+                      >
+                        Terms & Conditions
+                      </button>
+                    </div>
+                <span className="text-xs text-gray-700">© 2026 SolCare. All rights reserved · Made in Aotearoa with ❤️</span>
+            </footer>
+                  
+            <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} />
         </main>
     );
 }
