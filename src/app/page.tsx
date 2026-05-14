@@ -9,6 +9,7 @@ import TermsModal from '../../components/TermsModal';
 import { useState } from 'react';
 import Link from 'next/link';
 import HeroImageCarousel from "../../components/HeroImageCarousel";
+import ServicePillars from '../../components/ServicePillars';
 
 const features = [
   "SolarPal - Your Personal Solar Companion",
@@ -55,7 +56,7 @@ export default function Home() {
 
       {/* Navbar */}
       <div className="relative z-50">
-        <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto">
+        <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto relative z-50">
           <div className="flex items-center gap-3">
             {/* 1. The Yellow Lightbulb Icon */}
             <div className="relative w-20 h-20 flex-shrink-0 -mt-20 -ml-10 -mr-12">
@@ -81,15 +82,18 @@ export default function Home() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-white p-2 md:hidden -mt-14 transition-all active:scale-95"
+            className="text-white p-2 md:hidden -mt-14 transition-all active:scale-100 relative z-[100]"
             aria-label="Toggle Mobile Menu"
+            
           >
             {isMenuOpen ? (
-              <X className="w-7 h-7" />
+              <X className="w-7 h-7 text-gray-400 hover:text-white" /> 
             ) : (
               <Menu className="w-7 h-7" />
             )}
           </button>
+
+          
 
           {/* Desktop Nav links */}
           <div className="hidden md:flex items-center gap-6">
@@ -115,32 +119,41 @@ export default function Home() {
           </div>
         </nav>
 
-        {/* Mobile Menu Panel */}
+        {/* Mobile Menu Panel & Backdrop */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-[45px] left-0 right-0 p-6 z-50 bg-[#121212]/95 backdrop-blur-md border-t border-b border-neutral-800 rounded-b-xl shadow-2xl flex flex-col gap-6 text-center animate-in fade-in slide-in-from-top-2 duration-200">
-            <Link
-              href="/blog"
-              className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+          <>
+            {/* 1. Transparent Backdrop to catch "clicks outside" */}
+            <div 
+              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] md:hidden" 
               onClick={() => setIsMenuOpen(false)}
-            >
-              Blog
-            </Link>
-            <Link
-              href="/about"
-              className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              About
-            </Link>
-            <a
-              href="mailto:solcare.info@gmail.com"
-              className="flex items-center justify-center gap-2 py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <Mail className="w-6 h-5" />
-              Get in Touch
-            </a>
-          </div>
+            />
+
+            {/* 2. Menu Panel */}
+            <div className="md:hidden absolute top-[45px] left-0 right-0 p-6 z-50 bg-[#0E0E0E]/95 backdrop-blur-xl border-t border-b border-neutral-800 rounded-b-2xl shadow-2xl flex flex-col gap-6 text-center animate-in fade-in slide-in-from-top-4 duration-300">
+              <Link
+                href="/blog"
+                className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Blog
+              </Link>
+              <Link
+                href="/about"
+                className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About
+              </Link>
+              <a
+                href="mailto:solcare.info@gmail.com"
+                className="flex items-center justify-center gap-2 py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <Mail className="w-6 h-5" />
+                Get in Touch
+              </a>
+            </div>
+          </>
         )}
       </div>
 
@@ -168,10 +181,9 @@ export default function Home() {
               transition={{ delay: 0.2 }}
               className="text-gray-400 text-lg md:text-xl mb-6 leading-relaxed"
             >
-              NZ's salt, pollen, and dust steal 10-30% of your solar output.
-              SolarPal, your AI companion that monitors your system around the clock,
-              forecasts the perfect time to clean, and books a vetted pro on your behalf.
-              All you need to do is confirm.
+              Protect and maximize your solar investment with SolCare.
+              We ensure that your solar panels operate at optimal effiency with our smart AI Powered
+              montoring, preventive maintenance and professional cleaning.
             </motion.p>
  
             {/* SolarPal intro pill */}
@@ -200,6 +212,8 @@ export default function Home() {
  
         </div>
       </section>
+
+      <ServicePillars/>
 
       {/* Solar Pal Feature Highlight Section */}
       <section className="px-6 py-20 max-w-7xl mx-auto">
@@ -374,8 +388,7 @@ export default function Home() {
       <section className="px-6 py-20 max-w-7xl mx-auto">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-3">What SolarPal actually sounds like</h2>
-            <p className="text-gray-500 text-sm">Real messages. Plain English. No fluff.</p>
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">Real notifications. Plain English. No fluff.</h2>
           </div>
 
           <div className="space-y-4">
@@ -506,7 +519,6 @@ export default function Home() {
       {/* FOOTER */}
             <footer className="px-6 py-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-6">
-                    <Link href="/" className="text-sm text-gray-600 hover:text-white transition-colors">Home</Link>
                     <Link href="/blog" className="text-sm text-gray-600 hover:text-white transition-colors">Blog</Link>
                     <Link href="/about" className="text-sm text-gray-600">About</Link>
                     <a
@@ -514,7 +526,7 @@ export default function Home() {
                     className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
                     >
                     <Mail className="w-6 h-5" />
-                    Get in Touch
+                    solcare.info@gmail.com
                     </a>
                 </div>
                 <div className="flex flex-col items-center gap-4">

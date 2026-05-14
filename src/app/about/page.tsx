@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Leaf, Zap, Shield, Heart, Mail, Menu, X } from "lucide-react";
-import { useState} from "react"
+import { useState } from "react"
 import TermsModal from '../../../components/TermsModal';
 
 const values = [
@@ -49,119 +49,130 @@ const commitments = [
 ];
 
 export default function AboutPage() {
-const [isMenuOpen, setIsMenuOpen] = useState(false)
-const [isTermsModalOpen, setIsTermsModalOpen] = useState(false); 
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
     return (
         <main className="min-h-screen bg-[#0A0A0A] text-white">
 
             {/* Navbar */}
-        <div className="relative z-50">
-            <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto">
-            <div className="flex items-center gap-3">
-                {/* 1. The Yellow Lightbulb Icon */}
-                <div className="relative w-20 h-20 flex-shrink-0 -mt-20 -ml-10 -mr-12">
-                <Image
-                    src="/icon.png"
-                    alt="SolCare Icon"
-                    fill
-                    className="object-contain drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]"
-                />
-                </div>
+            <div className="relative z-50">
+                <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto relative z-50">
+                    <div className="flex items-center gap-3">
+                        {/* 1. The Yellow Lightbulb Icon */}
+                        <div className="relative w-20 h-20 flex-shrink-0 -mt-20 -ml-10 -mr-12">
+                            <Image
+                                src="/icon.png"
+                                alt="SolCare Icon"
+                                fill
+                                className="object-contain drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]"
+                            />
+                        </div>
 
-                {/* 2. The "SolCare." Text */}
-                <div className="relative w-55 h-55 -mt-15">
-                <Image
-                    src="/solcare.png"
-                    alt="SolCare Logo"
-                    fill
-                    className="object-contain invert brightness-200"
-                />
-                </div>
-            </div>
+                        {/* 2. The "SolCare." Text */}
+                        <div className="relative w-55 h-55 -mt-15">
+                            <Image
+                                src="/solcare.png"
+                                alt="SolCare Logo"
+                                fill
+                                className="object-contain invert brightness-200"
+                            />
+                        </div>
+                    </div>
 
-            {/* Mobile Menu Button */}
-            <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-white p-2 md:hidden -mt-14 transition-all active:scale-95"
-                aria-label="Toggle Mobile Menu"
-            >
-                {isMenuOpen ? (
-                <X className="w-7 h-7" />
-                ) : (
-                <Menu className="w-7 h-7" />
+                    {/* Mobile Menu Button */}
+                    <button
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        className="text-white p-2 md:hidden -mt-14 transition-all active:scale-100 relative z-[100]"
+                        aria-label="Toggle Mobile Menu"
+
+                    >
+                        {isMenuOpen ? (
+                            <X className="w-7 h-7 text-gray-400 hover:text-white" />
+                        ) : (
+                            <Menu className="w-7 h-7" />
+                        )}
+                    </button>
+
+
+
+                    {/* Desktop Nav links */}
+                    <div className="hidden md:flex items-center gap-6">
+                        <Link
+                            href="/"
+                            className="text-m text-gray-400 hover:text-white transition-colors"
+                        >
+                            Home
+                        </Link>
+                        <Link
+                            href="/blog"
+                            className="text-m text-gray-400 hover:text-white transition-colors"
+                        >
+                            Blog
+                        </Link>
+                        <Link
+                            href="/about"
+                            className="text-m text-gray-400 hover:text-white transition-colors"
+                        >
+                            About
+                        </Link>
+                        <a
+                            href="mailto:solcare.info@gmail.com"
+                            className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
+                        >
+                            <Mail className="w-6 h-5" />
+                            Get in Touch
+                        </a>
+                    </div>
+                </nav>
+
+                {/* Mobile Menu Panel & Backdrop */}
+                {isMenuOpen && (
+                    <>
+                        {/* 1. Transparent Backdrop to catch "clicks outside" */}
+                        <div
+                            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] md:hidden"
+                            onClick={() => setIsMenuOpen(false)}
+                        />
+
+                        {/* 2. Menu Panel */}
+                        <div className="md:hidden absolute top-[45px] left-0 right-0 p-6 z-50 bg-[#0E0E0E]/95 backdrop-blur-xl border-t border-b border-neutral-800 rounded-b-2xl shadow-2xl flex flex-col gap-6 text-center animate-in fade-in slide-in-from-top-4 duration-300">
+                            <Link
+                            href="/"
+                            className="text-m text-gray-400 hover:text-white transition-colors"
+                            >
+                                Home
+                            </Link>
+                            <Link
+                                href="/blog"
+                                className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                Blog
+                            </Link>
+                            <Link
+                                href="/about"
+                                className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                About
+                            </Link>
+                            <a
+                                href="mailto:solcare.info@gmail.com"
+                                className="flex items-center justify-center gap-2 py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                <Mail className="w-6 h-5" />
+                                Get in Touch
+                            </a>
+                        </div>
+                    </>
                 )}
-            </button>
-
-            {/* Desktop Nav links */}
-            <div className="hidden md:flex items-center gap-6">
-                <Link
-                href="/"
-                className="text-m text-gray-400 hover:text-white transition-colors"
-                >
-                Home
-                </Link>
-                <Link
-                href="/blog"
-                className="text-m text-gray-400 hover:text-white transition-colors"
-                >
-                Blog
-                </Link>
-                <Link
-                href="/about"
-                className="text-m text-gray-400 hover:text-white transition-colors"
-                >
-                About
-                </Link>
-                <a
-                href="mailto:solcare.info@gmail.com"
-                className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
-                >
-                <Mail className="w-6 h-5" />
-                Get in Touch
-                </a>
             </div>
-            </nav>
-
-            {/* Mobile Menu Panel */}
-            {isMenuOpen && (
-            <div className="md:hidden absolute top-[45px] left-0 right-0 p-6 z-50 bg-[#121212]/95 backdrop-blur-md border-t border-b border-neutral-800 rounded-b-xl shadow-2xl flex flex-col gap-6 text-center animate-in fade-in slide-in-from-top-2 duration-200">
-                <Link
-                href="/"
-                className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
-                onClick={() => setIsMenuOpen(false)}
-                >
-                Home
-                </Link>
-                <Link
-                href="/blog"
-                className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
-                onClick={() => setIsMenuOpen(false)}
-                >
-                Blog
-                </Link>
-                <Link
-                href="/about"
-                className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
-                onClick={() => setIsMenuOpen(false)}
-                >
-                About
-                </Link>
-                <a
-                href="mailto:solcare.info@gmail.com"
-                className="flex items-center justify-center gap-2 py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
-                onClick={() => setIsMenuOpen(false)}
-                >
-                <Mail className="w-6 h-5" />
-                Get in Touch
-                </a>
-            </div>
-            )}
-        </div>
 
             {/* HERO */}
             <section className="px-6 pt-20 pb-20 max-w-7xl mx-auto">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
- 
+
                     {/* LEFT — heading and copy */}
                     <motion.div
                         initial={{ opacity: 0, y: 24 }}
@@ -173,7 +184,7 @@ const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
                             <span className="text-xs font-medium text-green-400 tracking-wide uppercase">About SolCare</span>
                         </div>
                         <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 tracking-tight">
-                            Solar that works{" "}<br/>
+                            Solar that works{" "}<br />
                             <span className="text-green-400 italic">for you.</span>
                             <br />Not the other way around.
                         </h1>
@@ -182,7 +193,7 @@ const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
                             We built SolarPal to fix that. It works quietly in the background, without asking anything of you.
                         </p>
                     </motion.div>
- 
+
                     {/* RIGHT — single image */}
                     <motion.div
                         initial={{ opacity: 0, x: 24 }}
@@ -191,7 +202,7 @@ const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
                         className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border border-white/8"
                     >
                         <Image
-                            src="/aboutHero.jpg" 
+                            src="/aboutHero.jpg"
                             alt="Solar panels on a New Zealand home"
                             fill
                             className="object-cover"
@@ -199,10 +210,10 @@ const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                     </motion.div>
- 
+
                 </div>
             </section>
- 
+
             {/* ACCENT LINE */}
             <div className="max-w-7xl mx-auto px-6">
                 <div className="h-px w-full bg-gradient-to-r from-transparent via-green-500/30 to-transparent" />
@@ -225,11 +236,11 @@ const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
                         </h2>
                         <div className="space-y-4 text-gray-400 leading-relaxed text-[15px]">
                             <p>
-                                The idea for SolCare came from a familiar story. A homeowner notices their power bill hasn't dropped as much as expected. They call their installer, 
+                                The idea for SolCare came from a familiar story. A homeowner notices their power bill hasn't dropped as much as expected. They call their installer,
                                 the installer checks the panels and sees they are soiled, they have been for months. Hundreds of dollars in output gone.
                             </p>
                             <p>
-                                There was no alert. No notification. No other way to know without climbing on the roof to inspect. 
+                                There was no alert. No notification. No other way to know without climbing on the roof to inspect.
                                 The system kept running, just quietly underperforming month after month.
                             </p>
                             <p>
@@ -275,7 +286,7 @@ const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
                             Make every solar system perform at its absolute best and give something back for every kilowatt it generates.
                         </h2>
                         <p className="text-gray-400 leading-relaxed text-[15px]">
-                            We believe the homeowners who invest in solar deserve more than a one time install. They deserve ongoing intelligence, effortless maintenance, 
+                            We believe the homeowners who invest in solar deserve more than a one time install. They deserve ongoing intelligence, effortless maintenance,
                             and the knowledge that their system is doing everything it possibly can, both for their wallet and for the environment.
                         </p>
                     </div>
@@ -329,7 +340,7 @@ const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
                                 New Zealand's electricity grid runs on roughly 85% renewable energy, one of the highest rates in the world! That means every kWh your solar system generates is genuinely displacing fossil fuel generation somewhere in the mix, even if modestly.
                             </p>
                             <p>
-                                Through the Impact Club, SolCare turns that displacement into something tangible. For every 1kg of CO₂ your system offsets, we donate $1 to a reforestation project in New Zealand or the Pacific. 
+                                Through the Impact Club, SolCare turns that displacement into something tangible. For every 1kg of CO₂ your system offsets, we donate $1 to a reforestation project in New Zealand or the Pacific.
                                 You choose the project. We handle the donation. Nothing comes out of your pocket.
                             </p>
                             <p>
@@ -476,21 +487,21 @@ const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
                     <Link href="/blog" className="text-sm text-gray-600 hover:text-white transition-colors">Blog</Link>
                     <Link href="/about" className="text-sm text-gray-600">About</Link>
                     <a
-                    href="mailto:solcare.info@gmail.com"
-                    className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
+                        href="mailto:solcare.info@gmail.com"
+                        className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
                     >
-                    <Mail className="w-6 h-5" />
-                    Get in Touch
+                        <Mail className="w-6 h-5" />
+                        Get in Touch
                     </a>
                 </div>
                 <div className="flex flex-col items-center gap-4">
-                      <button
+                    <button
                         onClick={() => setIsTermsModalOpen(true)}
                         className="text-gray-500 text-[10px] uppercase tracking-widest hover:text-white transition-colors cursor-pointer"
-                      >
+                    >
                         Terms & Conditions
-                      </button>
-                    </div>
+                    </button>
+                </div>
                 <span className="text-xs text-gray-700">© 2026 SolCare. All rights reserved · Made in Aotearoa with ❤️</span>
             </footer>
 
