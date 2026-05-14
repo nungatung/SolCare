@@ -31,6 +31,10 @@ export const metadata: Metadata = {
     icon: '/icon.ico',
   },
   
+  verification: {
+    google: "okv5WvteSCWiHk0FYJq3x4yxnRtN_CvLfUoF71H3u-M"
+  },
+  
   robots: {
     index: true,
     follow: true,
