@@ -84,16 +84,16 @@ export default function Home() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="text-white p-2 md:hidden -mt-14 transition-all active:scale-100 relative z-[100]"
             aria-label="Toggle Mobile Menu"
-            
+
           >
             {isMenuOpen ? (
-              <X className="w-7 h-7 text-gray-400 hover:text-white" /> 
+              <X className="w-7 h-7 text-gray-400 hover:text-white" />
             ) : (
               <Menu className="w-7 h-7" />
             )}
           </button>
 
-          
+
 
           {/* Desktop Nav links */}
           <div className="hidden md:flex items-center gap-6">
@@ -123,8 +123,8 @@ export default function Home() {
         {isMenuOpen && (
           <>
             {/* 1. Transparent Backdrop to catch "clicks outside" */}
-            <div 
-              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] md:hidden" 
+            <div
+              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] md:hidden"
               onClick={() => setIsMenuOpen(false)}
             />
 
@@ -160,7 +160,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="px-6 pt-20 pb-32 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
- 
+
           {/* LEFT — heading, copy, form */}
           <div className="flex flex-col items-start">
             <motion.h1
@@ -174,7 +174,7 @@ export default function Home() {
                 On Autopilot.
               </span>
             </motion.h1>
- 
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -185,7 +185,7 @@ export default function Home() {
               We ensure that your solar panels operate at optimal effiency with our smart AI Powered
               montoring, preventive maintenance and professional cleaning.
             </motion.p>
- 
+
             {/* SolarPal intro pill */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -196,7 +196,7 @@ export default function Home() {
               <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
               Powered by SolarPal, your AI solar companion
             </motion.div>
- 
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -206,14 +206,14 @@ export default function Home() {
               <WaitlistForm />
             </motion.div>
           </div>
- 
+
           {/* RIGHT — auto-scrolling image stack */}
           <HeroImageCarousel />
- 
+
         </div>
       </section>
 
-      <ServicePillars/>
+      <ServicePillars />
 
       {/* Solar Pal Feature Highlight Section */}
       <section className="px-6 py-20 max-w-7xl mx-auto">
@@ -517,28 +517,28 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-            <footer className="px-6 py-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-6">
-                    <Link href="/blog" className="text-sm text-gray-600 hover:text-white transition-colors">Blog</Link>
-                    <Link href="/about" className="text-sm text-gray-600">About</Link>
-                    <a
-                    href="mailto:solcare.info@gmail.com"
-                    className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
-                    >
-                    <Mail className="w-6 h-5" />
-                    solcare.info@gmail.com
-                    </a>
-                </div>
-                <div className="flex flex-col items-center gap-4">
-                      <button
-                        onClick={() => setIsTermsModalOpen(true)}
-                        className="text-gray-500 text-[10px] uppercase tracking-widest hover:text-white transition-colors cursor-pointer"
-                      >
-                        Terms & Conditions
-                      </button>
-                    </div>
-                <span className="text-xs text-gray-700">© 2026 SolCare. All rights reserved · Made in Aotearoa with ❤️</span>
-            </footer>
+      <footer className="px-6 py-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-6">
+          <Link href="/blog" className="text-sm text-gray-600 hover:text-white transition-colors">Blog</Link>
+          <Link href="/about" className="text-sm text-gray-600">About</Link>
+          <a
+            href="mailto:solcare.info@gmail.com"
+            className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
+          >
+            <Mail className="w-6 h-5" />
+            solcare.info@gmail.com
+          </a>
+        </div>
+        <div className="flex flex-col items-center gap-4">
+          <button
+            onClick={() => setIsTermsModalOpen(true)}
+            className="text-gray-500 text-[10px] uppercase tracking-widest hover:text-white transition-colors cursor-pointer"
+          >
+            Terms & Conditions
+          </button>
+        </div>
+        <span className="text-xs text-gray-700">© 2026 SolCare. All rights reserved · Made in Aotearoa with ❤️</span>
+      </footer>
 
       <ImpactModal isOpen={isImpactModalOpen} onClose={() => setIsImpactModalOpen(false)} />
       <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} />
