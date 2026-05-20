@@ -10,6 +10,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import HeroImageCarousel from "../../components/HeroImageCarousel";
 import ServicePillars from '../../components/ServicePillars';
+import SolarPal from "../../components/SolarPal";
 
 const features = [
   "SolarPal - Your Personal Solar Companion",
@@ -160,6 +161,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="px-6 pt-20 pb-32 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
+          
 
           {/* LEFT — heading, copy, form */}
           <div className="flex flex-col items-start">
@@ -174,6 +176,7 @@ export default function Home() {
                 On Autopilot.
               </span>
             </motion.h1>
+
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -222,6 +225,17 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-yellow-400 text-xs font-bold uppercase tracking-widest mb-6">
               Meet SolarPal
             </div>
+
+            {/* SolarPal character — sits between heading and body copy */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 120 }}
+              className="mb-4 -ml-2 flex items-center justify-center"
+            >
+              <SolarPal state="idle" size={200} />
+            </motion.div>
+
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               The AI that talks to your roof.
             </h2>
