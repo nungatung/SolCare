@@ -1,17 +1,28 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
-import Image from 'next/image';
+import Image from "next/image";
 import { ArrowRight, Clock, Leaf, Zap, CloudRain, Sun, Mail, Menu, X } from "lucide-react";
 import { useState } from "react";
-import TermsModal from '../../../components/TermsModal';
+import TermsModal from "../../../components/TermsModal";
 
+// ── Animation system ──────────────────────────────────────────────────────────
+const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
+
+const fadeUp: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number = 0) => ({
+        opacity: 1, y: 0,
+        transition: { duration: 0.55, delay: i * 0.07, ease: EASE },
+    }),
+};
+
+// ── Data ──────────────────────────────────────────────────────────────────────
 const featuredPost = {
     slug: "dirty-panels",
     title: "What dirty panels are actually costing you",
-    excerpt:
-        "Most NZ homeowners have no idea their solar system is underperforming. Here's what the data says and what a single clean could recover.",
+    excerpt: "Most NZ homeowners have no idea their solar system is underperforming. Here's what the data says and what a single clean could recover.",
     category: "Maintenance",
     tags: ["NZ Solar", "Performance"],
     date: "May 2026",
@@ -24,8 +35,7 @@ const posts = [
     {
         slug: "solar-output",
         title: "How NZ's weather patterns affect your solar output",
-        excerpt:
-            "Auckland winters, Wellington winds. Your location shapes your system's behaviour more than most installers tell you.",
+        excerpt: "Auckland winters, Wellington winds. Your location shapes your system's behaviour more than most installers tell you.",
         category: "Weather",
         tags: ["NZ Solar", "Weather"],
         date: "April 2026",
@@ -43,163 +53,167 @@ const categoryIcons: Record<string, React.ReactNode> = {
     Weather: <CloudRain className="w-3 h-3" />,
 };
 
+const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/blog", label: "Blog" },
+    { href: "/about", label: "About" },
+];
 
+// ── Component ─────────────────────────────────────────────────────────────────
 export default function BlogPage() {
     const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [activeCategory, setActiveCategory] = useState("All");
+
+    const filteredPosts = activeCategory === "All"
+        ? posts
+        : posts.filter(p => p.category === activeCategory);
+
     return (
-        <main className="min-h-screen bg-[#0A0A0A] text-white">
+        <main className="min-h-screen bg-[#0D0D0B] text-[#F5F0E8] selection:bg-[#F5A623] selection:text-black overflow-x-hidden">
 
-            {/* Navbar */}
+            {/* Grain */}
+            <div
+                className="pointer-events-none fixed inset-0 z-0 opacity-[0.025]"
+                style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+                    backgroundSize: "128px 128px",
+                }}
+            />
+
+            {/* ── NAVBAR ─────────────────────────────────────────────────────────── */}
             <div className="relative z-50">
-                <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto relative z-50">
+                <nav className="px-6 py-5 flex justify-between items-center max-w-7xl mx-auto">
                     <div className="flex items-center gap-3">
-                        {/* 1. The Yellow Lightbulb Icon */}
-                        <div className="relative w-20 h-20 flex-shrink-0 -mt-20 -ml-10 -mr-12">
-                            <Image
-                                src="/icon.png"
-                                alt="SolCare Icon"
-                                fill
-                                className="object-contain drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]"
-                            />
+                        <div className="relative w-25 h-25 flex-shrink-0 -mt-22 -ml-10 -mr-16">
+                            <Image src="/icon.png" alt="SolCare Icon" fill className="object-contain drop-shadow-[0_0_18px_rgba(245,166,35,0.55)]" />
                         </div>
-
-                        {/* 2. The "SolCare." Text */}
-                        <div className="relative w-55 h-55 -mt-15">
-                            <Image
-                                src="/solcare.png"
-                                alt="SolCare Logo"
-                                fill
-                                className="object-contain invert brightness-200"
-                            />
+                        <div className="relative w-70 h-70 -mt-15">
+                            <Image src="/solcare.png" alt="SolCare Logo" fill className="object-contain invert brightness-200" />
                         </div>
                     </div>
 
-                    {/* Mobile Menu Button */}
                     <button
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className="text-white p-2 md:hidden -mt-14 transition-all active:scale-100 relative z-[100]"
-                        aria-label="Toggle Mobile Menu"
-
+                        className="md:hidden -mt-14 w-9 h-9 flex items-center justify-center relative z-[100] cursor-pointer"
+                        style={{ color: "#A09D96" }}
+                        aria-label="Toggle menu"
                     >
-                        {isMenuOpen ? (
-                            <X className="w-7 h-7 text-gray-400 hover:text-white" />
-                        ) : (
-                            <Menu className="w-7 h-7" />
-                        )}
+                        {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-6 h-6" />}
                     </button>
 
-
-
-                    {/* Desktop Nav links */}
-                    <div className="hidden md:flex items-center gap-6">
-                        <Link
-                            href="/"
-                            className="text-m text-gray-400 hover:text-white transition-colors"
+                    <div className="hidden md:flex items-center gap-7">
+                        {navLinks.map(({ href, label }) => (
+                            <Link
+                                key={href}
+                                href={href}
+                                className="text-sm font-medium transition-colors duration-200"
+                                style={{ color: href === "/blog" ? "#F5F0E8" : "#A09D96" }}
                             >
-                                Home
+                                {label}
                             </Link>
-                        <Link
-                            href="/blog"
-                            className="text-m text-gray-400 hover:text-white transition-colors"
-                        >
-                            Blog
-                        </Link>
-                        <Link
-                            href="/about"
-                            className="text-m text-gray-400 hover:text-white transition-colors"
-                        >
-                            About
-                        </Link>
+                        ))}
                         <a
                             href="mailto:solcare.info@gmail.com"
-                            className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
+                            className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors duration-200"
+                            style={{ color: "#A09D96" }}
                         >
-                            <Mail className="w-6 h-5" />
+                            <Mail className="w-3.5 h-3.5" />
                             Get in Touch
                         </a>
                     </div>
                 </nav>
 
-                {/* Mobile Menu Panel & Backdrop */}
-                {isMenuOpen && (
-                    <>
-                        {/* 1. Transparent Backdrop to catch "clicks outside" */}
-                        <div
-                            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] md:hidden"
-                            onClick={() => setIsMenuOpen(false)}
-                        />
-
-                        {/* 2. Menu Panel */}
-                        <div className="md:hidden absolute top-[45px] left-0 right-0 p-6 z-50 bg-[#0E0E0E]/95 backdrop-blur-xl border-t border-b border-neutral-800 rounded-b-2xl shadow-2xl flex flex-col gap-6 text-center animate-in fade-in slide-in-from-top-4 duration-300">
-                            <Link
-                            href="/"
-                            className="text-m text-gray-400 hover:text-white transition-colors"
-                            >
-                                Home
-                            </Link>
-                            <Link
-                                href="/blog"
-                                className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
+                <AnimatePresence>
+                    {isMenuOpen && (
+                        <>
+                            <motion.div
+                                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                                transition={{ duration: 0.18 }}
+                                className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
                                 onClick={() => setIsMenuOpen(false)}
+                            />
+                            <motion.div
+                                initial={{ opacity: 0, y: -8, scale: 0.98 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                                transition={{ duration: 0.22, ease: EASE }}
+                                className="md:hidden absolute top-[52px] left-4 right-4 z-50 rounded-2xl shadow-2xl overflow-hidden"
+                                style={{ border: "1px solid rgba(255,250,235,0.1)", background: "rgba(26,26,22,0.98)" }}
                             >
-                                Blog
-                            </Link>
-                            <Link
-                                href="/about"
-                                className="py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                About
-                            </Link>
-                            <a
-                                href="mailto:solcare.info@gmail.com"
-                                className="flex items-center justify-center gap-2 py-2 text-lg text-gray-400 hover:text-white transition-colors font-medium"
-                                onClick={() => setIsMenuOpen(false)}
-                            >
-                                <Mail className="w-6 h-5" />
-                                Get in Touch
-                            </a>
-                        </div>
-                    </>
-                )}
+                                <div className="flex flex-col py-2">
+                                    {navLinks.map(({ href, label }) => (
+                                        <Link
+                                            key={href}
+                                            href={href}
+                                            onClick={() => setIsMenuOpen(false)}
+                                            className="px-5 py-3.5 text-sm font-medium transition-colors"
+                                            style={{ color: href === "/blog" ? "#F5F0E8" : "#A09D96" }}
+                                        >
+                                            {label}
+                                        </Link>
+                                    ))}
+                                    <div className="mx-4 my-1 h-px" style={{ background: "rgba(255,250,235,0.07)" }} />
+                                    <a
+                                        href="mailto:solcare.info@gmail.com"
+                                        onClick={() => setIsMenuOpen(false)}
+                                        className="px-5 py-3.5 text-sm font-medium flex items-center gap-2"
+                                        style={{ color: "#A09D96" }}
+                                    >
+                                        <Mail className="w-3.5 h-3.5" style={{ color: "#22C38E" }} />
+                                        Get in Touch
+                                    </a>
+                                </div>
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>
             </div>
 
-            {/* HERO */}
-            <section className="px-6 pt-24 pb-16 max-w-7xl mx-auto">
+            {/* ── HERO ───────────────────────────────────────────────────────────── */}
+            <section className="relative px-6 pt-20 pb-14 max-w-7xl mx-auto">
+                <div className="pointer-events-none absolute top-0 left-0 w-96 h-64 rounded-full blur-[100px] -translate-x-1/3 -translate-y-1/2" style={{ background: "rgba(34,195,142,0.05)" }} />
                 <motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="max-w-2xl"
+                    variants={fadeUp}
+                    initial="hidden"
+                    animate="visible"
+                    className="relative max-w-2xl"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-green-500/20 bg-green-500/8 mb-6">
-                        <Leaf className="w-3 h-3 text-green-400" />
-                        <span className="text-xs font-medium text-green-400 tracking-wide uppercase">SolCare Blog</span>
+                    <div
+                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-6 text-xs font-semibold tracking-[0.06em] uppercase"
+                        style={{ border: "1px solid rgba(34,195,142,0.22)", background: "rgba(34,195,142,0.08)", color: "#22C38E" }}
+                    >
+                        <Leaf className="w-3 h-3" />
+                        SolCare Blog
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4 tracking-tight">
-                        Solar knowledge,<br />
-                        <span className="text-green-400">built for NZ solar owners</span>
+                    <h1 className="text-4xl sm:text-5xl font-bold leading-[1.1] tracking-[-0.02em] mb-4">
+                        Solar knowledge,
+                        <br />
+                        <span style={{ color: "#22C38E" }}>built for NZ solar owners</span>
                     </h1>
-                    <p className="text-gray-500 text-lg leading-relaxed">
-                        Data backed guides on getting the most from your solar system. Performance, preventive maintenance, and environmental impact.
+                    <p className="text-lg leading-[1.75]" style={{ color: "#A09D96" }}>
+                        Data-backed guides on getting the most from your solar system. Performance, preventive maintenance, and environmental impact.
                     </p>
                 </motion.div>
             </section>
 
-            {/* CATEGORY FILTER */}
+            {/* ── CATEGORY FILTER ────────────────────────────────────────────────── */}
             <section className="px-6 pb-10 max-w-7xl mx-auto">
                 <div className="flex gap-2 flex-wrap">
                     {categories.map((cat, i) => (
                         <motion.button
                             key={cat}
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.05 }}
-                            className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium border transition-all ${cat === "All"
-                                ? "bg-green-500 border-green-500 text-black"
-                                : "border-white/10 text-gray-400 hover:border-green-500/30 hover:text-green-400 bg-white/[0.03]"
-                                }`}
+                            variants={fadeUp}
+                            initial="hidden"
+                            animate="visible"
+                            custom={i}
+                            onClick={() => setActiveCategory(cat)}
+                            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer"
+                            style={
+                                cat === activeCategory
+                                    ? { background: "linear-gradient(135deg, #4FDBA8, #22C38E)", color: "#000", border: "1px solid transparent" }
+                                    : { background: "rgba(255,250,235,0.03)", border: "1px solid rgba(255,250,235,0.1)", color: "#A09D96" }
+                            }
                         >
                             {categoryIcons[cat] ?? null}
                             {cat}
@@ -208,75 +222,93 @@ export default function BlogPage() {
                 </div>
             </section>
 
-            {/* FEATURED POST */}
-            <section className="px-6 pb-12 max-w-7xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                >
+            {/* ── FEATURED POST ──────────────────────────────────────────────────── */}
+            <section className="px-6 pb-10 max-w-7xl mx-auto">
+                <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={1}>
                     <Link href={`/blog/${featuredPost.slug}`} className="group block">
-                        <div className="relative rounded-3xl border border-white/8 bg-white/[0.03] overflow-hidden hover:border-green-500/25 transition-all duration-300 hover:bg-white/[0.05]">
+                        <div
+                            className="relative rounded-[28px] overflow-hidden transition-all duration-300"
+                            style={{ border: "1px solid rgba(255,250,235,0.08)", background: "rgba(255,250,235,0.02)" }}
+                            onMouseEnter={e => {
+                                (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(34,195,142,0.28)";
+                                (e.currentTarget as HTMLDivElement).style.background = "rgba(255,250,235,0.035)";
+                            }}
+                            onMouseLeave={e => {
+                                (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,250,235,0.08)";
+                                (e.currentTarget as HTMLDivElement).style.background = "rgba(255,250,235,0.02)";
+                            }}
+                        >
+                            {/* Top accent */}
+                            <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(34,195,142,0.4), transparent)" }} />
 
-                            {/* Top accent line */}
-                            <div className="h-px w-full bg-gradient-to-r from-transparent via-green-500/40 to-transparent" />
-
-                            <div className="grid md:grid-cols-2 gap-0">
+                            <div className="grid md:grid-cols-2">
                                 {/* Left — content */}
-                                {/* UPDATED: Fixed typo to `flex-col` and added `min-h-[320px]` to maintain spacing */}
-                                <div className="p-8 md:p-12 flex flex-col justify-between min-h-[320px] md:min-h-0">
+                                <div className="p-8 sm:p-10 md:p-12 flex flex-col justify-between min-h-[280px] md:min-h-0">
                                     <div>
-                                        {/* UPDATED: Added `flex-wrap` so tags don't push off-screen on small mobile */}
-                                        <div className="flex flex-wrap items-center gap-2 mb-6">
-                                            <span className="text-xs font-semibold uppercase tracking-widest text-green-400 px-2.5 py-1 rounded-full border border-green-500/20 bg-green-500/10 whitespace-nowrap">
+                                        <div className="flex flex-wrap items-center gap-2 mb-5">
+                                            <span
+                                                className="text-[10px] font-bold uppercase tracking-[0.08em] px-2.5 py-1 rounded-full"
+                                                style={{ color: "#22C38E", background: "rgba(34,195,142,0.1)", border: "1px solid rgba(34,195,142,0.2)" }}
+                                            >
                                                 Featured
                                             </span>
                                             {featuredPost.tags.map((t) => (
-                                                <span key={t} className="text-xs text-gray-500 px-2.5 py-1 rounded-full border border-white/8 bg-white/[0.03] whitespace-nowrap">
+                                                <span
+                                                    key={t}
+                                                    className="text-[10px] font-medium px-2.5 py-1 rounded-full whitespace-nowrap"
+                                                    style={{ color: "#6B6860", border: "1px solid rgba(255,250,235,0.08)", background: "rgba(255,250,235,0.03)" }}
+                                                >
                                                     {t}
                                                 </span>
                                             ))}
                                         </div>
-                                        <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight mb-4 group-hover:text-green-300 transition-colors">
+                                        <h2
+                                            className="text-2xl sm:text-3xl font-bold leading-snug tracking-[-0.02em] mb-4 transition-colors duration-200"
+                                            style={{ color: "#F5F0E8" }}
+                                        >
                                             {featuredPost.title}
                                         </h2>
-                                        <p className="text-gray-500 leading-relaxed mb-8 text-sm">
+                                        <p className="text-sm leading-relaxed mb-6" style={{ color: "#A09D96" }}>
                                             {featuredPost.excerpt}
                                         </p>
                                     </div>
-
-                                    {/* Footer section inside left panel */}
                                     <div className="flex items-center justify-between mt-auto">
-                                        <div className="flex items-center gap-2 text-xs text-gray-600">
-                                            <span className="whitespace-nowrap">{featuredPost.date}</span>
-                                            <span className="w-px h-3 bg-white/10" />
-                                            <div className="flex items-center gap-1">
-                                                <Clock className="w-4 h-4" />
-                                                <span className="whitespace-nowrap">{featuredPost.readTime}</span>
-                                            </div>
+                                        <div className="flex items-center gap-2 text-xs" style={{ color: "#6B6860" }}>
+                                            <span>{featuredPost.date}</span>
+                                            <span className="w-px h-3" style={{ background: "rgba(255,250,235,0.1)" }} />
+                                            <Clock className="w-3.5 h-3.5" />
+                                            <span>{featuredPost.readTime}</span>
                                         </div>
-                                        <div className="flex items-center gap-1.5 text-xs font-medium text-green-400 group-hover:gap-2.5 transition-all">
-                                            Read article <ArrowRight className="w-5 h-4" />
+                                        <div
+                                            className="flex items-center gap-1.5 text-xs font-semibold transition-all duration-200 group-hover:gap-2.5"
+                                            style={{ color: "#22C38E" }}
+                                        >
+                                            Read article <ArrowRight className="w-3.5 h-3.5" />
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* Right — stat panel with PNG icon */}
-                                {/* UPDATED: Ensured `w-full` and consistent `items-center` for perfect mobile centering */}
-                                <div className="border-t md:border-t-0 md:border-l border-white/8 bg-white/[0.02] p-10 md:p-12 flex flex-col items-center justify-center text-center w-full">
-                                    <div className="w-20 h-20 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center mb-6">
+                                {/* Right — stat panel */}
+                                <div
+                                    className="border-t md:border-t-0 md:border-l p-8 sm:p-10 md:p-12 flex flex-col items-center justify-center text-center"
+                                    style={{ borderColor: "rgba(255,250,235,0.07)", background: "rgba(255,250,235,0.015)" }}
+                                >
+                                    <div
+                                        className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
+                                        style={{ background: "rgba(34,195,142,0.1)", border: "1px solid rgba(34,195,142,0.2)" }}
+                                    >
                                         <Image
                                             src={`/blog-icons/${featuredPost.icon}`}
                                             alt={featuredPost.title}
-                                            width={48} // Slightly larger for better mobile visibility
-                                            height={48}
+                                            width={40}
+                                            height={40}
                                             className="object-contain opacity-90"
                                         />
                                     </div>
-                                    <div className="font-mono text-6xl md:text-7xl font-bold text-green-400 mb-3 leading-none">
+                                    <div className="font-mono text-6xl sm:text-7xl font-bold leading-none mb-3" style={{ color: "#22C38E" }}>
                                         {featuredPost.stat.value}
                                     </div>
-                                    <div className="text-sm text-gray-500 max-w-[200px] leading-relaxed">
+                                    <div className="text-sm max-w-[180px] leading-relaxed" style={{ color: "#6B6860" }}>
                                         {featuredPost.stat.label}
                                     </div>
                                 </div>
@@ -286,128 +318,185 @@ export default function BlogPage() {
                 </motion.div>
             </section>
 
-            {/* POSTS GRID */}
-            <section className="px-6 pb-24 max-w-7xl mx-auto">
-                <div className="flex items-baseline justify-between mb-8">
-                    <h2 className="text-sm font-semibold uppercase tracking-widest text-gray-600">All articles</h2>
-                    <span className="text-xs text-gray-700">{posts.length} articles</span>
+            {/* ── POSTS GRID ─────────────────────────────────────────────────────── */}
+            <section className="px-6 pb-20 max-w-7xl mx-auto">
+                <div className="flex items-baseline justify-between mb-7">
+                    <h2 className="text-xs font-semibold uppercase tracking-[0.1em]" style={{ color: "#6B6860" }}>
+                        All articles
+                    </h2>
+                    <span className="text-xs" style={{ color: "#3D3D38" }}>
+                        {filteredPosts.length} {filteredPosts.length === 1 ? "article" : "articles"}
+                    </span>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {posts.map((post, i) => (
-                        <motion.div
-                            key={post.slug}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 + i * 0.07 }}
-                        >
-                            <Link href={`/blog/${post.slug}`} className="group block h-full">
-                                <article className="h-full flex flex-col rounded-2xl border border-white/8 bg-white/[0.03] overflow-hidden hover:border-green-500/25 hover:bg-white/[0.05] transition-all duration-300">
+                {filteredPosts.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {filteredPosts.map((post, i) => (
+                            <motion.div
+                                key={post.slug}
+                                variants={fadeUp}
+                                initial="hidden"
+                                animate="visible"
+                                custom={i}
+                            >
+                                <Link href={`/blog/${post.slug}`} className="group block h-full">
+                                    <article
+                                        className="h-full flex flex-col rounded-2xl overflow-hidden transition-all duration-300"
+                                        style={{ border: "1px solid rgba(255,250,235,0.07)", background: "rgba(255,250,235,0.02)" }}
+                                        onMouseEnter={e => {
+                                            (e.currentTarget as HTMLElement).style.borderColor = "rgba(34,195,142,0.25)";
+                                            (e.currentTarget as HTMLElement).style.background = "rgba(255,250,235,0.04)";
+                                        }}
+                                        onMouseLeave={e => {
+                                            (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,250,235,0.07)";
+                                            (e.currentTarget as HTMLElement).style.background = "rgba(255,250,235,0.02)";
+                                        }}
+                                    >
+                                        {/* Thumb */}
+                                        <div
+                                            className="h-36 flex items-center justify-center transition-colors duration-300"
+                                            style={{ borderBottom: "1px solid rgba(255,250,235,0.06)", background: "rgba(255,250,235,0.01)" }}
+                                        >
+                                            <Image
+                                                src={`/blog-icons/${post.icon}`}
+                                                alt={post.title}
+                                                width={52}
+                                                height={52}
+                                                className="object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+                                            />
+                                        </div>
 
-                                    {/* Thumb — PNG icon */}
-                                    <div className="h-36 bg-white/[0.02] border-b border-white/8 flex items-center justify-center group-hover:bg-white/[0.04] transition-colors">
-                                        <Image
-                                            src={`/blog-icons/${post.icon}`}
-                                            alt={post.title}
-                                            width={52}
-                                            height={52}
-                                            className="object-contain opacity-80 group-hover:opacity-100 transition-opacity"
-                                        />
-                                    </div>
-
-                                    <div className="p-6 flex flex-col flex-1">
-                                        {/* Tags */}
-                                        <div className="flex gap-2 mb-3">
-                                            <span className="text-[10px] font-semibold uppercase tracking-widest text-green-500">
-                                                {post.category}
-                                            </span>
-                                            {post.tags.slice(1).map((t) => (
-                                                <span key={t} className="text-[10px] text-gray-600 uppercase tracking-widest">
-                                                    · {t}
+                                        <div className="p-5 sm:p-6 flex flex-col flex-1">
+                                            <div className="flex gap-2 mb-3">
+                                                <span className="text-[10px] font-bold uppercase tracking-[0.08em]" style={{ color: "#22C38E" }}>
+                                                    {post.category}
                                                 </span>
-                                            ))}
-                                        </div>
-
-                                        {/* Title */}
-                                        <h3 className="text-sm font-semibold text-white leading-snug mb-3 flex-1 group-hover:text-green-300 transition-colors">
-                                            {post.title}
-                                        </h3>
-
-                                        {/* Excerpt */}
-                                        <p className="text-xs text-gray-600 leading-relaxed mb-5 line-clamp-2">
-                                            {post.excerpt}
-                                        </p>
-
-                                        {/* Meta + arrow */}
-                                        <div className="flex items-center justify-between pt-4 border-t border-white/8">
-                                            <div className="flex items-center gap-2 text-[11px] text-gray-700">
-                                                <span>{post.date}</span>
-                                                <span className="w-px h-4 bg-white/10" />
-                                                <Clock className="w-4 h-4" />
-                                                <span>{post.readTime}</span>
+                                                {post.tags.slice(1).map((t) => (
+                                                    <span key={t} className="text-[10px] uppercase tracking-widest" style={{ color: "#6B6860" }}>
+                                                        · {t}
+                                                    </span>
+                                                ))}
                                             </div>
-                                            <ArrowRight className="w-3.5 h-3.5 text-gray-700 group-hover:text-green-400 group-hover:translate-x-0.5 transition-all" />
+
+                                            <h3
+                                                className="text-sm font-semibold leading-snug mb-3 flex-1 transition-colors duration-200 tracking-[-0.01em]"
+                                                style={{ color: "#F5F0E8" }}
+                                            >
+                                                {post.title}
+                                            </h3>
+
+                                            <p className="text-xs leading-relaxed mb-5 line-clamp-2" style={{ color: "#6B6860" }}>
+                                                {post.excerpt}
+                                            </p>
+
+                                            <div
+                                                className="flex items-center justify-between pt-4"
+                                                style={{ borderTop: "1px solid rgba(255,250,235,0.06)" }}
+                                            >
+                                                <div className="flex items-center gap-2 text-[11px]" style={{ color: "#6B6860" }}>
+                                                    <span>{post.date}</span>
+                                                    <span className="w-px h-3" style={{ background: "rgba(255,250,235,0.1)" }} />
+                                                    <Clock className="w-3 h-3" />
+                                                    <span>{post.readTime}</span>
+                                                </div>
+                                                <ArrowRight
+                                                    className="w-3.5 h-3.5 transition-all duration-200 group-hover:translate-x-0.5"
+                                                    style={{ color: "#6B6860" }}
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                </article>
-                            </Link>
-                        </motion.div>
-                    ))}
-                </div>
+                                    </article>
+                                </Link>
+                            </motion.div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="py-16 text-center" style={{ color: "#6B6860" }}>
+                        <p className="text-sm">No articles in this category yet.</p>
+                    </div>
+                )}
             </section>
 
-            {/* NEWSLETTER / CTA STRIP */}
-            <section className="px-6 pb-24 max-w-7xl mx-auto">
+            {/* ── CTA STRIP ──────────────────────────────────────────────────────── */}
+            <section className="px-6 pb-20 max-w-7xl mx-auto">
                 <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    variants={fadeUp}
+                    initial="hidden"
+                    whileInView="visible"
                     viewport={{ once: true }}
-                    className="rounded-3xl border border-green-500/15 bg-green-500/[0.06] p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8"
+                    className="relative rounded-[28px] overflow-hidden p-8 sm:p-10 md:p-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-7"
+                    style={{
+                        background: "linear-gradient(135deg, rgba(34,195,142,0.07) 0%, rgba(34,195,142,0.03) 100%)",
+                        border: "1px solid rgba(34,195,142,0.16)",
+                    }}
                 >
-                    <div>
-                        <div className="flex items-center gap-2 mb-3">
-                            <Leaf className="w-4 h-4 text-green-400" />
-                            <span className="text-xs font-semibold uppercase tracking-widest text-green-400">SolCare Insights</span>
+                    <div className="pointer-events-none absolute -top-12 -right-12 w-48 h-48 rounded-full blur-[60px]" style={{ background: "rgba(34,195,142,0.07)" }} />
+                    <div className="relative">
+                        <div className="flex items-center gap-2 mb-2.5">
+                            <Leaf className="w-3.5 h-3.5" style={{ color: "#22C38E" }} />
+                            <span className="text-[10px] font-bold uppercase tracking-[0.1em]" style={{ color: "#22C38E" }}>
+                                SolCare Insights
+                            </span>
                         </div>
-                        <h3 className="text-2xl font-bold text-white mb-2">
-                            Want SolarPal to just tell you?
+                        <h3 className="text-xl sm:text-2xl font-bold tracking-[-0.02em] mb-2">
+                            Want Sola to just tell you?
                         </h3>
-                        <p className="text-sm text-gray-500 max-w-md leading-relaxed">
-                            Connect your inverter and SolarPal sends you personalised insights about your system.
+                        <p className="text-sm leading-relaxed max-w-md" style={{ color: "#A09D96" }}>
+                            Connect your inverter and Sola sends you personalised insights about your system.
                         </p>
                     </div>
-                    <Link
-                        href="/"
-                        className="flex-shrink-0 flex items-center gap-2 px-6 py-3.5 rounded-full bg-green-500 text-black text-sm font-semibold hover:bg-green-400 transition-colors"
-                    >
-                        Connect my system <ArrowRight className="w-4 h-4" />
-                    </Link>
+                    <div className="relative flex flex-col sm:flex-row md:flex-col gap-3 flex-shrink-0 w-full md:w-auto">
+                        <Link
+                            href="mailto:solcare.info@gmail.com"
+                            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-black transition-all duration-200"
+                            style={{ background: "linear-gradient(135deg, #4FDBA8, #22C38E)", boxShadow: "0 4px 20px rgba(34,195,142,0.25)" }}
+                        >
+                            Connect my system <ArrowRight className="w-4 h-4" />
+                        </Link>
+                        <a
+                            href="mailto:solcare.info@gmail.com"
+                            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-medium transition-all duration-200"
+                            style={{ border: "1px solid rgba(255,250,235,0.1)", color: "#A09D96" }}
+                        >
+                            <Mail className="w-4 h-4" />
+                            Get in touch
+                        </a>
+                    </div>
                 </motion.div>
             </section>
 
-            {/* FOOTER */}
-            <footer className="border-t border-white/10 px-6 py-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-6">
-                    <Link href="/" className="text-sm text-gray-600 hover:text-white transition-colors">Home</Link>
-                    <Link href="/blog" className="text-sm text-gray-600 hover:text-white transition-colors">Blog</Link>
-                    <Link href="/about" className="text-sm text-gray-600">About</Link>
-                    <a
-                        href="mailto:solcare.info@gmail.com"
-                        className="flex items-center gap-1 text-m text-gray-400 hover:text-white transition-colors"
-                    >
-                        <Mail className="w-6 h-5" />
-                        Get in Touch
-                    </a>
-                </div>
-                <div className="flex flex-col items-center gap-4">
+            {/* ── FOOTER ─────────────────────────────────────────────────────────── */}
+            <footer className="px-6 py-8 max-w-7xl mx-auto">
+                <div
+                    className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-7"
+                    style={{ borderTop: "1px solid rgba(255,250,235,0.07)" }}
+                >
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-5">
+                        {navLinks.map(({ href, label }) => (
+                            <Link key={href} href={href} className="text-sm transition-colors duration-200" style={{ color: "#6B6860" }}>
+                                {label}
+                            </Link>
+                        ))}
+                        <a
+                            href="mailto:solcare.info@gmail.com"
+                            className="flex items-center gap-1.5 text-sm transition-colors duration-200"
+                            style={{ color: "#6B6860" }}
+                        >
+                            <Mail className="w-3.5 h-3.5" />
+                            solcare.info@gmail.com
+                        </a>
+                    </div>
                     <button
                         onClick={() => setIsTermsModalOpen(true)}
-                        className="text-gray-500 text-[10px] uppercase tracking-widest hover:text-white transition-colors cursor-pointer"
+                        className="text-[11px] uppercase tracking-[0.16em] cursor-pointer transition-colors duration-200"
+                        style={{ color: "#6B6860" }}
                     >
                         Terms & Conditions
                     </button>
+                    <span className="text-xs text-center" style={{ color: "#3D3D38" }}>
+                        © 2026 SolCare. All rights reserved · Made in Aotearoa with ❤️
+                    </span>
                 </div>
-                <span className="text-xs text-gray-700">© 2026 SolCare. All rights reserved · Made in Aotearoa with ❤️</span>
             </footer>
 
             <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} />

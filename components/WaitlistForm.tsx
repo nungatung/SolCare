@@ -58,7 +58,7 @@ export default function WaitlistForm() {
           disabled={loading}
           className="px-6 py-3 bg-yellow-400 text-black font-bold rounded-xl hover:bg-yellow-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[140px] cursor-pointer"
         >
-          {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Join Waitlist"}
+          {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Join the Waitlist"}
         </button>
       </div>
       {error && <p className="text-red-400 text-sm">{error}</p>}

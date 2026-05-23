@@ -6,15 +6,15 @@ import { motion, AnimatePresence } from "framer-motion";
 
 
 const heroImages = [
-  { src: "/hero/hero-1.jpg", alt: "Solar panels on an Auckland home" },       
-  { src: "/hero/hero-2.jpg", alt: "Clean solar panels after a SolCare visit" }, 
-  { src: "/hero/hero-3-.jpg", alt: "SolarPal monitoring dashboard" },           
-  { src: "/hero/hero-4-.jpg", alt: "Vetted cleaner on the job" },               
+  { src: "/hero/hero-1.jpg", alt: "Solar panels on an Auckland home" },
+  { src: "/hero/hero-2.jpg", alt: "Clean solar panels after a SolCare visit" },
+  { src: "/hero/hero-3-.jpg", alt: "SolarPal monitoring dashboard" },
+  { src: "/hero/hero-4-.jpg", alt: "Vetted cleaner on the job" },
   { src: "/hero/hero-5.jpg", alt: "Commercial system clean" },
-  { src: "/hero/hero-6.jpg", alt: "Cleaner on the roof" }               
+  { src: "/hero/hero-6.jpg", alt: "Cleaner on the roof" }
 ];
 
-const INTERVAL = 5000; 
+const INTERVAL = 5000;
 
 export default function HeroImageCarousel() {
   const [current, setCurrent] = useState(0);
@@ -74,11 +74,10 @@ export default function HeroImageCarousel() {
               key={i}
               onClick={() => goTo(i)}
               aria-label={`Go to image ${i + 1}`}
-              className={`transition-all duration-300 rounded-full ${
-                i === current
+              className={`transition-all duration-300 rounded-full ${i === current
                   ? "w-6 h-1.5 bg-yellow-400"
                   : "w-1.5 h-1.5 bg-white/30 hover:bg-white/60"
-              }`}
+                }`}
             />
           ))}
         </div>
@@ -91,11 +90,10 @@ export default function HeroImageCarousel() {
             key={i}
             onClick={() => goTo(i)}
             aria-label={`View image ${i + 1}`}
-            className={`relative flex-1 aspect-square rounded-xl overflow-hidden border transition-all duration-300 ${
-              i === current
+            className={`relative flex-1 aspect-square rounded-xl overflow-hidden border transition-all duration-300 ${i === current
                 ? "border-yellow-400/60 opacity-100"
                 : "border-white/8 opacity-40 hover:opacity-70"
-            }`}
+              }`}
           >
             <Image
               src={img.src}
