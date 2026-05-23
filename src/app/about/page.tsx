@@ -37,7 +37,7 @@ const fadeRight: Variants = {
 // ── Data ──────────────────────────────────────────────────────────────────────
 const values = [
   {
-    icon: <Zap className="w-4 h-4" />,
+    icon: "bolt.png", // Replace with your actual filename
     color: "#F5A623",
     bg: "rgba(245,166,35,0.1)",
     border: "rgba(245,166,35,0.2)",
@@ -45,7 +45,7 @@ const values = [
     desc: "Sola doesn't wait for you to notice a problem. It watches your system around the clock and tells you when your system needs attention before it costs you.",
   },
   {
-    icon: <Shield className="w-4 h-4" />,
+    icon: "shield.png", // Replace with your actual filename
     color: "#22C38E",
     bg: "rgba(34,195,142,0.1)",
     border: "rgba(34,195,142,0.2)",
@@ -53,7 +53,7 @@ const values = [
     desc: "Every recommendation Sola makes is grounded in your real production data, live weather readings, and NZ specific emission factors. No guesswork, no false positives.",
   },
   {
-    icon: <Leaf className="w-4 h-4" />,
+    icon: "environment.png", // Replace with your actual filename
     color: "#22C38E",
     bg: "rgba(34,195,142,0.1)",
     border: "rgba(34,195,142,0.2)",
@@ -61,7 +61,7 @@ const values = [
     desc: "The Impact Club isn't a marketing feature. It's a genuine commitment, every kilogram of CO₂ your system offsets translates into a real donation to reforestation in New Zealand and the Pacific.",
   },
   {
-    icon: <Heart className="w-4 h-4" />,
+    icon: "easy.png", // Replace with your actual filename
     color: "#F5A623",
     bg: "rgba(245,166,35,0.1)",
     border: "rgba(245,166,35,0.2)",
@@ -102,7 +102,6 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#0D0D0B] text-[#F5F0E8] selection:bg-[#F5A623] selection:text-black overflow-x-hidden">
 
-      {/* Grain texture */}
       <div
         className="pointer-events-none fixed inset-0 z-0 opacity-[0.025]"
         style={{
@@ -111,7 +110,7 @@ export default function AboutPage() {
         }}
       />
 
-      {/* ── NAVBAR ─────────────────────────────────────────────────────────── */}
+      {/* Nav */}
       <div className="relative z-50">
         <nav className="px-6 py-5 flex justify-between items-center max-w-7xl mx-auto">
           <div className="flex items-center gap-3">
@@ -215,7 +214,7 @@ export default function AboutPage() {
         </AnimatePresence>
       </div>
 
-      {/* ── HERO ───────────────────────────────────────────────────────────── */}
+      {/* Hero */}
       <section className="relative px-6 pt-14 pb-20 max-w-7xl mx-auto">
         {/* Ambient glows */}
         <div className="pointer-events-none absolute top-0 left-0 w-96 h-96 rounded-full blur-[100px] -translate-x-1/3 -translate-y-1/3" style={{ background: "rgba(34,195,142,0.06)" }} />
@@ -312,7 +311,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── MISSION ────────────────────────────────────────────────────────── */}
+      {/* Misson */}
       <section className="px-6 py-6 max-w-7xl mx-auto">
         <motion.div
           variants={fadeUp}
@@ -340,7 +339,7 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* ── VALUES ─────────────────────────────────────────────────────────── */}
+      {/* Values */}
       <section className="px-6 py-16 max-w-7xl mx-auto">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="mb-10">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: "#A09D96" }}>What we stand for</p>
@@ -368,10 +367,15 @@ export default function AboutPage() {
               }}
             >
               <div
-                className="w-9 h-9 rounded-xl flex items-center justify-center mb-5 transition-all duration-300"
-                style={{ background: v.bg, border: `1px solid ${v.border}`, color: v.color }}
+                className="w-9 h-9 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 relative overflow-hidden"
               >
-                {v.icon}
+                <Image 
+                  src={`/blog-icons/${v.icon}`} 
+                  alt={v.title}
+                  width={35}
+                  height={35}
+                  className="object-contain"
+                />
               </div>
               <h3 className="text-sm sm:text-base font-semibold mb-2.5 tracking-[-0.01em]" style={{ color: "#F5F0E8" }}>{v.title}</h3>
               <p className="text-sm leading-relaxed" style={{ color: "#6B6860" }}>{v.desc}</p>
@@ -380,7 +384,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── ENVIRONMENT ────────────────────────────────────────────────────── */}
+      {/* Environment */}
       <section className="px-6 py-16 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
           <motion.div variants={fadeLeft} initial="hidden" whileInView="visible" viewport={{ once: true }}>
@@ -506,7 +510,7 @@ export default function AboutPage() {
               className="p-6 sm:p-7 rounded-2xl flex flex-col gap-4"
               style={{ border: "1px solid rgba(255,250,235,0.07)", background: "rgba(255,250,235,0.02)" }}
             >
-              <div className="font-mono text-xs font-bold" style={{ color: item.accent }}>{item.number}</div>
+              <div className="font-mono text-m font-bold" style={{ color: item.accent }}>{item.number}</div>
               <h3 className="text-xl font-bold tracking-[-0.02em]" style={{ color: "#F5F0E8" }}>{item.title}</h3>
               <p className="text-sm leading-relaxed flex-1" style={{ color: "#A09D96" }}>{item.desc}</p>
               <div

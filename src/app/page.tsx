@@ -1,16 +1,5 @@
 "use client";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Design tokens — warm dark palette, solar-inspired
-// bg-[#0D0D0B]   warm near-black background
-// bg-[#161612]   card surface
-// bg-[#1E1E19]   elevated surface
-// #F5A623        solar amber — primary accent
-// #22C38E        green primary — brighter / more saturated
-// #F5F0E8        warm off-white text
-// #A09D96        warm secondary text
-// ─────────────────────────────────────────────────────────────────────────────
-
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Zap, BarChart3, Check, Info, Mail, Menu, X, Activity, Bell, CalendarCheck, Settings, ArrowRight } from 'lucide-react';
 import WaitlistForm from '../../components/WaitlistForm';
@@ -25,9 +14,6 @@ import SolarPal from "../../components/SolarPal";
 
 import { fadeUp, fadeIn } from "@/lib/variants";
 
-
-
-// ─── Data ─────────────────────────────────────────────────────────────────────
 const features = [
   "Sola - Your Personal Solar Companion",
   "AI Powered Soiling Forecasts (Irradiance + Weather + PM2.5 Intelligence)",
@@ -64,7 +50,7 @@ const steps = [
   }
 ];
 
-// ─── Component ────────────────────────────────────────────────────────────────
+
 export default function Home() {
   const [isImpactModalOpen, setIsImpactModalOpen] = useState(false);
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
@@ -73,7 +59,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#0D0D0B] text-[#F5F0E8] selection:bg-[#F5A623] selection:text-black overflow-x-hidden">
 
-      {/* ─── Subtle background grain overlay ───────────────────────────────── */}
+      {/* Subtle background overlay */}
       <div
         className="pointer-events-none fixed inset-0 z-0 opacity-[0.025]"
         style={{
@@ -83,7 +69,7 @@ export default function Home() {
         }}
       />
 
-      {/* ─── NAVBAR ─────────────────────────────────────────────────────────── */}
+      {/* Nav */}
       <div className="relative z-50">
         <nav className="px-6 py-5 flex justify-between items-center max-w-7xl mx-auto">
 
@@ -189,7 +175,7 @@ export default function Home() {
         </AnimatePresence>
       </div>
 
-      {/* ─── HERO ────────────────────────────────────────────────────────────── */}
+      {/* Hero */}
       <section className="relative px-6 pt-16 pb-28 max-w-7xl mx-auto">
         {/* Ambient glow */}
         <div className="pointer-events-none absolute top-0 left-0 w-[500px] h-[500px] rounded-full bg-[#F5A623]/[0.06] blur-[120px] -translate-x-1/4 -translate-y-1/4" />
@@ -265,10 +251,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── SERVICE PILLARS ─────────────────────────────────────────────────── */}
+     
       <ServicePillars />
 
-      {/* ─── SOLARPAL FEATURE HIGHLIGHT ──────────────────────────────────────── */}
+      {/* Feature Highlight */}
       <section className="px-6 py-24 max-w-7xl mx-auto">
         <motion.div
           variants={fadeUp}
@@ -322,7 +308,7 @@ export default function Home() {
                 performing and what it's worth.
               </p>
 
-              {/* Three capability cards */}
+              {/* capability cards */}
               <div className="grid md:grid-cols-3 gap-4 text-left">
                 {[
                   {
@@ -374,7 +360,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ─── PRICING ─────────────────────────────────────────────────────────── */}
+      {/* pricing */}
       <section
         className="px-6 py-28"
         style={{ background: "rgba(255,250,235,0.015)", borderTop: "1px solid rgba(255,250,235,0.06)", borderBottom: "1px solid rgba(255,250,235,0.06)" }}
@@ -510,7 +496,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── HOW IT WORKS ────────────────────────────────────────────────────── */}
+      {/* how it works*/}
       <section className="py-28 px-6 max-w-7xl mx-auto">
         <motion.div
           variants={fadeUp}
@@ -571,7 +557,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── CHAT PREVIEW ────────────────────────────────────────────────────── */}
+      {/* chat mockup */}
       <section className="px-6 py-24 max-w-7xl mx-auto">
         <motion.div
           variants={fadeUp}
@@ -738,7 +724,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ─── ABOUT / ROI SECTION ─────────────────────────────────────────────── */}
+      {/* about */}
       <section
         className="py-28 px-6"
         style={{ background: "rgba(255,250,235,0.015)", borderTop: "1px solid rgba(255,250,235,0.06)", borderBottom: "1px solid rgba(255,250,235,0.06)" }}
@@ -747,7 +733,6 @@ export default function Home() {
           <div className="flex flex-col md:flex-row gap-14 items-center">
             <div className="flex-1">
               <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#A09D96] mb-3">About SolCare</p>
                 <h2 className="text-3xl md:text-4xl font-bold tracking-[-0.02em] mb-7 font-jayagiri leading-tight">
                   Maximum ROI,{" "}<br />Zero Effort.
                 </h2>
@@ -755,7 +740,7 @@ export default function Home() {
 
               {[
                 "SolCare was founded on the principle that solar energy is an asset, not just a utility. A dirty panel isn't just a maintenance chore, it's a silent leak in your financial and environmental investment. Over time, debris build up can lead to permanent surface degradation, decreasing your panels lifespan.",
-                null, // special paragraph
+                null, 
                 "When Sola confirms a clean is worth it, it tells you why with the ROI worked out and handles the booking from end to end. Your vetted local pro is dispatched automatically. No forms, no phone calls, no guesswork.",
                 "Through our HelioAPI carbon integration, every kilowatt you recover gets tracked as a real CO₂ offset. And for every $10 of CO₂ your system saves, we facilitate a donation to a reforestation project of your choosing, turning your roof into a literal engine for a greener New Zealand.",
               ].map((para, i) => (
@@ -822,7 +807,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── FOOTER ──────────────────────────────────────────────────────────── */}
+      {/* footer */}
       <footer className="px-6 py-10 max-w-7xl mx-auto">
         <div
           className="flex flex-col md:flex-row items-center justify-between gap-5 pt-8"

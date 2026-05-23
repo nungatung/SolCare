@@ -179,20 +179,14 @@ export default function BlogPage() {
                     animate="visible"
                     className="relative max-w-2xl"
                 >
-                    <div
-                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-6 text-xs font-semibold tracking-[0.06em] uppercase"
-                        style={{ border: "1px solid rgba(34,195,142,0.22)", background: "rgba(34,195,142,0.08)", color: "#22C38E" }}
-                    >
-                        <Leaf className="w-3 h-3" />
-                        SolCare Blog
-                    </div>
+                    
                     <h1 className="text-4xl sm:text-5xl font-bold leading-[1.1] tracking-[-0.02em] mb-4">
                         Solar knowledge,
                         <br />
                         <span style={{ color: "#22C38E" }}>built for NZ solar owners</span>
                     </h1>
                     <p className="text-lg leading-[1.75]" style={{ color: "#A09D96" }}>
-                        Data-backed guides on getting the most from your solar system. Performance, preventive maintenance, and environmental impact.
+                        Data backed guides on getting the most from your solar system. Performance, preventive maintenance, and environmental impact.
                     </p>
                 </motion.div>
             </section>
@@ -432,14 +426,8 @@ export default function BlogPage() {
                 >
                     <div className="pointer-events-none absolute -top-12 -right-12 w-48 h-48 rounded-full blur-[60px]" style={{ background: "rgba(34,195,142,0.07)" }} />
                     <div className="relative">
-                        <div className="flex items-center gap-2 mb-2.5">
-                            <Leaf className="w-3.5 h-3.5" style={{ color: "#22C38E" }} />
-                            <span className="text-[10px] font-bold uppercase tracking-[0.1em]" style={{ color: "#22C38E" }}>
-                                SolCare Insights
-                            </span>
-                        </div>
                         <h3 className="text-xl sm:text-2xl font-bold tracking-[-0.02em] mb-2">
-                            Want Sola to just tell you?
+                            Want regular notifications from Sola?
                         </h3>
                         <p className="text-sm leading-relaxed max-w-md" style={{ color: "#A09D96" }}>
                             Connect your inverter and Sola sends you personalised insights about your system.

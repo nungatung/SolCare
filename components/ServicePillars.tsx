@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sun, Wrench, BarChart3, ShieldCheck, Mail } from "lucide-react";
+import Image from "next/image";
 
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
@@ -9,7 +9,7 @@ const services = [
   {
     title: "Professional Cleaning",
     desc: "AI scheduled removal of NZ salt, pollen, and debris to maximise yield.",
-    icon: <Sun className="w-5 h-5" />,
+    icon: "sunshine.png",
     color: "#F5A623",
     glow: "rgba(245,166,35,0.12)",
     border: "rgba(245,166,35,0.22)",
@@ -18,7 +18,7 @@ const services = [
   {
     title: "Preventive Maintenance",
     desc: "Regular asset health checks to prevent hardware failure and downtime.",
-    icon: <Wrench className="w-5 h-5" />,
+    icon: "maintenance.png",
     color: "#22C38E",
     glow: "rgba(34,195,142,0.1)",
     border: "rgba(34,195,142,0.2)",
@@ -27,7 +27,7 @@ const services = [
   {
     title: "Intelligence & Monitoring",
     desc: "Real time data analysis comparing your output to local weather baselines.",
-    icon: <BarChart3 className="w-5 h-5" />,
+    icon: "graph.png",
     color: "#60A5FA",
     glow: "rgba(96,165,250,0.1)",
     border: "rgba(96,165,250,0.2)",
@@ -36,7 +36,7 @@ const services = [
   {
     title: "ROI Optimisation",
     desc: "Detailed reporting on energy recovered and actual financial performance.",
-    icon: <ShieldCheck className="w-5 h-5" />,
+    icon: "shield.png",
     color: "#4FDBA8",
     glow: "rgba(79,219,168,0.1)",
     border: "rgba(79,219,168,0.2)",
@@ -73,16 +73,17 @@ export default function ServicePillars() {
               (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,250,235,0.07)";
             }}
           >
-            {/* Icon */}
+            {/* Icon Box */}
             <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-all duration-300"
-              style={{
-                background: service.glow,
-                border: `1px solid ${service.border}`,
-                color: service.color,
-              }}
+              className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 relative overflow-hidden"
             >
-              {service.icon}
+              <Image
+                src={`/blog-icons/${service.icon}`}
+                alt={service.title}
+                width={35}
+                height={35}
+                className="object-contain"
+              />
             </div>
 
             {/* Divider */}
@@ -124,15 +125,21 @@ export default function ServicePillars() {
             (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(34,195,142,0.35)";
           }}
           onMouseLeave={e => {
-            (e.currentTarget as HTMLAnchorElement).style.background = "rgba(34,195,142,0.06)";
-            (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(34,195,142,0.18)";
+            (e.currentTarget as HTMLAnchorElement).style.background = "rgba(34,195,142,0.06)",
+            (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(34,195,142,0.18)"
           }}
         >
           <div
-            className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-            style={{ background: "rgba(34,195,142,0.12)", color: "#22C38E" }}
+            className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 relative overflow-hidden"
+            
           >
-            <Mail className="w-5 h-5" />
+            <Image
+              src="/blog-icons/mail-icon.png"
+              alt="Mail"
+              width={35}
+              height={35}
+              className="object-contain"
+            />
           </div>
           <span className="text-sm" style={{ color: "#A09D96" }}>
             Let's work together for the environment{" "}
