@@ -50,8 +50,8 @@ const posts = [
         excerpt: "The cause and effect of hotspots created by shading and the lack of knowledge surrounding the potential issue",
         category: "Maintenance",
         tags: ["NZ Solar", "Performance"],
-        date: "May 2026",
-        readTime: "6 min read",
+        date: "June 2026",
+        readTime: "3 min read",
         icon: "solar-panel.png"
     }
 ];
@@ -333,7 +333,7 @@ export default function BlogPage() {
                 </AnimatePresence>
             </div>
 
-            {/* ── HERO ───────────────────────────────────────────────────────────── */}
+            {/* HERO */}
             <section className="relative px-6 pt-20 pb-14 max-w-7xl mx-auto">
                 <div className="pointer-events-none absolute top-0 left-0 w-96 h-64 rounded-full blur-[100px] -translate-x-1/3 -translate-y-1/2" style={{ background: "rgba(34,195,142,0.05)" }} />
                 <motion.div
@@ -354,7 +354,7 @@ export default function BlogPage() {
                 </motion.div>
             </section>
 
-            {/* ── CATEGORY FILTER ────────────────────────────────────────────────── */}
+            {/* CATEGORY FILTER  */}
             <section className="px-6 pb-10 max-w-7xl mx-auto">
                 <div className="flex gap-2 flex-wrap">
                     {categories.map((cat, i) => (
@@ -379,7 +379,7 @@ export default function BlogPage() {
                 </div>
             </section>
 
-            {/* ── FEATURED POST ──────────────────────────────────────────────────── */}
+            {/* FEATURED POST  */}
             <section className="px-6 pb-10 max-w-7xl mx-auto">
                 <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={1}>
                     <Link href={`/blog/${featuredPost.slug}`} className="group block">
@@ -475,7 +475,7 @@ export default function BlogPage() {
                 </motion.div>
             </section>
 
-            {/* ── POSTS GRID ─────────────────────────────────────────────────────── */}
+            {/* POSTS GRID  */}
             <section className="px-6 pb-20 max-w-7xl mx-auto">
                 <div className="flex items-baseline justify-between mb-7">
                     <h2 className="text-xs font-semibold uppercase tracking-[0.1em]" style={{ color: "#6B6860" }}>

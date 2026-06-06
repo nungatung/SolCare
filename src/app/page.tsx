@@ -323,19 +323,6 @@ export default function Home() {
           {/* Left */}
           <div className="flex flex-col items-start">
 
-            {/* Eyebrow pill 
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              custom={0}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5  mb-7
-                text-[#F5A623] text-xs font-semibold tracking-[0.06em] uppercase"
-            >
-              <span className="w-2.5 h-2.5 rounded-full bg-[#F5A623] animate-pulse" />
-              Powered by Sola, your AI solar companion
-            </motion.div> */}
-
             <motion.h1
               variants={fadeUp}
               initial="hidden"
