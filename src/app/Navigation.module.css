@@ -1,0 +1,22 @@
+.buttonWrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    #22C38E,
+    rgba(34, 195, 142, 0.3),
+    #22C38E
+  );
+  border-radius: 9999px;
+  animation: spinGradient 4s linear infinite;
+}
+
+@keyframes spinGradient {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

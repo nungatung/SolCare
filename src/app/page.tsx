@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, Zap, BarChart3, Check, Info, Mail, Menu, X, Activity, Bell, CalendarCheck, Settings, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Zap, BarChart3, Check, Info, Mail, Menu, X, Activity, Bell, CalendarCheck, Settings, ArrowRight, ChevronDown, Instagram, Facebook } from 'lucide-react';
 import WaitlistForm from '../../components/WaitlistForm';
 import Image from 'next/image';
 import ImpactModal from '../../components/ImpactModal';
@@ -11,6 +11,7 @@ import Link from 'next/link';
 import HeroImageCarousel from "../../components/HeroImageCarousel";
 import ServicePillars from '../../components/ServicePillars';
 import SolarPal from "../../components/SolarPal";
+import styles from "./Navigation.module.css";
 
 import { fadeUp, fadeIn } from "@/lib/variants";
 
@@ -18,7 +19,6 @@ const features = [
   "Sola - Your Personal Solar Companion",
   "AI Powered Soiling Forecasts (Irradiance + Weather + PM2.5 Intelligence)",
   "Minimum 2 Professional Cleans / Year, more when Sola detects it's needed",
-  "3 Layer Calibration (14 Day Roof Fingerprint)",
   "Real Time Carbon Offset Tracking (HelioAPI)",
   "One Tap Booking & Automatic Team Dispatch",
   "Post Clean Performance Validation",
@@ -50,11 +50,31 @@ const steps = [
   }
 ];
 
+const megaMenuSections = [
+
+  {
+    title: "Learn",
+    links: [
+      { label: "Blog", href: "/blog" },
+      // { label: "FAQ", href: "/faq" },
+      { label: "How It Works", href: "#how-it-works" },
+    ],
+  },
+  {
+    title: "SolCare.",
+    links: [
+      { label: "About Us", href: "/about" },
+      { label: "Get in Touch", href: "mailto:solcare.info@gmail.com" },
+    ],
+  },
+];
+
 
 export default function Home() {
   const [isImpactModalOpen, setIsImpactModalOpen] = useState(false);
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-[#0D0D0B] text-[#F5F0E8] selection:bg-[#F5A623] selection:text-black overflow-x-hidden">
@@ -71,8 +91,7 @@ export default function Home() {
 
       {/* Nav */}
       <div className="relative z-50">
-        <nav className="px-6 py-5 flex justify-between items-center max-w-7xl mx-auto">
-
+        <nav className="px-6 py-5 flex justify-between items-center max-w-7xl mx-auto relative z-50">
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="relative w-25 h-25 flex-shrink-0 -mt-22 -ml-10 -mr-16">
@@ -103,26 +122,144 @@ export default function Home() {
           </button>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-7">
-            {[
-              { href: "/blog", label: "Blog" },
-              { href: "/about", label: "About" },
-            ].map(({ href, label }) => (
+          <div className="hidden md:flex items-center gap-8">
+            {/* Main nav links */}
+            <div className="flex items-center gap-7">
               <Link
-                key={href}
-                href={href}
-                className="text-sm font-medium text-[#A09D96] hover:text-[#F5F0E8] transition-colors duration-200 tracking-wide"
+                href="/"
+                className="text-m font-medium -mt-20 text-[#A09D96] hover:text-[#F5F0E8] transition-colors duration-200 tracking-wide"
               >
-                {label}
+                Home
               </Link>
-            ))}
-            <a
-              href="mailto:solcare.info@gmail.com"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#A09D96] hover:text-[#F5F0E8] transition-colors duration-200"
-            >
-              <Mail className="w-3.5 h-3.5" />
-              Get in Touch
-            </a>
+
+              {/* Mega Menu Trigger */}
+              <div className="relative group">
+                <div className={`relative -mt-15 p-0.5 rounded-full overflow-hidden hover:scale-105 transition duration-300 active:scale-100 ${styles.buttonWrapper}`}>
+                  <button
+                    onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
+                    onMouseEnter={() => setIsMegaMenuOpen(true)}
+                    onMouseLeave={() => setIsMegaMenuOpen(false)}
+                    className="relative z-10 bg-[#0D0D0B] rounded-full px-4 py-2 flex items-center gap-1.5 text-m font-medium text-[#A09D96] hover:text-[#F5F0E8] transition-colors duration-200 tracking-wide cursor-pointer"
+                  >
+                    Menu
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${isMegaMenuOpen ? "rotate-180" : ""
+                        }`}
+                    />
+                  </button>
+                </div>
+
+                {/* Mega Menu Dropdown */}
+                <AnimatePresence>
+                  {isMegaMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.15 }}
+                      onMouseEnter={() => setIsMegaMenuOpen(true)}
+                      onMouseLeave={() => setIsMegaMenuOpen(false)}
+                      className="absolute -left-1/2 -translate-x-1/2 mt-2 w-screen max-w-2xl mt-2"
+                    >
+                      <div
+                        className="rounded-2xl border shadow-xl overflow-hidden"
+                        style={{
+                          background: "#1A1A18",
+                          borderColor: "rgba(34, 195, 142, 0.15)",
+                          boxShadow: "0 20px 60px rgba(34, 195, 142, 0.1)",
+                        }}
+                      >
+                        {/* Social Icons Header */}
+                        <div
+                          className="px-8 py-4 flex items-center gap-4"
+                          style={{ borderBottom: "1px solid rgba(255, 250, 235, 0.08)" }}
+                        >
+                          <span className="text-xs font-semibold uppercase tracking-[0.1em]" style={{ color: "#6B6860" }}>
+                            Follow Us
+                          </span>
+                          <div className="flex gap-3">
+                            <a
+                              href="https://instagram.com/solcare.nz"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-2 rounded-lg transition-all duration-200"
+                              style={{
+                                color: "#A09D96",
+                                background: "rgba(34, 195, 142, 0.08)",
+                              }}
+                              onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.15)";
+                                (e.currentTarget as HTMLElement).style.color = "#22C38E";
+                              }}
+                              onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.08)";
+                                (e.currentTarget as HTMLElement).style.color = "#A09D96";
+                              }}
+                              aria-label="Instagram"
+                            >
+                              <Instagram className="w-4 h-4" />
+                            </a>
+                            <a
+                              href="https://www.facebook.com/share/1CjZJ9wdcn/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-2 rounded-lg transition-all duration-200"
+                              style={{
+                                color: "#A09D96",
+                                background: "rgba(34, 195, 142, 0.08)",
+                              }}
+                              onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.15)";
+                                (e.currentTarget as HTMLElement).style.color = "#22C38E";
+                              }}
+                              onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.08)";
+                                (e.currentTarget as HTMLElement).style.color = "#A09D96";
+                              }}
+                              aria-label="Facebook"
+                            >
+                              <Facebook className="w-4 h-4" />
+                            </a>
+                          </div>
+                        </div>
+
+                        {/* Menu Columns */}
+                        <div className="grid grid-cols-3 gap-8 px-8 py-6">
+                          {megaMenuSections.map((section, idx) => (
+                            <div key={idx}>
+                              <h3 className="text-xs font-bold uppercase tracking-[0.1em] mb-4" style={{ color: "#22C38E" }}>
+                                {section.title}
+                              </h3>
+                              <ul className="space-y-2.5">
+                                {section.links.map((link) => (
+                                  <li key={link.href}>
+                                    <Link
+                                      href={link.href}
+                                      className="text-sm transition-colors duration-200 block"
+                                      style={{ color: "#A09D96" }}
+                                      onMouseEnter={(e) => {
+                                        (e.currentTarget as HTMLElement).style.color = "#22C38E";
+                                      }}
+                                      onMouseLeave={(e) => {
+                                        (e.currentTarget as HTMLElement).style.color = "#A09D96";
+                                      }}
+                                    >
+                                      {link.label}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                </AnimatePresence>
+
+              </div>
+            </div>
           </div>
         </nav>
 
@@ -186,7 +323,7 @@ export default function Home() {
           {/* Left */}
           <div className="flex flex-col items-start">
 
-            {/* Eyebrow pill */}
+            {/* Eyebrow pill 
             <motion.div
               variants={fadeUp}
               initial="hidden"
@@ -197,14 +334,14 @@ export default function Home() {
             >
               <span className="w-2.5 h-2.5 rounded-full bg-[#F5A623] animate-pulse" />
               Powered by Sola, your AI solar companion
-            </motion.div>
+            </motion.div> */}
 
             <motion.h1
               variants={fadeUp}
               initial="hidden"
               animate="visible"
               custom={1}
-              className="text-5xl md:text-[64px] font-bold tracking-[-0.02em] leading-[1.08] mb-6"
+              className="text-5xl md:text-[64px] -mt-32 font-bold tracking-[-0.02em] leading-[1.08] mb-6"
             >
               Your Solar,{" "}
               <br />
@@ -251,7 +388,7 @@ export default function Home() {
         </div>
       </section>
 
-     
+
       <ServicePillars />
 
       {/* Feature Highlight */}
@@ -273,19 +410,6 @@ export default function Home() {
 
           <div className="relative p-10 md:p-16">
             <div className="max-w-3xl mx-auto text-center">
-
-              {/* Badge */}
-              <div
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-8
-                  text-m italic font-bold uppercase tracking-[0.1em]"
-                style={{
-                  background: "rgba(245,166,35,0.1)",
-                  border: "1px solid rgba(245,166,35,0.25)",
-                  color: "#F5A623",
-                }}
-              >
-                Say Hi to Sola
-              </div>
 
               {/* Character */}
               <motion.div
@@ -313,17 +437,17 @@ export default function Home() {
                 {[
                   {
                     icon: <Activity className="w-4 h-4" />,
-                    title: "Watches, not waits",
+                    title: "Diligent Analysis",
                     desc: "Sola monitors your output daily and separates real soiling from hot weather, shading, and seasonal dips, so you never get a false alarm.",
                   },
                   {
                     icon: <Bell className="w-4 h-4" />,
-                    title: "Forecasts, not reacts",
+                    title: "Accurate Forecasting",
                     desc: "Rather than waiting for a problem, Sola predicts when soiling will cross the threshold and suggests the optimal clean date before output takes a real hit.",
                   },
                   {
                     icon: <CalendarCheck className="w-4 h-4" />,
-                    title: "Books, not asks",
+                    title: "Suggestive Booking",
                     desc: "Sola suggests a date, you pick a time and confirm the booking in chat. One tap and your vetted pro is dispatched automatically.",
                   },
                 ].map((card, i) => (
@@ -393,7 +517,7 @@ export default function Home() {
                 boxShadow: "0 0 60px rgba(245,166,35,0.08), inset 0 1px 0 rgba(255,250,235,0.06)",
               }}
             >
-              {/* Founding member badge */}
+              {/* Founding member badge 
               <div className="absolute -top-[14px] left-1/2 -translate-x-1/2">
                 <span
                   className="px-5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.08em] text-black whitespace-nowrap"
@@ -465,19 +589,19 @@ export default function Home() {
               </ul>
 
               {/* CTA */}
-              <a 
-              href="#">
-              <button
-                className="w-full py-4 rounded-xl font-bold text-base text-black transition-all duration-200 cursor-pointer"
-                style={{
-                  background: "linear-gradient(135deg, #FFD166, #F5A623)",
-                  boxShadow: "0 4px 24px rgba(245,166,35,0.25)",
-                }}
-                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 32px rgba(245,166,35,0.4)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 24px rgba(245,166,35,0.25)"; }}
-              >
-                Join the Waitlist             
-              </button>
+              <a
+                href="#">
+                <button
+                  className="w-full py-4 rounded-xl font-bold text-base text-black transition-all duration-200 cursor-pointer"
+                  style={{
+                    background: "linear-gradient(135deg, #FFD166, #F5A623)",
+                    boxShadow: "0 4px 24px rgba(245,166,35,0.25)",
+                  }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 32px rgba(245,166,35,0.4)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 24px rgba(245,166,35,0.25)"; }}
+                >
+                  Join the Waitlist
+                </button>
               </a>
             </div>
           </motion.div>
@@ -498,63 +622,65 @@ export default function Home() {
 
       {/* how it works*/}
       <section className="py-28 px-6 max-w-7xl mx-auto">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          
-          <h2 className="text-3xl md:text-4xl font-bold tracking-[-0.02em] mb-3 font-jayagiri">How SolCare. Works</h2>
-          <p className="text-[#A09D96] max-w-md mx-auto leading-relaxed">Sola handles the complexity. You stay in control.</p>
-        </motion.div>
+        <section id="how-it-works">
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
 
-        <div className="grid md:grid-cols-4 gap-8">
-          {steps.map((step, i) => (
-            <motion.div
-              key={i}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              custom={i}
-              className="relative flex flex-col items-center text-center"
-            >
-              {/* Connector */}
-              {i < steps.length - 1 && (
-                <div
-                  className="hidden md:block absolute top-7 left-[62%] w-full h-px z-0"
-                  style={{ background: "linear-gradient(90deg, rgba(245,166,35,0.4) 0%, rgba(245,166,35,0) 100%)" }}
-                />
-              )}
+            <h2 className="text-3xl md:text-4xl font-bold tracking-[-0.02em] mb-3 font-jayagiri">How SolCare. Works</h2>
+            <p className="text-[#A09D96] max-w-md mx-auto leading-relaxed">Sola handles the complexity. You stay in control.</p>
+          </motion.div>
 
-              {/* Step number */}
-              <div className="relative z-10 mb-5">
-                <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center mb-0"
-                  style={{
-                    background: "rgba(245,166,35,0.08)",
-                    border: "1px solid rgba(245,166,35,0.22)",
-                    boxShadow: "0 0 20px rgba(245,166,35,0.06)",
-                    color: "#F5A623",
-                  }}
-                >
-                  {step.icon}
+          <div className="grid md:grid-cols-4 gap-8">
+            {steps.map((step, i) => (
+              <motion.div
+                key={i}
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                custom={i}
+                className="relative flex flex-col items-center text-center"
+              >
+                {/* Connector */}
+                {i < steps.length - 1 && (
+                  <div
+                    className="hidden md:block absolute top-7 left-[62%] w-full h-px z-0"
+                    style={{ background: "linear-gradient(90deg, rgba(245,166,35,0.4) 0%, rgba(245,166,35,0) 100%)" }}
+                  />
+                )}
+
+                {/* Step number */}
+                <div className="relative z-10 mb-5">
+                  <div
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center mb-0"
+                    style={{
+                      background: "rgba(245,166,35,0.08)",
+                      border: "1px solid rgba(245,166,35,0.22)",
+                      boxShadow: "0 0 20px rgba(245,166,35,0.06)",
+                      color: "#F5A623",
+                    }}
+                  >
+                    {step.icon}
+                  </div>
+                  <div
+                    className="absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold text-black"
+                    style={{ background: "linear-gradient(135deg, #FFD166, #F5A623)" }}
+                  >
+                    {i + 1}
+                  </div>
                 </div>
-                <div
-                  className="absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold text-black"
-                  style={{ background: "linear-gradient(135deg, #FFD166, #F5A623)" }}
-                >
-                  {i + 1}
-                </div>
-              </div>
 
-              <h3 className="font-semibold text-[#F5F0E8] mb-2.5 tracking-[-0.01em]">{step.title}</h3>
-              <p className="text-sm text-[#6B6860] leading-relaxed">{step.desc}</p>
-            </motion.div>
-          ))}
-        </div>
+                <h3 className="font-semibold text-[#F5F0E8] mb-2.5 tracking-[-0.01em]">{step.title}</h3>
+                <p className="text-sm text-[#6B6860] leading-relaxed">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
       </section>
 
       {/* chat mockup */}
@@ -567,7 +693,7 @@ export default function Home() {
           className="max-w-2xl mx-auto"
         >
           <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#A09D96] mb-3">In practice</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#A09D96] mb-3">Sola in Action</p>
             <h2 className="text-2xl md:text-3xl font-bold tracking-[-0.02em]">Real notifications. Plain English. No fluff.</h2>
           </div>
 
@@ -740,7 +866,7 @@ export default function Home() {
 
               {[
                 "SolCare was founded on the principle that solar energy is an asset, not just a utility. A dirty panel isn't just a maintenance chore, it's a silent leak in your financial and environmental investment. Over time, debris build up can lead to permanent surface degradation, decreasing your panels lifespan.",
-                null, 
+                null,
                 "When Sola confirms a clean is worth it, it tells you why with the ROI worked out and handles the booking from end to end. Your vetted local pro is dispatched automatically. No forms, no phone calls, no guesswork.",
                 "Through our HelioAPI carbon integration, every kilowatt you recover gets tracked as a real CO₂ offset. And for every $10 of CO₂ your system saves, we facilitate a donation to a reforestation project of your choosing, turning your roof into a literal engine for a greener New Zealand.",
               ].map((para, i) => (
@@ -821,22 +947,30 @@ export default function Home() {
               <Link
                 key={href}
                 href={href}
-                className="text-sm transition-colors duration-200"
+                className="text-m transition-colors duration-200"
                 style={{ color: "#6B6860" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#6B6860"; }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#6B6860";
+                }}
               >
                 {label}
               </Link>
             ))}
             <a
               href="mailto:solcare.info@gmail.com"
-              className="flex items-center gap-1.5 text-sm transition-colors duration-200"
+              className="flex items-center gap-1.5 text-m transition-colors duration-200"
               style={{ color: "#6B6860" }}
-              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#6B6860"; }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.color = "#6B6860";
+              }}
             >
-              <Mail className="w-3.5 h-3.5" />
+              <Mail className="w-5 h-5" />
               solcare.info@gmail.com
             </a>
           </div>
@@ -845,8 +979,12 @@ export default function Home() {
             onClick={() => setIsTermsModalOpen(true)}
             className="text-[11px] uppercase tracking-[0.16em] transition-colors duration-200 cursor-pointer"
             style={{ color: "#6B6860" }}
-            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "#A09D96"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = "#6B6860"; }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.color = "#A09D96";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.color = "#6B6860";
+            }}
           >
             Terms & Conditions
           </button>
@@ -854,6 +992,65 @@ export default function Home() {
           <span className="text-xs" style={{ color: "#3D3D38" }}>
             © 2026 SolCare. All rights reserved · Made in Aotearoa with ❤️
           </span>
+        </div>
+
+        {/* Social Media Links */}
+        <div
+          className="flex items-center gap-4 pt-4">
+          <span
+            className="text-xs font-semibold uppercase tracking-[0.1em]"
+            style={{ color: "#6B6860" }}
+          >
+            Follow Us
+          </span>
+          <div className="flex gap-3">
+            <a
+              href="https://instagram.com/solcare.nz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg transition-all duration-200"
+              style={{
+                color: "#A09D96",
+                background: "rgba(34, 195, 142, 0.08)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background =
+                  "rgba(34, 195, 142, 0.15)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "#22C38E";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background =
+                  "rgba(34, 195, 142, 0.08)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+              }}
+              aria-label="Instagram"
+            >
+              <Instagram className="w-4 h-4" />
+            </a>
+            <a
+              href="https://www.facebook.com/share/1CjZJ9wdcn/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg transition-all duration-200"
+              style={{
+                color: "#A09D96",
+                background: "rgba(34, 195, 142, 0.08)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background =
+                  "rgba(34, 195, 142, 0.15)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "#22C38E";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background =
+                  "rgba(34, 195, 142, 0.08)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+              }}
+              aria-label="Facebook"
+            >
+              <Facebook className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </footer>
 

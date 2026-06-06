@@ -3,9 +3,10 @@
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Leaf, Zap, Shield, Heart, Mail, Menu, X } from "lucide-react";
+import { ArrowRight, Leaf, Zap, Shield, Heart, Mail, Menu, X, ChevronDown, Instagram, Facebook } from "lucide-react";
 import { useState } from "react";
 import TermsModal from '../../../components/TermsModal';
+import styles from "../Navigation.module.css";
 
 // ── Animation system ──────────────────────────────────────────────────────────
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
@@ -37,7 +38,7 @@ const fadeRight: Variants = {
 // ── Data ──────────────────────────────────────────────────────────────────────
 const values = [
   {
-    icon: "bolt.png", // Replace with your actual filename
+    icon: "bolt.png",
     color: "#F5A623",
     bg: "rgba(245,166,35,0.1)",
     border: "rgba(245,166,35,0.2)",
@@ -45,7 +46,7 @@ const values = [
     desc: "Sola doesn't wait for you to notice a problem. It watches your system around the clock and tells you when your system needs attention before it costs you.",
   },
   {
-    icon: "shield.png", // Replace with your actual filename
+    icon: "shield.png",
     color: "#22C38E",
     bg: "rgba(34,195,142,0.1)",
     border: "rgba(34,195,142,0.2)",
@@ -53,7 +54,7 @@ const values = [
     desc: "Every recommendation Sola makes is grounded in your real production data, live weather readings, and NZ specific emission factors. No guesswork, no false positives.",
   },
   {
-    icon: "environment.png", // Replace with your actual filename
+    icon: "environment.png",
     color: "#22C38E",
     bg: "rgba(34,195,142,0.1)",
     border: "rgba(34,195,142,0.2)",
@@ -61,7 +62,7 @@ const values = [
     desc: "The Impact Club isn't a marketing feature. It's a genuine commitment, every kilogram of CO₂ your system offsets translates into a real donation to reforestation in New Zealand and the Pacific.",
   },
   {
-    icon: "easy.png", // Replace with your actual filename
+    icon: "easy.png",
     color: "#F5A623",
     bg: "rgba(245,166,35,0.1)",
     border: "rgba(245,166,35,0.2)",
@@ -94,10 +95,30 @@ const navLinks = [
   { href: "/about", label: "About" },
 ];
 
-// ── Component ─────────────────────────────────────────────────────────────────
+const megaMenuSections = [
+
+  {
+    title: "Learn",
+    links: [
+      { label: "Blog", href: "/blog" },
+      // { label: "FAQ", href: "/faq" },
+      { label: "How It Works", href: "/#how-it-works" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About SolCare.", href: "/about" },
+      { label: "Get in Touch", href: "mailto:solcare.info@gmail.com" },
+    ],
+  },
+];
+
+
 export default function AboutPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-[#0D0D0B] text-[#F5F0E8] selection:bg-[#F5A623] selection:text-black overflow-x-hidden">
@@ -112,7 +133,8 @@ export default function AboutPage() {
 
       {/* Nav */}
       <div className="relative z-50">
-        <nav className="px-6 py-5 flex justify-between items-center max-w-7xl mx-auto">
+        <nav className="px-6 py-5 flex justify-between items-center max-w-7xl mx-auto relative z-50">
+          {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="relative w-25 h-25 flex-shrink-0 -mt-22 -ml-10 -mr-16">
               <Image
@@ -132,36 +154,154 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Mobile button */}
+          {/* Mobile hamburger */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden -mt-14 w-9 h-9 rounded-xl flex items-center justify-center transition-colors relative z-[100] cursor-pointer"
-            style={{ color: "#A09D96" }}
+            className="text-white p-2 md:hidden -mt-14 transition-all active:scale-100 relative z-[100] cursor-pointer"
             aria-label="Toggle Mobile Menu"
           >
             {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-6 h-6" />}
           </button>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-7">
-            {navLinks.map(({ href, label }) => (
+          <div className="hidden md:flex items-center gap-8">
+            {/* Main nav links */}
+            <div className="flex items-center gap-7">
               <Link
-                key={href}
-                href={href}
-                className="text-sm font-medium transition-colors duration-200"
-                style={{ color: href === "/about" ? "#F5F0E8" : "#A09D96" }}
+                href="/"
+                className="text-m font-medium -mt-20 text-[#A09D96] hover:text-[#F5F0E8] transition-colors duration-200 tracking-wide"
               >
-                {label}
+                Home
               </Link>
-            ))}
-            <a
-              href="mailto:solcare.info@gmail.com"
-              className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors duration-200"
-              style={{ color: "#A09D96" }}
-            >
-              <Mail className="w-3.5 h-3.5" />
-              Get in Touch
-            </a>
+
+              {/* Mega Menu Trigger */}
+              <div className="relative group">
+                <div className={`relative -mt-15 p-0.5 rounded-full overflow-hidden hover:scale-105 transition duration-300 active:scale-100 ${styles.buttonWrapper}`}>
+                  <button
+                    onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
+                    onMouseEnter={() => setIsMegaMenuOpen(true)}
+                    onMouseLeave={() => setIsMegaMenuOpen(false)}
+                    className="relative z-10 bg-[#0D0D0B] rounded-full px-4 py-2 flex items-center gap-1.5 text-m font-medium text-[#A09D96] hover:text-[#F5F0E8] transition-colors duration-200 tracking-wide cursor-pointer"
+                  >
+                    Menu
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${isMegaMenuOpen ? "rotate-180" : ""
+                        }`}
+                    />
+                  </button>
+                </div>
+
+                {/* Mega Menu Dropdown */}
+                <AnimatePresence>
+                  {isMegaMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.15 }}
+                      onMouseEnter={() => setIsMegaMenuOpen(true)}
+                      onMouseLeave={() => setIsMegaMenuOpen(false)}
+                      className="absolute -left-1/2 -translate-x-1/2 mt-2 w-screen max-w-2xl mt-6"
+                    >
+                      <div
+                        className="rounded-2xl border shadow-xl overflow-hidden"
+                        style={{
+                          background: "#1A1A18",
+                          borderColor: "rgba(34, 195, 142, 0.15)",
+                          boxShadow: "0 20px 60px rgba(34, 195, 142, 0.1)",
+                        }}
+                      >
+                        {/* Social Icons Header */}
+                        <div
+                          className="px-8 py-4 flex items-center gap-4"
+                          style={{ borderBottom: "1px solid rgba(255, 250, 235, 0.08)" }}
+                        >
+                          <span className="text-xs font-semibold uppercase tracking-[0.1em]" style={{ color: "#6B6860" }}>
+                            Follow Us
+                          </span>
+                          <div className="flex gap-3">
+                            <a
+                              href="https://instagram.com/solcare.nz"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-2 rounded-lg transition-all duration-200"
+                              style={{
+                                color: "#A09D96",
+                                background: "rgba(34, 195, 142, 0.08)",
+                              }}
+                              onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.15)";
+                                (e.currentTarget as HTMLElement).style.color = "#22C38E";
+                              }}
+                              onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.08)";
+                                (e.currentTarget as HTMLElement).style.color = "#A09D96";
+                              }}
+                              aria-label="Instagram"
+                            >
+                              <Instagram className="w-4 h-4" />
+                            </a>
+                            <a
+                              href="https://www.facebook.com/share/1CjZJ9wdcn/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-2 rounded-lg transition-all duration-200"
+                              style={{
+                                color: "#A09D96",
+                                background: "rgba(34, 195, 142, 0.08)",
+                              }}
+                              onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.15)";
+                                (e.currentTarget as HTMLElement).style.color = "#22C38E";
+                              }}
+                              onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.08)";
+                                (e.currentTarget as HTMLElement).style.color = "#A09D96";
+                              }}
+                              aria-label="Facebook"
+                            >
+                              <Facebook className="w-4 h-4" />
+                            </a>
+                          </div>
+                        </div>
+
+                        {/* Menu Columns */}
+                        <div className="grid grid-cols-3 gap-8 px-8 py-6">
+                          {megaMenuSections.map((section, idx) => (
+                            <div key={idx}>
+                              <h3 className="text-xs font-bold uppercase tracking-[0.1em] mb-4" style={{ color: "#22C38E" }}>
+                                {section.title}
+                              </h3>
+                              <ul className="space-y-2.5">
+                                {section.links.map((link) => (
+                                  <li key={link.href}>
+                                    <Link
+                                      href={link.href}
+                                      className="text-sm transition-colors duration-200 block"
+                                      style={{ color: "#A09D96" }}
+                                      onMouseEnter={(e) => {
+                                        (e.currentTarget as HTMLElement).style.color = "#22C38E";
+                                      }}
+                                      onMouseLeave={(e) => {
+                                        (e.currentTarget as HTMLElement).style.color = "#A09D96";
+                                      }}
+                                    >
+                                      {link.label}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                </AnimatePresence>
+
+              </div>
+            </div>
           </div>
         </nav>
 
@@ -369,8 +509,8 @@ export default function AboutPage() {
               <div
                 className="w-9 h-9 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 relative overflow-hidden"
               >
-                <Image 
-                  src={`/blog-icons/${v.icon}`} 
+                <Image
+                  src={`/blog-icons/${v.icon}`}
                   alt={v.title}
                   width={35}
                   height={35}
@@ -566,28 +706,45 @@ export default function AboutPage() {
         </motion.div>
       </section>
 
-      {/* ── FOOTER ─────────────────────────────────────────────────────────── */}
-      <footer className="px-6 py-8 max-w-7xl mx-auto">
+      {/* footer */}
+      <footer className="px-6 py-10 max-w-7xl mx-auto">
         <div
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-7"
+          className="flex flex-col md:flex-row items-center justify-between gap-5 pt-8"
           style={{ borderTop: "1px solid rgba(255,250,235,0.07)" }}
         >
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-5">
+          <div className="flex items-center gap-6">
             {[
-              { href: "/", label: "Home" },
-              { href: "/blog", label: "Blog" },
-              { href: "/about", label: "About" },
+            { href: "/", label: "Home" },
+            { href: "/blog", label: "Blog" },
+            { href: "/about", label: "About" },
             ].map(({ href, label }) => (
-              <Link key={href} href={href} className="text-sm transition-colors duration-200" style={{ color: "#6B6860" }}>
+              <Link
+                key={href}
+                href={href}
+                className="text-m transition-colors duration-200"
+                style={{ color: "#6B6860" }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#6B6860";
+                }}
+              >
                 {label}
               </Link>
             ))}
             <a
               href="mailto:solcare.info@gmail.com"
-              className="flex items-center gap-1.5 text-sm transition-colors duration-200"
+              className="flex items-center gap-1.5 text-m transition-colors duration-200"
               style={{ color: "#6B6860" }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.color = "#6B6860";
+              }}
             >
-              <Mail className="w-3.5 h-3.5" />
+              <Mail className="w-5 h-5" />
               solcare.info@gmail.com
             </a>
           </div>
@@ -596,13 +753,78 @@ export default function AboutPage() {
             onClick={() => setIsTermsModalOpen(true)}
             className="text-[11px] uppercase tracking-[0.16em] transition-colors duration-200 cursor-pointer"
             style={{ color: "#6B6860" }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.color = "#A09D96";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.color = "#6B6860";
+            }}
           >
             Terms & Conditions
           </button>
 
-          <span className="text-xs text-center" style={{ color: "#3D3D38" }}>
+          <span className="text-xs" style={{ color: "#3D3D38" }}>
             © 2026 SolCare. All rights reserved · Made in Aotearoa with ❤️
           </span>
+        </div>
+
+        {/* Social Media Links */}
+        <div
+          className="flex items-center gap-4 pt-4">
+          <span
+            className="text-xs font-semibold uppercase tracking-[0.1em]"
+            style={{ color: "#6B6860" }}
+          >
+            Follow Us
+          </span>
+          <div className="flex gap-3">
+            <a
+              href="https://instagram.com/solcare.nz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg transition-all duration-200"
+              style={{
+                color: "#A09D96",
+                background: "rgba(34, 195, 142, 0.08)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background =
+                  "rgba(34, 195, 142, 0.15)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "#22C38E";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background =
+                  "rgba(34, 195, 142, 0.08)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+              }}
+              aria-label="Instagram"
+            >
+              <Instagram className="w-4 h-4" />
+            </a>
+            <a
+              href="https://www.facebook.com/share/1CjZJ9wdcn/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg transition-all duration-200"
+              style={{
+                color: "#A09D96",
+                background: "rgba(34, 195, 142, 0.08)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background =
+                  "rgba(34, 195, 142, 0.15)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "#22C38E";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.background =
+                  "rgba(34, 195, 142, 0.08)";
+                (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+              }}
+              aria-label="Facebook"
+            >
+              <Facebook className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </footer>
 

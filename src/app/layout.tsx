@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SolCare | Solar Panel Cleaning & AI Maintenance NZ",
+  title: "SolCare | Solar Panel Cleaning & AI Preventive Maintenance NZ",
   description: "Boost solar efficiency by 5-25%. SolCare uses AI and 3-Layer Calibration to tell you exactly when cleaning pays for itself. Smart NZ solar monitoring.",
   keywords: [
     "solar panel cleaning NZ",
@@ -59,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-NZ">
+    <html lang="en-NZ" className="scroll-smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
