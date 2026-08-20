@@ -8,7 +8,7 @@ const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 const services = [
   {
     title: "Professional Cleaning",
-    desc: "AI scheduled removal of NZ salt, pollen, and debris to maximise yield.",
+    desc: "AI scheduled removal of nearby salt spray, pollen, and debris to maximise yield.",
     icon: "sunshine.png",
     color: "#F5A623",
     glow: "rgba(245,166,35,0.12)",

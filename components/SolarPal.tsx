@@ -27,7 +27,7 @@ const STATE_FRAMES: Record<SolarPalState, { start: number; end: number; loop: bo
 
 export default function SolarPal({
   state = "idle",
-  size = 200,
+  size = 250,
   className = "",
 }: SolarPalProps) {
   const lottieRef = useRef<LottieRefCurrentProps>(null);
@@ -48,11 +48,6 @@ export default function SolarPal({
       aria-label="SolarPal, your AI solar companion"
       role="img"
     >
-      {/* Soft green glow behind the character */}
-      <div
-        className="absolute inset-0 rounded-full blur-2xl opacity-20 bg-green-400"
-        style={{ transform: "scale(0.75)" }}
-      />
       <Lottie
         lottieRef={lottieRef}
         animationData={animationData}

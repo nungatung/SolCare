@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 
-// ── Animation system ──────────────────────────────────────────────────────────
+
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const fadeUp = {
@@ -440,7 +440,7 @@ export default function BlogPostNZWeather() {
             border: "1px solid rgba(34,195,142,0.16)",
           }}
         >
-          <div className="pointer-events-none absolute -top-12 -right-12 w-48 h-48 rounded-full blur-[60px]" style={{ background: "rgba(34,195,142,0.07)" }} />
+          <div className="pointer-events-none absolute -top-12 -right-12 w-48 h-48 rounded-full blur-[60px]" />
           <div className="w-7 h-7 mx-auto mb-4 relative overflow-hidden">
             <Image
               src="/blog-icons/twin-leaf.png" 

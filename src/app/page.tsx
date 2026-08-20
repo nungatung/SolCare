@@ -1,10 +1,9 @@
 "use client";
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, Zap, BarChart3, Check, Info, Mail, Menu, X, Activity, Bell, CalendarCheck, Settings, ArrowRight, ChevronDown, Instagram, Facebook } from 'lucide-react';
+import { ShieldCheck, Zap, BarChart3, Check, Mail, Menu, X, Activity, Bell, CalendarCheck, Settings, ArrowRight, ChevronDown, Instagram, Facebook } from 'lucide-react';
 import WaitlistForm from '../../components/WaitlistForm';
 import Image from 'next/image';
-import ImpactModal from '../../components/ImpactModal';
 import TermsModal from '../../components/TermsModal';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -15,18 +14,6 @@ import styles from "./Navigation.module.css";
 
 import { fadeUp, fadeIn } from "@/lib/variants";
 
-const features = [
-  "Sola - Your Personal Solar Companion",
-  "AI Powered Soiling Forecasts (Irradiance + Weather + PM2.5 Intelligence)",
-  "Minimum 2 Professional Cleans / Year, more when Sola detects it's needed",
-  "Real Time Carbon Offset Tracking (HelioAPI)",
-  "One Tap Booking & Automatic Team Dispatch",
-  "Post Clean Performance Validation",
-  "Impact Club: $1/kg CO₂ to Reforestation",
-  "System Health Monitoring",
-  "Priority Support",
-];
-
 const steps = [
   {
     icon: <Settings className="w-5 h-5" />,
@@ -36,7 +23,7 @@ const steps = [
   {
     icon: <Activity className="w-5 h-5" />,
     title: "Sola Monitors 24/7",
-    desc: "Sola analyses your output daily against live New Zealand weather, temperature, and air quality data so it knows the difference between an efficiency drop caused by a hot day and dirty panels."
+    desc: "Sola analyses your output daily against live local weather, temperature, and air quality data so it knows the difference between an efficiency drop caused by a hot day and dirty panels."
   },
   {
     icon: <Bell className="w-5 h-5" />,
@@ -51,12 +38,10 @@ const steps = [
 ];
 
 const megaMenuSections = [
-
   {
     title: "Learn",
     links: [
       { label: "Blog", href: "/blog" },
-      // { label: "FAQ", href: "/faq" },
       { label: "How It Works", href: "#how-it-works" },
     ],
   },
@@ -67,11 +52,17 @@ const megaMenuSections = [
       { label: "Get in Touch", href: "mailto:solcare.info@gmail.com" },
     ],
   },
+  {
+    title: "Investors",
+    links: [
+      { label: "The Signal", href: "#the-signal" },
+      { label: "Request the Deck", href: "mailto:solcare.info@gmail.com?subject=SolCare%20%E2%80%94%20Investor%20Inquiry" },
+    ],
+  },
 ];
 
 
 export default function Home() {
-  const [isImpactModalOpen, setIsImpactModalOpen] = useState(false);
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
@@ -99,7 +90,8 @@ export default function Home() {
                 src="/icon.png"
                 alt="SolCare Icon"
                 fill
-                className="object-contain drop-shadow-[0_0_18px_rgba(245,166,35,0.55)]"
+                className="object-contain"
+                style={{ filter: 'drop-shadow(0 0 18px rgba(245,166,35,0.55))' }}
               />
             </div>
             <div className="relative w-70 h-70 -mt-15">
@@ -107,7 +99,8 @@ export default function Home() {
                 src="/solcare.png"
                 alt="SolCare Logo"
                 fill
-                className="object-contain invert brightness-200"
+                className="object-contain"
+                style={{ filter: 'invert(1) brightness(2)' }}
               />
             </div>
           </div>
@@ -159,7 +152,7 @@ export default function Home() {
                       transition={{ duration: 0.15 }}
                       onMouseEnter={() => setIsMegaMenuOpen(true)}
                       onMouseLeave={() => setIsMegaMenuOpen(false)}
-                      className="absolute -left-1/2 -translate-x-1/2 mt-2 w-screen max-w-2xl mt-2"
+                      className="absolute right-0 mt-2 w-[min(calc(100vw-3rem),42rem)]"
                     >
                       <div
                         className="rounded-2xl border shadow-xl overflow-hidden"
@@ -224,7 +217,7 @@ export default function Home() {
                         </div>
 
                         {/* Menu Columns */}
-                        <div className="grid grid-cols-3 gap-8 px-8 py-6">
+                        <div className="grid grid-cols-3 gap-4 md:gap-6 lg:gap-8 px-6 md:px-8 py-6">
                           {megaMenuSections.map((section, idx) => (
                             <div key={idx}>
                               <h3 className="text-xs font-bold uppercase tracking-[0.1em] mb-4" style={{ color: "#22C38E" }}>
@@ -280,12 +273,13 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -8, scale: 0.98 }}
                 transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                className="md:hidden absolute top-[52px] left-4 right-4 z-50 rounded-2xl border border-[rgba(255,250,235,0.1)] bg-[#1A1A16]/98 backdrop-blur-xl shadow-2xl overflow-hidden"
+                className="md:hidden absolute top-[52px] left-4 right-6 z-50 rounded-2xl border border-[rgba(255,250,235,0.1)] bg-[#1A1A16]/98 backdrop-blur-xl shadow-2xl overflow-hidden"
               >
                 <div className="flex flex-col py-2">
                   {[
                     { href: "/blog", label: "Blog" },
-                    { href: "/about", label: "About" },
+                    { href: "/about", label: "About Us" },
+                    { href: "/#the-signal", label: "Investors" },
                   ].map(({ href, label }) => (
                     <Link
                       key={href}
@@ -305,6 +299,47 @@ export default function Home() {
                     <Mail className="w-3.5 h-3.5 text-[#22C38E]" />
                     Get in Touch
                   </a>
+                  <div className="px-5 py-1 flex items-center gap-3">
+                    <span className="text-xs font-semibold uppercase tracking-[0.1em]" style={{ color: "#6B6860" }}>
+                      Follow Us
+                    </span>
+                    <a
+                      href="https://instagram.com/solcare.nz"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-lg transition-all duration-200"
+                      style={{ color: "#A09D96", background: "rgba(34, 195, 142, 0.08)" }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.15)";
+                        (e.currentTarget as HTMLElement).style.color = "#22C38E";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.08)";
+                        (e.currentTarget as HTMLElement).style.color = "#A09D96";
+                      }}
+                      aria-label="Instagram"
+                    >
+                      <Instagram className="w-4 h-4" />
+                    </a>
+                    <a
+                      href="https://www.facebook.com/share/1CjZJ9wdcn/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-lg transition-all duration-200"
+                      style={{ color: "#A09D96", background: "rgba(34, 195, 142, 0.08)" }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.15)";
+                        (e.currentTarget as HTMLElement).style.color = "#22C38E";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.08)";
+                        (e.currentTarget as HTMLElement).style.color = "#A09D96";
+                      }}
+                      aria-label="Facebook"
+                    >
+                      <Facebook className="w-4 h-4" />
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             </>
@@ -313,10 +348,10 @@ export default function Home() {
       </div>
 
       {/* Hero */}
-      <section className="relative px-6 pt-16 pb-28 max-w-7xl mx-auto">
-        {/* Ambient glow */}
-        <div className="pointer-events-none absolute top-0 left-0 w-[500px] h-[500px] rounded-full bg-[#F5A623]/[0.06] blur-[120px] -translate-x-1/4 -translate-y-1/4" />
-        <div className="pointer-events-none absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-[#22C38E]/[0.05] blur-[100px] translate-x-1/4 -translate-y-1/4" />
+      <section
+        className="relative px-6 pt-16 pb-28 max-w-7xl mx-auto"
+
+      >
 
         <div className="relative grid md:grid-cols-2 gap-14 items-center">
 
@@ -387,13 +422,10 @@ export default function Home() {
           viewport={{ once: true }}
           className="relative rounded-[28px] overflow-hidden"
           style={{
-            background: "linear-gradient(135deg, rgba(245,166,35,0.07) 0%, rgba(34,195,142,0.05) 100%)",
+            background: "linear-gradient(135deg, rgba(245,166,35,0.07) 0%, rgba(34,195,142,0.05) 100%), radial-gradient(ellipse 300px 250px at 100% 0%, rgba(245,166,35,0.08) 0%, transparent 70%), radial-gradient(ellipse 300px 250px at 0% 100%, rgba(34,195,142,0.07) 0%, transparent 70%)",
             border: "1px solid rgba(245,166,35,0.18)",
           }}
         >
-          {/* Corner glow */}
-          <div className="pointer-events-none absolute -top-20 -right-20 w-64 h-64 rounded-full bg-[#F5A623]/[0.08] blur-[80px]" />
-          <div className="pointer-events-none absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-[#22C38E]/[0.07] blur-[80px]" />
 
           <div className="relative p-10 md:p-16">
             <div className="max-w-3xl mx-auto text-center">
@@ -404,9 +436,9 @@ export default function Home() {
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="flex items-center justify-center mb-6"
+                className="relative flex items-center justify-center mb-6"
               >
-                <SolarPal state="idle" size={200} />
+                <SolarPal state="idle" size={250} />
               </motion.div>
 
               <h2 className="text-3xl md:text-4xl font-bold tracking-[-0.02em] mb-5">
@@ -414,7 +446,7 @@ export default function Home() {
               </h2>
               <p className="text-[#A09D96] text-lg leading-[1.75] mb-12 max-w-2xl mx-auto">
                 Sola is your always on personal AI companion at the core of SolCare. It reads your live inverter data,
-                cross references New Zealand weather patterns, particulate matter (PM), and temperature conditions daily, and notifies
+                cross references live local weather conditions, particulate matter (PM), and temperature data daily, and notifies
                 you directly, not just when something's wrong, but to keep you informed about how your system is
                 performing and what it's worth.
               </p>
@@ -471,139 +503,289 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* pricing */}
+      {/* Investor Deck */}
       <section
+        id="the-signal"
         className="px-6 py-28"
         style={{ background: "rgba(255,250,235,0.015)", borderTop: "1px solid rgba(255,250,235,0.06)", borderBottom: "1px solid rgba(255,250,235,0.06)" }}
       >
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-4xl mx-auto">
 
+          {/* Section header */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="mb-20"
           >
-            <h2 className="text-3xl md:text-4xl font-bold tracking-[-0.02em] mb-3">Transparent Pricing</h2>
-            <p className="text-[#A09D96] max-w-md mx-auto leading-relaxed">One plan. No surprises.</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] mb-5" style={{ color: "#22C38E" }}>
+              Pre-seed deck · Global
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-[-0.03em] mb-6">
+              The Signal.
+            </h2>
+            <p className="text-[#A09D96] text-lg leading-[1.75] max-w-2xl">
+              AI powered solar asset management, built for the world. Seeking investment to complete the product build, launch in New Zealand, and establish the model before scaling.
+            </p>
           </motion.div>
 
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="max-w-2xl mx-auto"
-          >
-            <div
-              className="relative p-10 rounded-[28px] transition-transform duration-300 hover:scale-[1.005]"
-              style={{
-                background: "linear-gradient(160deg, rgba(245,166,35,0.08) 0%, rgba(245,166,35,0.03) 100%)",
-                border: "1.5px solid rgba(245,166,35,0.35)",
-                boxShadow: "0 0 60px rgba(245,166,35,0.08), inset 0 1px 0 rgba(255,250,235,0.06)",
-              }}
+          {/* Slides */}
+          <div>
+
+            {/* 01 */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="py-14 border-t"
+              style={{ borderColor: "rgba(255,250,235,0.07)" }}
             >
-              {/* Founding member badge 
-              <div className="absolute -top-[14px] left-1/2 -translate-x-1/2">
-                <span
-                  className="px-5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.08em] text-black whitespace-nowrap"
-                  style={{ background: "linear-gradient(135deg, #FFD166, #F5A623)" }}
-                >
-                  Founding Member Pricing
-                </span>
-              </div>
-
-              {/* Plan header */}
-              <div className="text-center mb-8 pt-3">
-                <h3 className="text-2xl font-bold tracking-[-0.02em] mb-3">SolCare. Complete</h3>
-                <p className="text-[#A09D96] text-sm leading-relaxed max-w-md mx-auto">
-                  Sola monitors your system year round, forecasts the optimal clean window, and dispatches a vetted cleaner automatically, all for less than the cost of a single one off clean.
-                </p>
-              </div>
-
-              {/* Price */}
-              <div className="flex flex-col items-center mb-5">
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-[64px] font-bold tracking-[-0.04em] leading-none" style={{ color: "#F5A623" }}>$30</span>
-                  <span className="text-[#6B6860] text-lg font-medium">/month</span>
-                </div>
-                <span className="text-[#6B6860] text-xs mt-2.5 tracking-wide">GST included · Billed monthly · Cancel anytime</span>
-              </div>
-
-              {/* Value anchor */}
-              <div
-                className="rounded-2xl px-6 py-4 mb-9 text-center"
-                style={{
-                  background: "rgba(255,250,235,0.04)",
-                  border: "1px solid rgba(255,250,235,0.08)",
-                }}
-              >
-                <p className="text-sm text-[#A09D96] leading-relaxed">
-                  A single professional clean in NZ costs{" "}
-                  <span className="text-[#F5F0E8] font-semibold">$100–$300+</span>.{" "}
-                  SolCare is{" "}
-                  <span style={{ color: "#F5A623" }} className="font-semibold">$360/year</span>
-                  {" "}, that's a minimum of 2 managed cleans, plus Sola watching your system 365 days a year.
-                  Most members receive more than 2 cleans annually as Sola detects what their system actually needs.
-                </p>
-              </div>
-
-              {/* Feature list */}
-              <ul className="space-y-3.5 mb-10">
-                {features.map((feature, fIdx) => (
-                  <li key={fIdx} className="flex items-start gap-3 text-sm text-[#A09D96]">
-                    <div
-                      className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                      style={{ background: "rgba(34,195,142,0.15)", border: "1px solid rgba(34,195,142,0.3)" }}
-                    >
+              <p className="text-xs font-bold uppercase tracking-[0.14em] mb-5" style={{ color: "#22C38E" }}>01 · The problem</p>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-5">A silent leak in every solar system.</h3>
+              <p className="text-[#A09D96] leading-[1.8] mb-8 max-w-2xl">
+                Soiling from airborne salt, pollen, dust, and debris silently reduces solar output by 10-30%. Most system owners have no idea it's happening and have no tool to inform them when it's actually worth fixing.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Soiling reduces output by 10-30%, continuously and without warning",
+                  "Owners rely on guesswork to decide when to clean",
+                  "Cleaning is reactive, uncoordinated, and backed by no data",
+                  "Lost yield compounds invisibly over weeks and months",
+                ].map((b, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-[#A09D96]">
+                    <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(34,195,142,0.15)", border: "1px solid rgba(34,195,142,0.3)" }}>
                       <Check className="w-2.5 h-2.5" style={{ color: "#22C38E" }} />
                     </div>
-                    <span className="flex flex-wrap items-center gap-x-2 leading-relaxed">
-                      {feature}
-                      {feature.toLowerCase().includes("impact club") && (
-                        <button
-                          onClick={() => setIsImpactModalOpen(true)}
-                          className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide hover:opacity-80 transition-opacity cursor-pointer"
-                          style={{ color: "#22C38E" }}
-                        >
-                          <Info className="w-2.5 h-2.5" /> What's this?
-                        </button>
-                      )}
-                    </span>
+                    {b}
                   </li>
                 ))}
               </ul>
+            </motion.div>
 
-              {/* CTA */}
-              <a
-                href="#">
-                <button
-                  className="w-full py-4 rounded-xl font-bold text-base text-black transition-all duration-200 cursor-pointer"
-                  style={{
-                    background: "linear-gradient(135deg, #FFD166, #F5A623)",
-                    boxShadow: "0 4px 24px rgba(245,166,35,0.25)",
-                  }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 32px rgba(245,166,35,0.4)"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 24px rgba(245,166,35,0.25)"; }}
-                >
-                  Join the Waitlist
-                </button>
-              </a>
-            </div>
+            {/* 02 */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="py-14 border-t"
+              style={{ borderColor: "rgba(255,250,235,0.07)" }}
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.14em] mb-5" style={{ color: "#22C38E" }}>02 · The product</p>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-5">Sola. The intelligence layer your solar system never had.</h3>
+              <p className="text-[#A09D96] leading-[1.8] mb-8 max-w-2xl">
+                Sola connects to your inverter, reads your system's energy production, live local weather and air quality data, and tells you exactly what your system should be producing, and precisely when soiling is to blame. Then it handles the clean, from forecast to dispatch.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Direct inverter sync, no hardware required",
+                  "Daily output compared against modelled irradiance and local conditions",
+                  "Soiling isolated from heat loss, shading, and seasonal variation, no false alarms",
+                  "Forecasts the optimal clean window 5-14 days out",
+                  "One tap booking, automatic dispatch via local partner network",
+                  "CO₂ recovery tracked per kilowatt reclaimed",
+                ].map((b, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-[#A09D96]">
+                    <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(34,195,142,0.15)", border: "1px solid rgba(34,195,142,0.3)" }}>
+                      <Check className="w-2.5 h-2.5" style={{ color: "#22C38E" }} />
+                    </div>
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* 03 */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="py-14 border-t"
+              style={{ borderColor: "rgba(255,250,235,0.07)" }}
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.14em] mb-5" style={{ color: "#22C38E" }}>03 · Market opportunity</p>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-5">Residential solar is scaling. Maintenance hasn't caught up.</h3>
+              <p className="text-[#A09D96] leading-[1.8] mb-8 max-w-2xl">
+                Millions of residential solar systems are installed each year, yet the maintenance market remains largely undigitised. No AI native platform to close the loop from performance monitoring to managed cleaning.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Australia has 4 million+ rooftop solar installations, the immediate adjacent market",
+                  "The residential solar maintenance market is untouched by software",
+                  "No dominant platform combines AI monitoring, soiling forecasting, and clean dispatch in a single product",
+                  "SolCare enters as the category defining platform",
+                ].map((b, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-[#A09D96]">
+                    <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(34,195,142,0.15)", border: "1px solid rgba(34,195,142,0.3)" }}>
+                      <Check className="w-2.5 h-2.5" style={{ color: "#22C38E" }} />
+                    </div>
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* 04 */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="py-14 border-t"
+              style={{ borderColor: "rgba(255,250,235,0.07)" }}
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.14em] mb-5" style={{ color: "#22C38E" }}>04 · Where we are</p>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-5">In build. Foundation laid.</h3>
+              <p className="text-[#A09D96] leading-[1.8] mb-8 max-w-2xl">
+                SolCare is in active development. The core architecture, inverter sync, AI output modelling, and the Sola conversational interface, are being built toward a New Zealand waitlist launch as the first milestone.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Inverter integration and output modelling: in development",
+                  "Sola conversational interface: in development",
+                  "Cleaner partner network: initial conversations in progress",
+                  "Waitlist live, NZ established as initial launch market",
+                  "Australia scoped as the immediate next market",
+                ].map((b, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-[#A09D96]">
+                    <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(34,195,142,0.15)", border: "1px solid rgba(34,195,142,0.3)" }}>
+                      <Check className="w-2.5 h-2.5" style={{ color: "#22C38E" }} />
+                    </div>
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* 05 */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="py-14 border-t"
+              style={{ borderColor: "rgba(255,250,235,0.07)" }}
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.14em] mb-5" style={{ color: "#22C38E" }}>05 · Go-to-market</p>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-8">Start focused. Scale regionally.</h3>
+              <div className="grid md:grid-cols-3 gap-4">
+                {[
+                  {
+                    phase: "Phase 1",
+                    title: "NZ Launch",
+                    desc: "Waitlist driven controlled rollout. Target solar owner communities, residential and commercial. Validate unit economics and train the AI model with real world data.",
+                  },
+                  {
+                    phase: "Phase 2",
+                    title: "Australia",
+                    desc: "4M+ rooftop solar installations. Same soiling conditions, same language, same maintenance gap. Expand with an established model.",
+                  },
+                  {
+                    phase: "Phase 3",
+                    title: "Regional Platform",
+                    desc: "Partner with installers who want to offer monitoring as a service. Scale the cleaner network via local partnerships, not owned fleet.",
+                  },
+                ].map((p, i) => (
+                  <div
+                    key={i}
+                    className="p-6 rounded-2xl"
+                    style={{ background: "rgba(255,250,235,0.03)", border: "1px solid rgba(255,250,235,0.08)" }}
+                  >
+                    <p className="text-xs font-bold uppercase tracking-[0.1em] mb-2" style={{ color: "#22C38E" }}>{p.phase}</p>
+                    <h4 className="font-semibold text-[#F5F0E8] mb-3 tracking-[-0.01em]">{p.title}</h4>
+                    <p className="text-sm text-[#6B6860] leading-relaxed">{p.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* 06 */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="py-14 border-t"
+              style={{ borderColor: "rgba(255,250,235,0.07)" }}
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.14em] mb-5" style={{ color: "#22C38E" }}>06 · The founder</p>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-8">Built by someone who's done the work.</h3>
+              <div
+                className="p-8 rounded-2xl"
+                style={{ background: "rgba(255,250,235,0.03)", border: "1px solid rgba(255,250,235,0.08)" }}
+              >
+                <p className="font-semibold text-[#F5F0E8] mb-1 tracking-[-0.01em]">Shalum Samuels</p>
+                <p className="text-xs uppercase tracking-[0.1em] mb-5" style={{ color: "#22C38E" }}>Founder</p>
+                <p className="text-sm text-[#A09D96] leading-[1.8] mb-4">
+                  7+ years in New Zealand's solar industry, from technician to system design, across residential, off-grid and RV installations. Observed firsthand how soiling silently erodes panel performance and how disconnected the maintenance side of the industry was from real performance data.
+                </p>
+                <p className="text-sm text-[#A09D96] leading-[1.8]">
+                  That technical background in physical infrastructure and problem solving was the catalyst for a transition into software development. As a solo founder/developer now building SolCare from the ground up, bringing both industry expertise and product building experience to the problem.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* 07 
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="py-14 border-t"
+              style={{ borderColor: "rgba(255,250,235,0.07)" }}
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.14em] mb-5" style={{ color: "#22C38E" }}>07 · Funding ask</p>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-5">Seeking investment.</h3>
+              <p className="text-[#A09D96] leading-[1.8] mb-8 max-w-2xl">
+                To complete the product build, activate the NZ waitlist, establish the cleaner partner network, and lay the groundwork for the Australian market.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Product & infrastructure — complete Sola and the inverter sync layer",
+                  "Launch & go-to-market — NZ waitlist activation and early user acquisition",
+                  "Cleaner partner network — onboard and vet local cleaning partners",
+                  "Foundation for Australian market entry",
+                ].map((b, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-[#A09D96]">
+                    <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(34,195,142,0.15)", border: "1px solid rgba(34,195,142,0.3)" }}>
+                      <Check className="w-2.5 h-2.5" style={{ color: "#22C38E" }} />
+                    </div>
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </motion.div> */}
+
+          </div>
+
+          {/* CTA */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mt-6 pt-12 border-t flex flex-col sm:flex-row items-start sm:items-center gap-4"
+            style={{ borderColor: "rgba(255,250,235,0.07)" }}
+          >
+            <a
+              href="mailto:solcare.info@gmail.com?subject=SolCare%20%E2%80%94%20Investor%20Inquiry"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-black transition-all duration-200"
+              style={{
+                background: "linear-gradient(135deg, #FFD166, #F5A623)",
+                boxShadow: "0 4px 24px rgba(245,166,35,0.25)",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 6px 32px rgba(245,166,35,0.4)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 4px 24px rgba(245,166,35,0.25)"; }}
+            >
+              Request the full deck
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <span className="text-sm" style={{ color: "#6B6860" }}>solcare.info@gmail.com</span>
           </motion.div>
 
-          <div className="mt-10 text-center">
-            <button
-              onClick={() => setIsTermsModalOpen(true)}
-              className="text-[11px] uppercase tracking-[0.18em] transition-colors duration-200 cursor-pointer"
-              style={{ color: "#6B6860" }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "#A09D96"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = "#6B6860"; }}
-            >
-              View Full Terms & Conditions
-            </button>
-          </div>
         </div>
       </section>
 
@@ -670,172 +852,7 @@ export default function Home() {
         </section>
       </section>
 
-      {/* chat mockup */}
-      <section className="px-6 py-24 max-w-7xl mx-auto">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="max-w-2xl mx-auto"
-        >
-          <div className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#A09D96] mb-3">Sola in Action</p>
-            <h2 className="text-2xl md:text-3xl font-bold tracking-[-0.02em]">Real notifications. Plain English. No fluff.</h2>
-          </div>
 
-          {/* Chat thread */}
-          <div
-            className="rounded-[24px] overflow-hidden"
-            style={{ border: "1px solid rgba(255,250,235,0.08)", background: "rgba(255,250,235,0.02)" }}
-          >
-            {/* Chat header */}
-            <div
-              className="px-5 py-3 flex items-center gap-3"
-              style={{ borderBottom: "1px solid rgba(255,250,235,0.06)", background: "rgba(255,250,235,0.03)" }}
-            >
-              {/* SolarPal avatar in header — small size */}
-              <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
-                <SolarPal state="idle" size={80} />
-              </div>
-              <span className="text-m font-medium text-[#F5F0E8]">Sola</span>
-            </div>
-
-            <div className="p-5 space-y-4">
-
-              {/* AI message 1 */}
-              <motion.div
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={0}
-                className="flex gap-2.5 items-end"
-              >
-                {/* SolarPal avatar — inline with bubble */}
-                <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
-                  <SolarPal state="idle" size={80} />
-                </div>
-                <div
-                  className="px-4 py-3 rounded-2xl rounded-bl-sm max-w-sm"
-                  style={{ background: "rgba(255,250,235,0.05)", border: "1px solid rgba(255,250,235,0.08)" }}
-                >
-                  <p className="text-sm text-[#A09D96] leading-relaxed">Good week! Your panels hit 96% of expected output. You've offset 21kg of CO₂ this month. All good here. 🌿</p>
-                </div>
-              </motion.div>
-
-              {/* AI message 2 — slot picker */}
-              <motion.div
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={0}
-                className="flex gap-2.5 items-end"
-              >
-                <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
-                  <SolarPal state="idle" size={80} />
-                </div>
-                <div
-                  className="px-4 py-3 rounded-2xl rounded-bl-sm max-w-sm space-y-3"
-                  style={{ background: "rgba(255,250,235,0.05)", border: "1px solid rgba(255,250,235,0.08)" }}
-                >
-                  <p className="text-sm text-[#A09D96] leading-relaxed">
-                    PM10 elevated 6 days, output gap at 11%.{" "}
-                    <span className="font-semibold" style={{ color: "#F5A623" }}>Wednesday 23 April</span>{" "}
-                    is your best clean window. Pick a time:
-                  </p>
-                  <div className="grid grid-cols-4 gap-2">
-                    {["9:00 AM", "10:00 AM", "12:00 PM", "1:00 PM"].map((slot) => (
-                      <button
-                        key={slot}
-                        className="py-1.5 text-xs font-medium rounded-lg transition-all duration-200"
-                        style={{
-                          background: "rgba(255,250,235,0.04)",
-                          border: "1px solid rgba(255,250,235,0.1)",
-                          color: "#A09D96",
-                        }}
-                        onMouseEnter={e => {
-                          (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(245,166,35,0.4)";
-                          (e.currentTarget as HTMLButtonElement).style.color = "#F5A623";
-                          (e.currentTarget as HTMLButtonElement).style.background = "rgba(245,166,35,0.06)";
-                        }}
-                        onMouseLeave={e => {
-                          (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,250,235,0.1)";
-                          (e.currentTarget as HTMLButtonElement).style.color = "#A09D96";
-                          (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,250,235,0.04)";
-                        }}
-                      >
-                        {slot}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* User reply */}
-              <motion.div
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={2}
-                className="flex justify-end"
-              >
-                <div
-                  className="px-4 py-3 rounded-2xl rounded-br-sm max-w-xs"
-                  style={{ background: "rgba(245,166,35,0.1)", border: "1px solid rgba(245,166,35,0.2)" }}
-                >
-                  <p className="text-sm text-[#F5F0E8]">1:00 PM</p>
-                </div>
-              </motion.div>
-
-              {/* AI booking summary */}
-              <motion.div
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={3}
-                className="flex gap-2.5 items-end"
-              >
-                <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
-                  <SolarPal state="idle" size={80} />
-                </div>
-                <div
-                  className="px-4 py-3 rounded-2xl rounded-bl-sm max-w-sm space-y-3"
-                  style={{ background: "rgba(255,250,235,0.05)", border: "1px solid rgba(255,250,235,0.08)" }}
-                >
-                  <p className="text-sm text-[#A09D96]">Here's your booking summary:</p>
-                  <div
-                    className="rounded-xl p-3 text-xs space-y-2"
-                    style={{ background: "rgba(255,250,235,0.04)", border: "1px solid rgba(255,250,235,0.07)" }}
-                  >
-                    {[
-                      { label: "Date", value: "Wednesday 23 April", color: "#F5F0E8" },
-                      { label: "Time", value: "1:00 PM", color: "#F5F0E8" },
-                      { label: "Est. Recovery", value: "~$22 / 30 days", color: "#F5A623" },
-                      { label: "CO₂ recovered", value: "~14kg", color: "#22C38E" },
-                    ].map(row => (
-                      <div key={row.label} className="flex justify-between items-center">
-                        <span className="text-[#6B6860]"> {row.label}</span>
-                        <span className="font-medium" style={{ color: row.color }}>{row.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <button
-                    className="w-full py-2.5 rounded-xl text-xs font-bold text-black transition-all duration-200"
-                    style={{ background: "linear-gradient(135deg, #FFD166, #F5A623)", boxShadow: "0 2px 12px rgba(245,166,35,0.2)" }}
-                  >
-                    Confirm Booking
-                  </button>
-                </div>
-              </motion.div>
-
-            </div>
-          </div>
-        </motion.div>
-      </section>
 
       {/* about */}
       <section
@@ -855,7 +872,7 @@ export default function Home() {
                 "SolCare was founded on the principle that solar energy is an asset, not just a utility. A dirty panel isn't just a maintenance chore, it's a silent leak in your financial and environmental investment. Over time, debris build up can lead to permanent surface degradation, decreasing your panels lifespan.",
                 null,
                 "When Sola confirms a clean is worth it, it tells you why with the ROI worked out and handles the booking from end to end. Your vetted local pro is dispatched automatically. No forms, no phone calls, no guesswork.",
-                "Through our HelioAPI carbon integration, every kilowatt you recover gets tracked as a real CO₂ offset. And for every $10 of CO₂ your system saves, we facilitate a donation to a reforestation project of your choosing, turning your roof into a literal engine for a greener New Zealand.",
+                "Through our carbon tracking integration, every kilowatt you recover from soiling is logged as a real CO₂ offset, putting a number on what clean panels actually contribute to a cleaner grid.",
               ].map((para, i) => (
                 <motion.div
                   key={i}
@@ -867,10 +884,10 @@ export default function Home() {
                 >
                   {para === null ? (
                     <p className="text-[#A09D96] mb-5 leading-[1.8] text-[15px]">
-                      We're not just a cleaning booking app. We're a{" "}
+                      We are a{" "}
                       <span className="text-[#F5F0E8] font-semibold">Solar Asset Management and Preventive Maintenance Platform</span>{" "}
-                      and Sola is the intelligence at the centre of it. By combining your live inverter data with NZ weather patterns,
-                      particulate matter readings, temperature derating models, and national grid emission factors, Sola knows exactly
+                      and Sola is the intelligence at the centre of it. By combining your live inverter data with local weather patterns,
+                      particulate matter readings, temperature derating models, and regional grid emission factors, Sola knows exactly
                       what your system should be producing at any given moment and flags the difference when soiling is genuinely to blame.
                     </p>
                   ) : (
@@ -886,7 +903,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="flex items-center gap-5 mt-2"
               >
-                {["AI Powered", "Vetted Pros", "Kiwi Owned"].map((label, i) => (
+                {["AI Powered", "Vetted Pros", "Climate Positive"].map((label, i) => (
                   <span key={label} className="flex items-center gap-3">
                     <span
                       className="text-xs font-bold uppercase tracking-[0.1em]"
@@ -921,34 +938,41 @@ export default function Home() {
       </section>
 
       {/* footer */}
-      <footer className="px-6 py-10 max-w-7xl mx-auto">
+      <footer className="px-6 py-8 md:py-10 max-w-7xl mx-auto">
         <div
-          className="flex flex-col md:flex-row items-center justify-between gap-5 pt-8"
+          className="pt-6 md:pt-8"
           style={{ borderTop: "1px solid rgba(255,250,235,0.07)" }}
         >
-          <div className="flex items-center gap-6">
-            {[
-              { href: "/blog", label: "Blog" },
-              { href: "/about", label: "About" },
-            ].map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="text-m transition-colors duration-200"
-                style={{ color: "#6B6860" }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color = "#6B6860";
-                }}
-              >
-                {label}
-              </Link>
-            ))}
+          {/* Main Footer - Responsive Layout */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-8">
+            {/* Links Section - Stacks vertically on mobile, horizontally on md+ */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+              {[
+                { href: "/", label: "Home" },
+                { href: "/blog", label: "Blog" },
+                { href: "/about", label: "About Us" },
+              ].map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="text-sm transition-colors duration-200 whitespace-nowrap"
+                  style={{ color: "#6B6860" }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLAnchorElement).style.color = "#6B6860";
+                  }}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+
+            {/* Email & Contact */}
             <a
               href="mailto:solcare.info@gmail.com"
-              className="flex items-center gap-1.5 text-m transition-colors duration-200"
+              className="flex items-center gap-1.5 text-sm transition-colors duration-200 truncate"
               style={{ color: "#6B6860" }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
@@ -956,93 +980,96 @@ export default function Home() {
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLAnchorElement).style.color = "#6B6860";
               }}
+              title="solcare.info@gmail.com"
             >
-              <Mail className="w-5 h-5" />
-              solcare.info@gmail.com
+              <Mail className="w-4 h-4 flex-shrink-0" />
+              <span className="hidden sm:inline">solcare.info@gmail.com</span>
+              <span className="sm:hidden text-xs">Get in Touch</span>
             </a>
+
+            {/* Terms & Copyright - Stack on mobile */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+              <button
+                onClick={() => setIsTermsModalOpen(true)}
+                className="text-xs uppercase tracking-[0.16em] transition-colors duration-200 cursor-pointer text-left sm:text-right"
+                style={{ color: "#6B6860" }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.color = "#A09D96";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.color = "#6B6860";
+                }}
+              >
+                Terms & Conditions
+              </button>
+
+              <span className="text-xs" style={{ color: "#3D3D38" }}>
+                © 2026 SolCare. All rights reserved.
+              </span>
+            </div>
           </div>
 
-          <button
-            onClick={() => setIsTermsModalOpen(true)}
-            className="text-[11px] uppercase tracking-[0.16em] transition-colors duration-200 cursor-pointer"
-            style={{ color: "#6B6860" }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.color = "#A09D96";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.color = "#6B6860";
-            }}
-          >
-            Terms & Conditions
-          </button>
-
-          <span className="text-xs" style={{ color: "#3D3D38" }}>
-            © 2026 SolCare. All rights reserved · Made in Aotearoa with ❤️
-          </span>
-        </div>
-
-        {/* Social Media Links */}
-        <div
-          className="flex items-center gap-4 pt-4">
-          <span
-            className="text-xs font-semibold uppercase tracking-[0.1em]"
-            style={{ color: "#6B6860" }}
-          >
-            Follow Us
-          </span>
-          <div className="flex gap-3">
-            <a
-              href="https://instagram.com/solcare.nz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg transition-all duration-200"
-              style={{
-                color: "#A09D96",
-                background: "rgba(34, 195, 142, 0.08)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "rgba(34, 195, 142, 0.15)";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#22C38E";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "rgba(34, 195, 142, 0.08)";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
-              }}
-              aria-label="Instagram"
+          {/* Social Media Links - Below main footer */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-4 md:pt-6">
+            <span
+              className="text-xs font-semibold uppercase tracking-[0.1em] order-2 sm:order-1"
+              style={{ color: "#6B6860" }}
             >
-              <Instagram className="w-4 h-4" />
-            </a>
-            <a
-              href="https://www.facebook.com/share/1CjZJ9wdcn/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg transition-all duration-200"
-              style={{
-                color: "#A09D96",
-                background: "rgba(34, 195, 142, 0.08)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "rgba(34, 195, 142, 0.15)";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#22C38E";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "rgba(34, 195, 142, 0.08)";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
-              }}
-              aria-label="Facebook"
-            >
-              <Facebook className="w-4 h-4" />
-            </a>
+              Follow Us
+            </span>
+            <div className="flex gap-3 order-1 sm:order-2">
+              <a
+                href="https://instagram.com/solcare.nz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg transition-all duration-200"
+                style={{
+                  color: "#A09D96",
+                  background: "rgba(34, 195, 142, 0.08)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background =
+                    "rgba(34, 195, 142, 0.15)";
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#22C38E";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background =
+                    "rgba(34, 195, 142, 0.08)";
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+                }}
+                aria-label="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.facebook.com/share/1CjZJ9wdcn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg transition-all duration-200"
+                style={{
+                  color: "#A09D96",
+                  background: "rgba(34, 195, 142, 0.08)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background =
+                    "rgba(34, 195, 142, 0.15)";
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#22C38E";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background =
+                    "rgba(34, 195, 142, 0.08)";
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+                }}
+                aria-label="Facebook"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+            </div>
           </div>
         </div>
       </footer>
 
-      <ImpactModal isOpen={isImpactModalOpen} onClose={() => setIsImpactModalOpen(false)} />
-      <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} />
+      {/* <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} /> */}
     </main>
   );
 }

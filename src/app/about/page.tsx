@@ -51,7 +51,7 @@ const values = [
     bg: "rgba(34,195,142,0.1)",
     border: "rgba(34,195,142,0.2)",
     title: "Honest about the data",
-    desc: "Every recommendation Sola makes is grounded in your real production data, live weather readings, and NZ specific emission factors. No guesswork, no false positives.",
+    desc: "Every recommendation Sola makes is grounded in your real production data, live weather readings, and region-specific emission factors. No guesswork, no false positives.",
   },
   {
     icon: "environment.png",
@@ -59,7 +59,7 @@ const values = [
     bg: "rgba(34,195,142,0.1)",
     border: "rgba(34,195,142,0.2)",
     title: "Built for the environment",
-    desc: "The Impact Club isn't a marketing feature. It's a genuine commitment, every kilogram of CO₂ your system offsets translates into a real donation to reforestation in New Zealand and the Pacific.",
+    desc: "Every kilogram of CO₂ your system offsets is tracked, measured, and translated into real world equivalents you can understand. No vague claims, just precise, live data on what your panels are actually doing for the planet.",
   },
   {
     icon: "easy.png",
@@ -73,43 +73,42 @@ const values = [
 
 const commitments = [
   {
-    stat: "$1",
-    label: "donated per 1kg CO₂ offset",
-    sub: "Via the Impact Club to reforestation projects of your choice",
+    stat: "500kg+",
+    label: "Average CO₂ offset tracked per system annually",
+    sub: "Based on typical residential solar output worldwide",
   },
   {
-    stat: "0.012",
+    stat: "0.05–1.2",
     label: "kg CO₂e per kWh",
-    sub: "New Zealand's grid emission factor",
+    sub: "Varies by regional grid mix — Sola uses live local data, not global averages",
   },
   {
-    stat: "100%",
-    label: "of donations reach the project",
-    sub: "SolCare covers all processing costs",
+    stat: "24/7",
+    label: "Real-time offset tracking",
+    sub: "Updated with every inverter reading and weather shift",
   },
-];
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
 ];
 
 const megaMenuSections = [
-
   {
     title: "Learn",
     links: [
       { label: "Blog", href: "/blog" },
-      // { label: "FAQ", href: "/faq" },
       { label: "How It Works", href: "/#how-it-works" },
     ],
   },
   {
-    title: "Company",
+    title: "SolCare.",
     links: [
-      { label: "About SolCare.", href: "/about" },
+      { label: "About Us", href: "/about" },
       { label: "Get in Touch", href: "mailto:solcare.info@gmail.com" },
+    ],
+  },
+  {
+    title: "Investors",
+    links: [
+      { label: "The Signal", href: "/#the-signal" },
+      { label: "Request the Deck", href: "mailto:solcare.info@gmail.com?subject=SolCare%20%E2%80%94%20Investor%20Inquiry" },
     ],
   },
 ];
@@ -141,7 +140,8 @@ export default function AboutPage() {
                 src="/icon.png"
                 alt="SolCare Icon"
                 fill
-                className="object-contain drop-shadow-[0_0_18px_rgba(245,166,35,0.55)]"
+                className="object-contain"
+                style={{ filter: 'drop-shadow(0 0 18px rgba(245,166,35,0.55))' }}
               />
             </div>
             <div className="relative w-70 h-70 -mt-15">
@@ -149,7 +149,8 @@ export default function AboutPage() {
                 src="/solcare.png"
                 alt="SolCare Logo"
                 fill
-                className="object-contain invert brightness-200"
+                className="object-contain"
+                style={{ filter: 'invert(1) brightness(2)' }}
               />
             </div>
           </div>
@@ -201,7 +202,7 @@ export default function AboutPage() {
                       transition={{ duration: 0.15 }}
                       onMouseEnter={() => setIsMegaMenuOpen(true)}
                       onMouseLeave={() => setIsMegaMenuOpen(false)}
-                      className="absolute -left-1/2 -translate-x-1/2 mt-2 w-screen max-w-2xl mt-6"
+                      className="absolute right-0 mt-2 w-[min(calc(100vw-3rem),42rem)]"
                     >
                       <div
                         className="rounded-2xl border shadow-xl overflow-hidden"
@@ -266,7 +267,7 @@ export default function AboutPage() {
                         </div>
 
                         {/* Menu Columns */}
-                        <div className="grid grid-cols-3 gap-8 px-8 py-6">
+                        <div className="grid grid-cols-3 gap-4 md:gap-6 lg:gap-8 px-6 md:px-8 py-6">
                           {megaMenuSections.map((section, idx) => (
                             <div key={idx}>
                               <h3 className="text-xs font-bold uppercase tracking-[0.1em] mb-4" style={{ color: "#22C38E" }}>
@@ -313,7 +314,7 @@ export default function AboutPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.18 }}
+                transition={{ duration: 0.2 }}
                 className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
                 onClick={() => setIsMenuOpen(false)}
               />
@@ -321,32 +322,74 @@ export default function AboutPage() {
                 initial={{ opacity: 0, y: -8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -8, scale: 0.98 }}
-                transition={{ duration: 0.22, ease: EASE }}
-                className="md:hidden absolute top-[52px] left-4 right-4 z-50 rounded-2xl shadow-2xl overflow-hidden"
-                style={{ border: "1px solid rgba(255,250,235,0.1)", background: "rgba(26,26,22,0.98)" }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                className="md:hidden absolute top-[52px] left-4 right-6 z-50 rounded-2xl border border-[rgba(255,250,235,0.1)] bg-[#1A1A16]/98 backdrop-blur-xl shadow-2xl overflow-hidden"
               >
                 <div className="flex flex-col py-2">
-                  {navLinks.map(({ href, label }) => (
+                  {[
+                    { href: "/blog", label: "Blog" },
+                    { href: "/about", label: "About Us" },
+                    { href: "/#the-signal", label: "Investors" },
+                  ].map(({ href, label }) => (
                     <Link
                       key={href}
                       href={href}
                       onClick={() => setIsMenuOpen(false)}
-                      className="px-5 py-3.5 text-sm font-medium transition-colors"
-                      style={{ color: href === "/about" ? "#F5F0E8" : "#A09D96" }}
+                      className="px-5 py-3.5 text-sm font-medium text-[#A09D96] hover:text-[#F5F0E8] hover:bg-white/[0.04] transition-colors"
                     >
                       {label}
                     </Link>
                   ))}
-                  <div className="mx-4 my-1 h-px" style={{ background: "rgba(255,250,235,0.07)" }} />
+                  <div className="mx-4 my-1 h-px bg-[rgba(255,250,235,0.07)]" />
                   <a
                     href="mailto:solcare.info@gmail.com"
                     onClick={() => setIsMenuOpen(false)}
-                    className="px-5 py-3.5 text-sm font-medium flex items-center gap-2 transition-colors"
-                    style={{ color: "#A09D96" }}
+                    className="px-5 py-3.5 text-sm font-medium text-[#A09D96] hover:text-[#F5F0E8] hover:bg-white/[0.04] transition-colors flex items-center gap-2"
                   >
-                    <Mail className="w-3.5 h-3.5" style={{ color: "#22C38E" }} />
+                    <Mail className="w-3.5 h-3.5 text-[#22C38E]" />
                     Get in Touch
                   </a>
+                  <div className="px-5 py-1 flex items-center gap-3">
+                    <span className="text-xs font-semibold uppercase tracking-[0.1em]" style={{ color: "#6B6860" }}>
+                      Follow Us
+                    </span>
+                    <a
+                      href="https://instagram.com/solcare.nz"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-lg transition-all duration-200"
+                      style={{ color: "#A09D96", background: "rgba(34, 195, 142, 0.08)" }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.15)";
+                        (e.currentTarget as HTMLElement).style.color = "#22C38E";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.08)";
+                        (e.currentTarget as HTMLElement).style.color = "#A09D96";
+                      }}
+                      aria-label="Instagram"
+                    >
+                      <Instagram className="w-4 h-4" />
+                    </a>
+                    <a
+                      href="https://www.facebook.com/share/1CjZJ9wdcn/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-lg transition-all duration-200"
+                      style={{ color: "#A09D96", background: "rgba(34, 195, 142, 0.08)" }}
+                      onMouseEnter={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.15)";
+                        (e.currentTarget as HTMLElement).style.color = "#22C38E";
+                      }}
+                      onMouseLeave={(e) => {
+                        (e.currentTarget as HTMLElement).style.background = "rgba(34, 195, 142, 0.08)";
+                        (e.currentTarget as HTMLElement).style.color = "#A09D96";
+                      }}
+                      aria-label="Facebook"
+                    >
+                      <Facebook className="w-4 h-4" />
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             </>
@@ -355,11 +398,12 @@ export default function AboutPage() {
       </div>
 
       {/* Hero */}
-      <section className="relative px-6 pt-14 pb-20 max-w-7xl mx-auto">
-        {/* Ambient glows */}
-        <div className="pointer-events-none absolute top-0 left-0 w-96 h-96 rounded-full blur-[100px] -translate-x-1/3 -translate-y-1/3" style={{ background: "rgba(34,195,142,0.06)" }} />
-        <div className="pointer-events-none absolute top-0 right-0 w-80 h-80 rounded-full blur-[80px] translate-x-1/3 -translate-y-1/3" style={{ background: "rgba(245,166,35,0.05)" }} />
-
+      <section
+        className="relative px-6 pt-14 pb-20 max-w-7xl mx-auto"
+        style={{
+          background: "radial-gradient(ellipse 500px 350px at 15% 30%, rgba(34,195,142,0.05) 0%, transparent 70%), radial-gradient(ellipse 450px 300px at 85% 20%, rgba(245,166,35,0.04) 0%, transparent 70%)",
+        }}
+      >
         <div className="relative grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left */}
           <motion.div variants={fadeLeft} initial="hidden" animate="visible">
@@ -384,7 +428,7 @@ export default function AboutPage() {
           >
             <Image
               src="/aboutHero.jpg"
-              alt="Solar panels on a New Zealand home"
+              alt="Solar panels on a residential home"
               fill
               className="object-cover"
               priority
@@ -430,12 +474,12 @@ export default function AboutPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid grid-cols-2 gap-3 sm:gap-4"
+            className="grid grid-cols-2 gap-4"
           >
             {[
-              { value: "New Zealand", label: "Built specifically for the NZ market and NZ grid data", color: "#22C38E" },
+              { value: "Global", label: "Built to adapt to any grid, any market, anywhere in the world", color: "#22C38E" },
               { value: "24h", label: "Sola monitors your system 24/7 from the moment of connection", color: "#F5A623" },
-              { value: "~$78", label: "Average donated to reforestation per customer per year", color: "#22C38E" },
+              { value: "500kg+", label: "Average CO₂ offset tracked per system annually", color: "#22C38E" },
               { value: "1 tap", label: "All it takes to book a clean once Sola recommends it", color: "#F5A623" },
             ].map((item) => (
               <div
@@ -460,11 +504,10 @@ export default function AboutPage() {
           viewport={{ once: true }}
           className="relative rounded-[28px] overflow-hidden"
           style={{
-            background: "linear-gradient(135deg, rgba(34,195,142,0.07) 0%, rgba(34,195,142,0.03) 100%)",
+            background: "linear-gradient(135deg, rgba(34,195,142,0.07) 0%, rgba(34,195,142,0.03) 100%), radial-gradient(ellipse 300px 200px at 95% 5%, rgba(34,195,142,0.06) 0%, transparent 70%)",
             border: "1px solid rgba(34,195,142,0.18)",
           }}
         >
-          <div className="pointer-events-none absolute -top-16 -right-16 w-64 h-64 rounded-full blur-[80px]" style={{ background: "rgba(34,195,142,0.07)" }} />
           <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(34,195,142,0.4), transparent)" }} />
           <div className="relative p-8 sm:p-10 md:p-14 max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-4 block" style={{ color: "#22C38E" }}>Mission</p>
@@ -480,7 +523,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="px-6 py-16 max-w-7xl mx-auto">
+      <section className="px-6 py-20 max-w-7xl mx-auto">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="mb-10">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: "#A09D96" }}>What we stand for</p>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-[-0.02em]">How we think about SolCare</h2>
@@ -525,23 +568,22 @@ export default function AboutPage() {
       </section>
 
       {/* Environment */}
-      <section className="px-6 py-16 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
+      <section className="px-6 py-20 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
           <motion.div variants={fadeLeft} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-4" style={{ color: "#22C38E" }}>The environment</p>
             <h2 className="text-2xl sm:text-3xl font-bold mb-6 leading-snug tracking-[-0.02em]">
-              Your panels are already performing. We take that performance a step further.
+              Your panels are already performing. We help you understand the full picture.
             </h2>
-            <div className="space-y-4 text-[15px] leading-[1.8]" style={{ color: "#A09D96" }}>
+            <div className="space-y-5 text-[15px] leading-[1.8]" style={{ color: "#A09D96" }}>
               <p>
-                New Zealand's electricity grid runs on roughly 85% renewable energy, one of the highest rates in the world! That means every kWh your solar system generates is genuinely displacing fossil fuel generation somewhere in the mix, even if modestly.
+                Every solar system displaces carbon, but most rarely see the numbers. Sola changes that. By combining live inverter data with region specific grid emission factors, we calculate exactly how much CO₂ your system prevents from entering the atmosphere, kilogram by kilogram, updated with every reading.
               </p>
               <p>
-                Through the Impact Club, SolCare turns that displacement into something tangible. For every 1kg of CO₂ your system offsets, we donate $1 to a reforestation project in New Zealand or the Pacific.
-                You choose the project. We handle the donation. Nothing comes out of your pocket.
+                We don't just stop at the raw figure, we translate those kilograms into real world equivalents that actually mean something: kilometres not driven, hours of flight time avoided, months of smartphone charging. Because "500 kg" is abstract. "That's like taking a car off the road for 3,000 kilometres" is not.
               </p>
               <p>
-                We're actively working to partner with Māori-led restoration initiatives alongside established organisations. The goal is to make sure the environmental impact of every SolCare system is felt locally.
+                The grid your system feeds into matters. A kWh in a coal-heavy region displaces far more carbon than a kWh on an already clean grid. Sola accounts for that, using up to date emission factors for your specific region so the numbers you see are accurate to your local conditions, not a global average.
               </p>
             </div>
           </motion.div>
@@ -551,7 +593,7 @@ export default function AboutPage() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="flex flex-col gap-3"
+            className="flex flex-col gap-4 md:gap-5"
           >
             {/* Commitment stats */}
             {commitments.map((c, i) => (
@@ -562,43 +604,44 @@ export default function AboutPage() {
                 whileInView="visible"
                 viewport={{ once: true }}
                 custom={i}
-                className="flex items-center gap-5 p-5 sm:p-6 rounded-2xl"
+                className="flex items-start gap-4 sm:gap-6 p-5 sm:p-6 rounded-2xl"
                 style={{ border: "1px solid rgba(255,250,235,0.07)", background: "rgba(255,250,235,0.02)" }}
               >
-                <div className="font-mono text-2xl sm:text-3xl font-bold flex-shrink-0 w-16 sm:w-20 text-right" style={{ color: "#22C38E" }}>
+                <div className="font-mono text-2xl sm:text-3xl font-bold flex-shrink-0 text-right min-w-[3.5rem] sm:min-w-[4.5rem]" style={{ color: "#22C38E" }}>
                   {c.stat}
                 </div>
-                <div>
+                <div className="flex-1 min-w-0 pt-0.5">
                   <div className="text-sm font-semibold mb-1" style={{ color: "#F5F0E8" }}>{c.label}</div>
                   <div className="text-xs leading-relaxed" style={{ color: "#6B6860" }}>{c.sub}</div>
                 </div>
               </motion.div>
             ))}
 
-            {/* Projects card */}
+            {/* Real-world equivalents card */}
             <motion.div
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               custom={3}
-              className="p-5 sm:p-6 rounded-2xl"
+              className="p-6 sm:p-7 rounded-2xl"
               style={{ background: "rgba(34,195,142,0.06)", border: "1px solid rgba(34,195,142,0.15)" }}
             >
-              <div className="text-[10px] font-bold uppercase tracking-[0.12em] mb-4" style={{ color: "#22C38E" }}>
-                Projects we're exploring
+              <div className="text-[10px] font-bold uppercase tracking-[0.12em] mb-5" style={{ color: "#22C38E" }}>
+                What those kilograms actually mean
               </div>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {[
-                  { name: "Trees That Count", loc: "New Zealand" },
-                  { name: "One Tree Planted", loc: "Pacific Islands" },
-                  { name: "Māori-led restoration", loc: "Tāmaki Makaurau" },
+                  { name: "1 kg CO₂", loc: "≈ 6 km driven in an average petrol car" },
+                  { name: "100 kg CO₂", loc: "≈ a smartphone charged daily for 6 months" },
+                  { name: "500 kg CO₂", loc: "≈ a short haul return flight (under 500 km)" },
+                  { name: "1 tonne CO₂", loc: "≈ what 50 trees absorb in a full year" },
                 ].map((p) => (
                   <div key={p.name} className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: "#22C38E" }} />
                     <div>
                       <span className="text-sm font-medium" style={{ color: "#F5F0E8" }}>{p.name}</span>
-                      <span className="text-xs block mt-0.5" style={{ color: "#6B6860" }}>{p.loc}</span>
+                      <span className="text-xs block mt-1" style={{ color: "#6B6860" }}>{p.loc}</span>
                     </div>
                   </div>
                 ))}
@@ -608,12 +651,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── WHAT SOLCARE DOES ──────────────────────────────────────────────── */}
-      <section className="px-6 py-16 max-w-7xl mx-auto">
+      {/* What SolCare does */}
+      <section className="px-6 py-20 max-w-7xl mx-auto">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="mb-10">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: "#A09D96" }}>The product</p>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-[-0.02em] mb-2">What SolCare actually does</h2>
-          <p className="text-sm max-w-xl leading-relaxed" style={{ color: "#6B6860" }}>Three things, done well.</p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -635,8 +677,8 @@ export default function AboutPage() {
             {
               number: "03",
               title: "Impact",
-              desc: "Your CO₂ offset accumulates in real time via HelioAPI. Every milestone unlocks a donation to your chosen New Zealand or Pacific reforestation project.",
-              detail: "Powered by HelioAPI with New Zealand emission factor data",
+              desc: "Your CO₂ offset accumulates in real time via HelioAPI. Every kilogram is translated into real world equivalents, kilometres not driven, flight hours avoided, trees' worth of carbon absorbed, so you understand what your system is actually doing for the planet.",
+              detail: "Powered by HelioAPI with live, region specific emission factor data",
               accent: "#22C38E",
             },
           ].map((item, i) => (
@@ -664,8 +706,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── CTA ────────────────────────────────────────────────────────────── */}
-      <section className="px-6 py-16 max-w-7xl mx-auto">
+      {/* CTA */}
+      <section className="px-6 py-20 max-w-7xl mx-auto">
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -673,11 +715,10 @@ export default function AboutPage() {
           viewport={{ once: true }}
           className="relative rounded-[28px] overflow-hidden p-8 sm:p-10 md:p-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-8"
           style={{
-            background: "linear-gradient(135deg, rgba(34,195,142,0.07) 0%, rgba(34,195,142,0.03) 100%)",
+            background: "linear-gradient(135deg, rgba(34,195,142,0.07) 0%, rgba(34,195,142,0.03) 100%), radial-gradient(ellipse 300px 200px at 95% 5%, rgba(34,195,142,0.06) 0%, transparent 70%)",
             border: "1px solid rgba(34,195,142,0.18)",
           }}
         >
-          <div className="pointer-events-none absolute -top-16 -right-16 w-64 h-64 rounded-full blur-[80px]" style={{ background: "rgba(34,195,142,0.06)" }} />
           <div className="relative max-w-xl">
             <h2 className="text-2xl sm:text-3xl font-bold mb-3 leading-snug tracking-[-0.02em]">
               Ready to see what your system is actually doing?
@@ -707,35 +748,41 @@ export default function AboutPage() {
       </section>
 
       {/* footer */}
-      <footer className="px-6 py-10 max-w-7xl mx-auto">
+      <footer className="px-6 py-8 md:py-10 max-w-7xl mx-auto">
         <div
-          className="flex flex-col md:flex-row items-center justify-between gap-5 pt-8"
+          className="pt-6 md:pt-8"
           style={{ borderTop: "1px solid rgba(255,250,235,0.07)" }}
         >
-          <div className="flex items-center gap-6">
-            {[
-            { href: "/", label: "Home" },
-            { href: "/blog", label: "Blog" },
-            { href: "/about", label: "About" },
-            ].map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="text-m transition-colors duration-200"
-                style={{ color: "#6B6860" }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color = "#6B6860";
-                }}
-              >
-                {label}
-              </Link>
-            ))}
+          {/* Main Footer - Responsive Layout */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-8">
+            {/* Links Section - Stacks vertically on mobile, horizontally on md+ */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+              {[
+                { href: "/", label: "Home" },
+                { href: "/blog", label: "Blog" },
+                { href: "/about", label: "About Us" },
+              ].map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="text-sm transition-colors duration-200 whitespace-nowrap"
+                  style={{ color: "#6B6860" }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLAnchorElement).style.color = "#6B6860";
+                  }}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+
+            {/* Email & Contact */}
             <a
               href="mailto:solcare.info@gmail.com"
-              className="flex items-center gap-1.5 text-m transition-colors duration-200"
+              className="flex items-center gap-1.5 text-sm transition-colors duration-200 truncate"
               style={{ color: "#6B6860" }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
@@ -743,87 +790,91 @@ export default function AboutPage() {
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLAnchorElement).style.color = "#6B6860";
               }}
+              title="solcare.info@gmail.com"
             >
-              <Mail className="w-5 h-5" />
-              solcare.info@gmail.com
+              <Mail className="w-4 h-4 flex-shrink-0" />
+              <span className="hidden sm:inline">solcare.info@gmail.com</span>
+              <span className="sm:hidden text-xs">Get in Touch</span>
             </a>
+
+            {/* Terms & Copyright - Stack on mobile */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+              <button
+                onClick={() => setIsTermsModalOpen(true)}
+                className="text-xs uppercase tracking-[0.16em] transition-colors duration-200 cursor-pointer text-left sm:text-right"
+                style={{ color: "#6B6860" }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.color = "#A09D96";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.color = "#6B6860";
+                }}
+              >
+                Terms & Conditions
+              </button>
+
+              <span className="text-xs" style={{ color: "#3D3D38" }}>
+                © 2026 SolCare. All rights reserved.
+              </span>
+            </div>
           </div>
 
-          <button
-            onClick={() => setIsTermsModalOpen(true)}
-            className="text-[11px] uppercase tracking-[0.16em] transition-colors duration-200 cursor-pointer"
-            style={{ color: "#6B6860" }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.color = "#A09D96";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.color = "#6B6860";
-            }}
-          >
-            Terms & Conditions
-          </button>
-
-          <span className="text-xs" style={{ color: "#3D3D38" }}>
-            © 2026 SolCare. All rights reserved · Made in Aotearoa with ❤️
-          </span>
-        </div>
-
-        {/* Social Media Links */}
-        <div
-          className="flex items-center gap-4 pt-4">
-          <span
-            className="text-xs font-semibold uppercase tracking-[0.1em]"
-            style={{ color: "#6B6860" }}
-          >
-            Follow Us
-          </span>
-          <div className="flex gap-3">
-            <a
-              href="https://instagram.com/solcare.nz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg transition-all duration-200"
-              style={{
-                color: "#A09D96",
-                background: "rgba(34, 195, 142, 0.08)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "rgba(34, 195, 142, 0.15)";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#22C38E";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "rgba(34, 195, 142, 0.08)";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
-              }}
-              aria-label="Instagram"
+          {/* Social Media Links - Below main footer */}
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 pt-4 md:pt-6">
+            <span
+              className="text-xs font-semibold uppercase tracking-[0.1em] order-2 sm:order-1"
+              style={{ color: "#6B6860" }}
             >
-              <Instagram className="w-4 h-4" />
-            </a>
-            <a
-              href="https://www.facebook.com/share/1CjZJ9wdcn/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg transition-all duration-200"
-              style={{
-                color: "#A09D96",
-                background: "rgba(34, 195, 142, 0.08)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "rgba(34, 195, 142, 0.15)";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#22C38E";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background =
-                  "rgba(34, 195, 142, 0.08)";
-                (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
-              }}
-              aria-label="Facebook"
-            >
-              <Facebook className="w-4 h-4" />
-            </a>
+              Follow Us
+            </span>
+            <div className="flex gap-3 order-1 sm:order-2">
+              <a
+                href="https://instagram.com/solcare.nz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg transition-all duration-200"
+                style={{
+                  color: "#A09D96",
+                  background: "rgba(34, 195, 142, 0.08)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background =
+                    "rgba(34, 195, 142, 0.15)";
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#22C38E";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background =
+                    "rgba(34, 195, 142, 0.08)";
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+                }}
+                aria-label="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.facebook.com/share/1CjZJ9wdcn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg transition-all duration-200"
+                style={{
+                  color: "#A09D96",
+                  background: "rgba(34, 195, 142, 0.08)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background =
+                    "rgba(34, 195, 142, 0.15)";
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#22C38E";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background =
+                    "rgba(34, 195, 142, 0.08)";
+                  (e.currentTarget as HTMLAnchorElement).style.color = "#A09D96";
+                }}
+                aria-label="Facebook"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+            </div>
           </div>
         </div>
       </footer>
