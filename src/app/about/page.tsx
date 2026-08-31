@@ -140,6 +140,7 @@ export default function AboutPage() {
                 src="/icon.png"
                 alt="SolCare Icon"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-contain"
                 style={{ filter: 'drop-shadow(0 0 18px rgba(245,166,35,0.55))' }}
               />
@@ -149,6 +150,7 @@ export default function AboutPage() {
                 src="/solcare.png"
                 alt="SolCare Logo"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-contain"
                 style={{ filter: 'invert(1) brightness(2)' }}
               />
@@ -430,6 +432,7 @@ export default function AboutPage() {
               src="/aboutHero.jpg"
               alt="Solar panels on a residential home"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover"
               priority
             />

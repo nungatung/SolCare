@@ -90,6 +90,7 @@ export default function Home() {
                 src="/icon.png"
                 alt="SolCare Icon"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-contain"
                 style={{ filter: 'drop-shadow(0 0 18px rgba(245,166,35,0.55))' }}
               />
@@ -99,6 +100,7 @@ export default function Home() {
                 src="/solcare.png"
                 alt="SolCare Logo"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-contain"
                 style={{ filter: 'invert(1) brightness(2)' }}
               />
@@ -520,11 +522,8 @@ export default function Home() {
             className="mb-20"
           >
             <p className="text-xs font-semibold uppercase tracking-[0.14em] mb-5" style={{ color: "#22C38E" }}>
-              Pre-seed deck · Global
+              Pre-seed
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-[-0.03em] mb-6">
-              The Signal.
-            </h2>
             <p className="text-[#A09D96] text-lg leading-[1.75] max-w-2xl">
               AI powered solar asset management, built for the world. Seeking investment to complete the product build, launch in New Zealand, and establish the model before scaling.
             </p>
@@ -545,14 +544,14 @@ export default function Home() {
               <p className="text-xs font-bold uppercase tracking-[0.14em] mb-5" style={{ color: "#22C38E" }}>01 · The problem</p>
               <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-5">A silent leak in every solar system.</h3>
               <p className="text-[#A09D96] leading-[1.8] mb-8 max-w-2xl">
-                Soiling from airborne salt, pollen, dust, and debris silently reduces solar output by 10-30%. Most system owners have no idea it's happening and have no tool to inform them when it's actually worth fixing.
+                Soiling from salt, pollen, dust, and debris cuts solar output by 10-30%. Most owners never know it's happening. They clean when it looks dirty, or when someone knocks on the door. No data. No timing. No verification that the clean actually worked.
               </p>
               <ul className="space-y-3">
                 {[
-                  "Soiling reduces output by 10-30%, continuously and without warning",
+                  "Soiling reduces output by 10-30%, continuously",
                   "Owners rely on guesswork to decide when to clean",
-                  "Cleaning is reactive, uncoordinated, and backed by no data",
-                  "Lost yield compounds invisibly over weeks and months",
+                  "Cleaning is reactive and uncoordinated",
+                  "Lost yield compounds over weeks and months",
                 ].map((b, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-[#A09D96]">
                     <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(34,195,142,0.15)", border: "1px solid rgba(34,195,142,0.3)" }}>
@@ -576,16 +575,17 @@ export default function Home() {
               <p className="text-xs font-bold uppercase tracking-[0.14em] mb-5" style={{ color: "#22C38E" }}>02 · The product</p>
               <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-5">Sola. The intelligence layer your solar system never had.</h3>
               <p className="text-[#A09D96] leading-[1.8] mb-8 max-w-2xl">
-                Sola connects to your inverter, reads your system's energy production, live local weather and air quality data, and tells you exactly what your system should be producing, and precisely when soiling is to blame. Then it handles the clean, from forecast to dispatch.
+                Sola connects to your inverter, reads your system's production, irradiance, live weather and air quality data, and tells you exactly what your system should be producing, and precisely when soiling is to blame. Then it books the clean
               </p>
               <ul className="space-y-3">
                 {[
                   "Direct inverter sync, no hardware required",
                   "Daily output compared against modelled irradiance and local conditions",
-                  "Soiling isolated from heat loss, shading, and seasonal variation, no false alarms",
+                  "Soiling isolated from heat loss, shading, and seasonal variation",
                   "Forecasts the optimal clean window 5-14 days out",
                   "One tap booking, automatic dispatch via local partner network",
-                  "CO₂ recovery tracked per kilowatt reclaimed",
+                  "Cleaner reports back with thermal imaging checks and maintenance notes",
+                  "CO₂ offset logged for every kilowatt recovered",
                 ].map((b, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-[#A09D96]">
                     <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(34,195,142,0.15)", border: "1px solid rgba(34,195,142,0.3)" }}>
@@ -607,15 +607,15 @@ export default function Home() {
               style={{ borderColor: "rgba(255,250,235,0.07)" }}
             >
               <p className="text-xs font-bold uppercase tracking-[0.14em] mb-5" style={{ color: "#22C38E" }}>03 · Market opportunity</p>
-              <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-5">Residential solar is scaling. Maintenance hasn't caught up.</h3>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-5">Residential and commercial solar is scaling. Maintenance hasn't caught up.</h3>
               <p className="text-[#A09D96] leading-[1.8] mb-8 max-w-2xl">
-                Millions of residential solar systems are installed each year, yet the maintenance market remains largely undigitised. No AI native platform to close the loop from performance monitoring to managed cleaning.
+                Millions of solar systems are installed each year, yet the maintenance market remains largely undigitised. No AI native platform to close the loop from performance monitoring to managed cleaning.
               </p>
               <ul className="space-y-3">
                 {[
                   "Australia has 4 million+ rooftop solar installations, the immediate adjacent market",
-                  "The residential solar maintenance market is untouched by software",
-                  "No dominant platform combines AI monitoring, soiling forecasting, and clean dispatch in a single product",
+                  "The solar maintenance market is untouched by software",
+                  "No platform combines AI monitoring, soiling forecasting, and clean dispatch in a single product",
                   "SolCare enters as the category defining platform",
                 ].map((b, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-[#A09D96]">
@@ -638,17 +638,17 @@ export default function Home() {
               style={{ borderColor: "rgba(255,250,235,0.07)" }}
             >
               <p className="text-xs font-bold uppercase tracking-[0.14em] mb-5" style={{ color: "#22C38E" }}>04 · Where we are</p>
-              <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-5">In build. Foundation laid.</h3>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.02em] mb-5">Building now.</h3>
               <p className="text-[#A09D96] leading-[1.8] mb-8 max-w-2xl">
-                SolCare is in active development. The core architecture, inverter sync, AI output modelling, and the Sola conversational interface, are being built toward a New Zealand waitlist launch as the first milestone.
+                SolCare is in active development. We're building the core architecture, inverter sync, AI output model, and the Sola conversational interface for a New Zealand waitlist launch.
               </p>
               <ul className="space-y-3">
                 {[
                   "Inverter integration and output modelling: in development",
                   "Sola conversational interface: in development",
-                  "Cleaner partner network: initial conversations in progress",
+                  "Cleaner network: recruiting operators in Auckland",
                   "Waitlist live, NZ established as initial launch market",
-                  "Australia scoped as the immediate next market",
+                  "Australia scoped as the next market",
                 ].map((b, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-[#A09D96]">
                     <div className="w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(34,195,142,0.15)", border: "1px solid rgba(34,195,142,0.3)" }}>
@@ -681,12 +681,12 @@ export default function Home() {
                   {
                     phase: "Phase 2",
                     title: "Australia",
-                    desc: "4M+ rooftop solar installations. Same soiling conditions, same language, same maintenance gap. Expand with an established model.",
+                    desc: "4M+ rooftop solar installations. Same soiling conditions, same language, same maintenance gap. Expand with a proven model and a trained cleaner network.",
                   },
                   {
                     phase: "Phase 3",
-                    title: "Regional Platform",
-                    desc: "Partner with installers who want to offer monitoring as a service. Scale the cleaner network via local partnerships, not owned fleet.",
+                    title: "Platform",
+                    desc: "Open the infrastructure to installers who want to offer monitoring as a service. Scale the cleaner network through a mix of contracted teams and local partnerships.",
                   },
                 ].map((p, i) => (
                   <div
@@ -720,10 +720,10 @@ export default function Home() {
                 <p className="font-semibold text-[#F5F0E8] mb-1 tracking-[-0.01em]">Shalum Samuels</p>
                 <p className="text-xs uppercase tracking-[0.1em] mb-5" style={{ color: "#22C38E" }}>Founder</p>
                 <p className="text-sm text-[#A09D96] leading-[1.8] mb-4">
-                  7+ years in New Zealand's solar industry, from technician to system design, across residential, off-grid and RV installations. Observed firsthand how soiling silently erodes panel performance and how disconnected the maintenance side of the industry was from real performance data.
+                  7+ years in New Zealand's solar industry, from technician to system design, across residential, off-grid and RV installations. I observed how soiling silently erodes panel performance and how disconnected the maintenance side of the industry was from real performance data.
                 </p>
                 <p className="text-sm text-[#A09D96] leading-[1.8]">
-                  That technical background in physical infrastructure and problem solving was the catalyst for a transition into software development. As a solo founder/developer now building SolCare from the ground up, bringing both industry expertise and product building experience to the problem.
+                  That technical experience pushed me into software development. As a solo founder and developer building SolCare from scratch, bringing industry expertise and product building experience to solve the same problem.
                 </p>
               </div>
             </motion.div>
