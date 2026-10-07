@@ -4,7 +4,7 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Leaf, Zap, Shield, Heart, Mail, Menu, X, ChevronDown, Instagram, Facebook } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TermsModal from '../../../components/TermsModal';
 import styles from "../Navigation.module.css";
 
@@ -80,7 +80,7 @@ const commitments = [
   {
     stat: "0.05–1.2",
     label: "kg CO₂e per kWh",
-    sub: "Varies by regional grid mix — Sola uses live local data, not global averages",
+    sub: "Varies by regional grid mix. Sola uses live local data, not global averages",
   },
   {
     stat: "24/7",
@@ -100,6 +100,7 @@ const megaMenuSections = [
   {
     title: "SolCare.",
     links: [
+      { label: "Home", href: "/" },
       { label: "About Us", href: "/about" },
       { label: "Get in Touch", href: "mailto:solcare.info@gmail.com" },
     ],
@@ -119,6 +120,23 @@ export default function AboutPage() {
   const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
 
+  const megaCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const openMegaMenu = () => {
+    if (megaCloseTimer.current) {
+      clearTimeout(megaCloseTimer.current);
+      megaCloseTimer.current = null;
+    }
+    setIsMegaMenuOpen(true);
+  };
+  const closeMegaMenu = () => {
+    if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current);
+    megaCloseTimer.current = setTimeout(() => setIsMegaMenuOpen(false), 150);
+  };
+
+  useEffect(() => () => {
+    if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current);
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#0D0D0B] text-[#F5F0E8] selection:bg-[#F5A623] selection:text-black overflow-x-hidden">
 
@@ -133,11 +151,14 @@ export default function AboutPage() {
       {/* Nav */}
       <div className="relative z-50">
         <nav className="px-6 py-5 flex justify-between items-center max-w-7xl mx-auto relative z-50">
+          {/* Left spacer — centers the logo on tablet/desktop */}
+          <div className="hidden md:block flex-1" aria-hidden="true" />
+
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="relative w-25 h-25 flex-shrink-0 -mt-22 -ml-10 -mr-16">
               <Image
-                src="/icon.png"
+                src="/icon(1).png"
                 alt="SolCare Icon"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -157,55 +178,39 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-white p-2 md:hidden -mt-14 transition-all active:scale-100 relative z-[100] cursor-pointer"
-            aria-label="Toggle Mobile Menu"
-          >
-            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Desktop nav — mega menu sits next to the logo on the right */}
+          <div className="hidden md:flex flex-1 items-center justify-start">
+            {/* Mega Menu Trigger */}
+            <div
+              className="group"
+              onMouseEnter={openMegaMenu}
+              onMouseLeave={closeMegaMenu}
+            >
+              <div className={`relative -mt-15 p-0.5 rounded-full overflow-hidden hover:scale-105 transition duration-300 active:scale-100 ${styles.buttonWrapper}`}>
+                <button
+                  onClick={() => (isMegaMenuOpen ? closeMegaMenu() : openMegaMenu())}
+                  className="relative z-10 bg-[#0D0D0B] rounded-full px-4 py-2 flex items-center gap-1.5 text-m font-medium text-[#A09D96] hover:text-[#F5F0E8] transition-colors duration-200 tracking-wide cursor-pointer"
+                  aria-haspopup="menu"
+                  aria-expanded={isMegaMenuOpen}
+                >
+                  Menu
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-200 ${isMegaMenuOpen ? "rotate-180" : ""
+                      }`}
+                  />
+                </button>
+              </div>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {/* Main nav links */}
-            <div className="flex items-center gap-7">
-              <Link
-                href="/"
-                className="text-m font-medium -mt-20 text-[#A09D96] hover:text-[#F5F0E8] transition-colors duration-200 tracking-wide"
-              >
-                Home
-              </Link>
-
-              {/* Mega Menu Trigger */}
-              <div className="relative group">
-                <div className={`relative -mt-15 p-0.5 rounded-full overflow-hidden hover:scale-105 transition duration-300 active:scale-100 ${styles.buttonWrapper}`}>
-                  <button
-                    onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
-                    onMouseEnter={() => setIsMegaMenuOpen(true)}
-                    onMouseLeave={() => setIsMegaMenuOpen(false)}
-                    className="relative z-10 bg-[#0D0D0B] rounded-full px-4 py-2 flex items-center gap-1.5 text-m font-medium text-[#A09D96] hover:text-[#F5F0E8] transition-colors duration-200 tracking-wide cursor-pointer"
+              {/* Mega Menu Dropdown */}
+              <AnimatePresence>
+                {isMegaMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, x: "-50%" }}
+                    animate={{ opacity: 1, y: 0, x: "-50%" }}
+                    exit={{ opacity: 0, y: -10, x: "-50%" }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute left-1/2 top-full -mt-30 w-[min(calc(100vw-3rem),42rem)]"
                   >
-                    Menu
-                    <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 ${isMegaMenuOpen ? "rotate-180" : ""
-                        }`}
-                    />
-                  </button>
-                </div>
-
-                {/* Mega Menu Dropdown */}
-                <AnimatePresence>
-                  {isMegaMenuOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.15 }}
-                      onMouseEnter={() => setIsMegaMenuOpen(true)}
-                      onMouseLeave={() => setIsMegaMenuOpen(false)}
-                      className="absolute right-0 mt-2 w-[min(calc(100vw-3rem),42rem)]"
-                    >
                       <div
                         className="rounded-2xl border shadow-xl overflow-hidden"
                         style={{
@@ -301,11 +306,18 @@ export default function AboutPage() {
                     </motion.div>
                   )}
 
-                </AnimatePresence>
-
-              </div>
+              </AnimatePresence>
             </div>
           </div>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-white p-2 md:hidden -mt-14 transition-all active:scale-100 relative z-[100] cursor-pointer"
+            aria-label="Toggle Mobile Menu"
+          >
+            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-6 h-6" />}
+          </button>
         </nav>
 
         {/* Mobile menu */}
@@ -329,6 +341,7 @@ export default function AboutPage() {
               >
                 <div className="flex flex-col py-2">
                   {[
+                    { href: "/", label: "Home"},
                     { href: "/blog", label: "Blog" },
                     { href: "/about", label: "About Us" },
                     { href: "/#the-signal", label: "Investors" },
@@ -667,7 +680,7 @@ export default function AboutPage() {
               number: "01",
               title: "Monitor",
               desc: "Sola connects to your inverter and closely watches your production against Solcast forecasts daily. When your output drops below what the weather explains, it flags it.",
-              detail: "Powered by Enode + Solcast + OpenMeteo",
+              detail: "Powered by Sunvoy + Solcast + OpenMeteo",
               accent: "#22C38E",
             },
             {
@@ -814,7 +827,7 @@ export default function AboutPage() {
                 }}
               >
                 Terms & Conditions
-              </button>
+              </button> 
 
               <span className="text-xs" style={{ color: "#3D3D38" }}>
                 © 2026 SolCare. All rights reserved.
@@ -882,7 +895,7 @@ export default function AboutPage() {
         </div>
       </footer>
 
-      <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} />
+      {/* <TermsModal isOpen={isTermsModalOpen} onClose={() => setIsTermsModalOpen(false)} /> */}
     </main>
   );
 }

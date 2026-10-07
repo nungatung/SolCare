@@ -1,0 +1,288 @@
+.root {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  background-color: #0d0d0b;
+  color: #ffffffdd;
+  font-family: var(--font-geist-sans), "Inter", sans-serif;
+  isolation: isolate;
+}
+
+.indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 5px;
+  z-index: 60;
+  background-color: #f5a623;
+}
+
+.card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 300px;
+  overflow: hidden;
+  background-color: #1a1a1a;
+  box-shadow: 6px 6px 10px 2px rgba(0, 0, 0, 0.6);
+  will-change: transform, width, height;
+}
+
+.cardImage {
+  object-fit: cover;
+}
+
+.cardContent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #ffffff;
+  padding-left: 16px;
+  pointer-events: none;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6), 0 2px 10px rgba(0, 0, 0, 0.55);
+}
+
+.contentStart {
+  width: 30px;
+  height: 5px;
+  border-radius: 99px;
+  background-color: #ffffffdd;
+}
+
+.contentPlace {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.contentTitle1,
+.contentTitle2 {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.1;
+  font-family: var(--font-oswald), var(--font-geist-sans), sans-serif;
+}
+
+.details {
+  position: absolute;
+  top: 240px;
+  left: 60px;
+  z-index: 22;
+  max-width: min(560px, 88vw);
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6), 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.placeBox {
+  position: relative;
+  height: 46px;
+  overflow: hidden;
+}
+
+.text {
+  padding-top: 16px;
+  font-size: 20px;
+}
+
+.text::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 4px;
+  border-radius: 99px;
+  background-color: #fff;
+}
+
+.titleBox1,
+.titleBox2 {
+  margin-top: 2px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.title1,
+.title2 {
+  font-weight: 600;
+  font-size: clamp(38px, 5.4vw, 72px);
+  line-height: 1;
+  font-family: var(--font-oswald), var(--font-geist-sans), sans-serif;
+}
+
+.desc {
+  margin-top: 16px;
+  max-width: 500px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #ffffff;
+}
+
+.cta {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.bookmark {
+  border: none;
+  background-color: #f5a623;
+  width: 36px;
+  height: 36px;
+  border-radius: 99px;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.bookmark svg {
+  width: 20px;
+  height: 20px;
+}
+
+.pagination {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.arrow {
+  z-index: 60;
+  width: 50px;
+  height: 50px;
+  border-radius: 999px;
+  border: 2px solid #ffffff55;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: #ffffff99;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.arrow:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff99;
+}
+
+.arrowRight {
+  margin-left: 20px;
+}
+
+.arrow svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2;
+}
+
+.progressSubContainer {
+  margin-left: 24px;
+  z-index: 60;
+  width: min(500px, 34vw);
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.progressSubBackground {
+  width: 100%;
+  height: 3px;
+  background-color: #ffffff33;
+}
+
+.progressSubForeground {
+  height: 3px;
+  background-color: #f5a623;
+}
+
+.slideNumbersWrap {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  z-index: 60;
+}
+
+.item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0d0d0b;
+  z-index: 100;
+}
+
+@media (max-width: 1024px) {
+  .cardContent {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .details {
+    top: auto;
+    bottom: 190px;
+    left: 20px;
+    right: 20px;
+  }
+
+  .titleBox1,
+  .titleBox2 {
+    height: 54px;
+  }
+
+  .title1,
+  .title2 {
+    font-size: clamp(34px, 9vw, 52px);
+  }
+
+  .desc {
+    max-width: 88vw;
+    font-size: 14px;
+  }
+
+  .progressSubContainer {
+    width: min(500px, 30vw);
+    height: 44px;
+    margin-left: 16px;
+  }
+
+  .arrow {
+    width: 44px;
+    height: 44px;
+  }
+
+  .arrowRight {
+    margin-left: 12px;
+  }
+
+  .slideNumbersWrap {
+    width: 44px;
+    height: 44px;
+  }
+
+  .item {
+    width: 44px;
+    height: 44px;
+    font-size: 28px;
+  }
+}

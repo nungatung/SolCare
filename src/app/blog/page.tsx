@@ -4,7 +4,7 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Clock, Leaf, Zap, CloudRain, Wrench, Sun, Mail, Menu, X, ChevronDown, Instagram, Facebook } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TermsModal from "../../../components/TermsModal";
 import styles from "../Navigation.module.css";
 
@@ -56,12 +56,11 @@ const posts = [
     }
 ];
 
-const categories = ["All", "Maintenance", "Monitoring", "Impact Club", "Weather"];
+const categories = ["All", "Maintenance", "Monitoring", "Weather"];
 
 const categoryIcons: Record<string, React.ReactNode> = {
     Maintenance: <Zap className="w-3 h-3" />,
     Monitoring: <Sun className="w-3 h-3" />,
-    "Impact Club": <Leaf className="w-3 h-3" />,
     Weather: <CloudRain className="w-3 h-3" />,
 };
 
@@ -76,6 +75,7 @@ const megaMenuSections = [
   {
     title: "SolCare.",
     links: [
+      { label: "Home", href: "/" },
       { label: "About Us", href: "/about" },
       { label: "Get in Touch", href: "mailto:solcare.info@gmail.com" },
     ],
@@ -96,6 +96,23 @@ export default function BlogPage() {
     const [activeCategory, setActiveCategory] = useState("All");
     const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
 
+    const megaCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const openMegaMenu = () => {
+      if (megaCloseTimer.current) {
+        clearTimeout(megaCloseTimer.current);
+        megaCloseTimer.current = null;
+      }
+      setIsMegaMenuOpen(true);
+    };
+    const closeMegaMenu = () => {
+      if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current);
+      megaCloseTimer.current = setTimeout(() => setIsMegaMenuOpen(false), 150);
+    };
+
+    useEffect(() => () => {
+      if (megaCloseTimer.current) clearTimeout(megaCloseTimer.current);
+    }, []);
+
     const filteredPosts = activeCategory === "All"
         ? posts
         : posts.filter(p => p.category === activeCategory);
@@ -115,11 +132,14 @@ export default function BlogPage() {
            {/* Nav */}
       <div className="relative z-50">
         <nav className="px-6 py-5 flex justify-between items-center max-w-7xl mx-auto relative z-50">
+          {/* Left spacer — centers the logo on tablet/desktop */}
+          <div className="hidden md:block flex-1" aria-hidden="true" />
+
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="relative w-25 h-25 flex-shrink-0 -mt-22 -ml-10 -mr-16">
               <Image
-                src="/icon.png"
+                src="/icon(1).png"
                 alt="SolCare Icon"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -139,55 +159,39 @@ export default function BlogPage() {
             </div>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-white p-2 md:hidden -mt-14 transition-all active:scale-100 relative z-[100] cursor-pointer"
-            aria-label="Toggle Mobile Menu"
-          >
-            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Desktop nav — mega menu sits next to the logo on the right */}
+          <div className="hidden md:flex flex-1 items-center justify-start">
+            {/* Mega Menu Trigger */}
+            <div
+              className="group"
+              onMouseEnter={openMegaMenu}
+              onMouseLeave={closeMegaMenu}
+            >
+              <div className={`relative -mt-15 p-0.5 rounded-full overflow-hidden hover:scale-105 transition duration-300 active:scale-100 ${styles.buttonWrapper}`}>
+                <button
+                  onClick={() => (isMegaMenuOpen ? closeMegaMenu() : openMegaMenu())}
+                  className="relative z-10 bg-[#0D0D0B] rounded-full px-4 py-2 flex items-center gap-1.5 text-m font-medium text-[#A09D96] hover:text-[#F5F0E8] transition-colors duration-200 tracking-wide cursor-pointer"
+                  aria-haspopup="menu"
+                  aria-expanded={isMegaMenuOpen}
+                >
+                  Menu
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-200 ${isMegaMenuOpen ? "rotate-180" : ""
+                      }`}
+                  />
+                </button>
+              </div>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {/* Main nav links */}
-            <div className="flex items-center gap-7">
-              <Link
-                href="/"
-                className="text-m font-medium -mt-20 text-[#A09D96] hover:text-[#F5F0E8] transition-colors duration-200 tracking-wide"
-              >
-                Home
-              </Link>
-
-              {/* Mega Menu Trigger */}
-              <div className="relative group">
-                <div className={`relative -mt-15 p-0.5 rounded-full overflow-hidden hover:scale-105 transition duration-300 active:scale-100 ${styles.buttonWrapper}`}>
-                  <button
-                    onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
-                    onMouseEnter={() => setIsMegaMenuOpen(true)}
-                    onMouseLeave={() => setIsMegaMenuOpen(false)}
-                    className="relative z-10 bg-[#0D0D0B] rounded-full px-4 py-2 flex items-center gap-1.5 text-m font-medium text-[#A09D96] hover:text-[#F5F0E8] transition-colors duration-200 tracking-wide cursor-pointer"
+              {/* Mega Menu Dropdown */}
+              <AnimatePresence>
+                {isMegaMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, x: "-50%" }}
+                    animate={{ opacity: 1, y: 0, x: "-50%" }}
+                    exit={{ opacity: 0, y: -10, x: "-50%" }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute left-1/2 top-full -mt-30 w-[min(calc(100vw-3rem),42rem)]"
                   >
-                    Menu
-                    <ChevronDown
-                      className={`w-4 h-4 transition-transform duration-200 ${isMegaMenuOpen ? "rotate-180" : ""
-                        }`}
-                    />
-                  </button>
-                </div>
-
-                {/* Mega Menu Dropdown */}
-                <AnimatePresence>
-                  {isMegaMenuOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.15 }}
-                      onMouseEnter={() => setIsMegaMenuOpen(true)}
-                      onMouseLeave={() => setIsMegaMenuOpen(false)}
-                      className="absolute right-0 mt-2 w-[min(calc(100vw-3rem),42rem)]"
-                    >
                       <div
                         className="rounded-2xl border shadow-xl overflow-hidden"
                         style={{
@@ -283,11 +287,18 @@ export default function BlogPage() {
                     </motion.div>
                   )}
 
-                </AnimatePresence>
-
-              </div>
+              </AnimatePresence>
             </div>
           </div>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-white p-2 md:hidden -mt-14 transition-all active:scale-100 relative z-[100] cursor-pointer"
+            aria-label="Toggle Mobile Menu"
+          >
+            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-6 h-6" />}
+          </button>
         </nav>
 
         {/* Mobile menu */}
@@ -311,6 +322,7 @@ export default function BlogPage() {
               >
                 <div className="flex flex-col py-2">
                   {[
+                    { href: "/", label: "Home"},
                     { href: "/blog", label: "Blog" },
                     { href: "/about", label: "About Us" },
                     { href: "/#the-signal", label: "Investors" },
